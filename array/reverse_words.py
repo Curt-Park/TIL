@@ -62,13 +62,10 @@ def reverse_words(arr):
     reverse_array(arr, 0, n - 1)
 
     i = 0
-    for j in range(n):
-        if arr[j] == ' ':
+    for j in range(n + 1):
+        if j == n or arr[j] == ' ':
             reverse_array(arr, i, j - 1)
             i = j + 1
-
-        if j + 1 == n:
-            reverse_array(arr, i, n - 1)
 
 
 if __name__ == '__main__':
