@@ -26,6 +26,12 @@ and all words are separated by one space.
 
 
 def reverse_array(arr, i, j):
+    """
+    >>> arr = list('mutable')
+    >>> reverse_array(arr, 0, len(arr) - 1)
+    >>> arr
+    ['e', 'l', 'b', 'a', 't', 'u', 'm']
+    """
     n = j - i + 1
 
     for k in range(n // 2):
@@ -34,10 +40,24 @@ def reverse_array(arr, i, j):
 
 
 def reverse_words(arr):
+    """
+    >>> arr1 = []
+    >>> arr2 = ['a']
+    >>> arr3 = ['c', 'a', 'k', 'e', ' ', 'p', 'o', 'u', 'n', 'd', ' ', 's', 't', 'e', 'a', 'l']
+    >>> reverse_words(arr1)
+    >>> reverse_words(arr2)
+    >>> reverse_words(arr3)
+    >>> ''.join(arr1)
+    ''
+    >>> ''.join(arr2)
+    'a'
+    >>> ''.join(arr3)
+    'steal pound cake'
+    """
     n = len(arr)
 
     if n <= 1:
-        return arr
+        return
 
     reverse_array(arr, 0, n - 1)
 
@@ -51,18 +71,7 @@ def reverse_words(arr):
             reverse_array(arr, i, n - 1)
 
 
-arr1 = []
-arr2 = ['a']
-arr3 = [
-    'c', 'a', 'k', 'e', ' ', 'p', 'o', 'u', 'n', 'd', ' ', 's', 't', 'e', 'a',
-    'l'
-]
-
-reverse_words(arr1)
-reverse_words(arr2)
-reverse_words(arr3)
-
-assert '' == ''.join(arr1)
-assert 'a' == ''.join(arr2)
-assert 'steal pound cake' == ''.join(arr3)
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()
 
