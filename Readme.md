@@ -8,6 +8,7 @@
 | 2   | Reverse words | array | [Interview Cake](https://www.interviewcake.com/question/python3/reverse-words?course=fc1&section=array-and-string-manipulation) | [A](array/reverse_words.py) | - |
 | 3   | Merge sorted array | array | [Interview Cake](https://www.interviewcake.com/question/python3/merge-sorted-arrays?course=fc1&section=array-and-string-manipulation) | [A](array/merge_sorted_array.py) | - |
 | 4   | Single riffle check | array | [Interview Cake](https://www.interviewcake.com/question/python3/single-riffle-check?course=fc1&section=array-and-string-manipulation) | [A](array/single_riffle_check.py) | + |
+| 5   | Longest substring | string | [LeetCode](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [A](string/longest_substring.py) | - |
 
 
 +: Solved within 30 min
