@@ -10,6 +10,7 @@
 | 4   | Single riffle check | array | [Interview Cake](https://www.interviewcake.com/question/python3/single-riffle-check?course=fc1&section=array-and-string-manipulation) | [A](array/single_riffle_check.py) | + |
 | 5   | Longest substring | string | [LeetCode](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [A](string/longest_substring.py) | - |
 | 6   | Container with most water | array | [LeetCode](https://leetcode.com/problems/container-with-most-water/) | [A](array/container_with_most_water.py) | - |
+| 7   | Three sum | array | [LeetCode](https://leetcode.com/problems/3sum/) | [A](array/three_sum.py) | ? |
 
 
 +: Solved within 30 min
