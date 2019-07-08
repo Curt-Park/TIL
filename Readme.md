@@ -12,6 +12,9 @@
 | 6   | Container with most water | array | [LeetCode](https://leetcode.com/problems/container-with-most-water/) | [A](array/container_with_most_water.py) | - |
 | 7   | Three sum | array | [LeetCode](https://leetcode.com/problems/3sum/) | [A](array/three_sum.py) | ? |
 | 8   | Inflight entertainment | hash | [Interview Cake](https://www.interviewcake.com/question/python3/inflight-entertainment?course=fc1&section=hashing-and-hash-tables) | [A](hash/inflight_entertainment.py) | +! |
+| 9   | Unique string | string | CTCI 1.1 | [A](string/unique_string.py) | + |
+| 10  | Check permutation | string | CTCI 1.2 | [A](string/check_permutation.py) | + |
+| 11  | Urlify | string | CTCI 1.3 | [A](string/urlify.py) | - |
 
 
 +: Solved within 30 min
