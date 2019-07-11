@@ -18,6 +18,7 @@
 | 12  | Palindrome permutation | string | CTCI 1.4 | [A](string/palindrome_permutation.py) | + |
 | 13  | One away | string | CTCI 1.5 | [A](string/one_away.py) | + |
 | 14  | String compression | string | CTCI 1.6 | [A](string/string_compression.py) | + |
+| 15  | Rotate matrix | array | CTCI 1.7 | [A](array/rotate_matrix.py) | + |
 
 
 +: Solved within 30 min
