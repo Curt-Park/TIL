@@ -17,6 +17,7 @@
 | 11  | Urlify | string | CTCI 1.3 | [A](string/urlify.py) | - |
 | 12  | Palindrome permutation | string | CTCI 1.4 | [A](string/palindrome_permutation.py) | + |
 | 13  | One away | string | CTCI 1.5 | [A](string/one_away.py) | + |
+| 14  | String compression | string | CTCI 1.6 | [A](string/string_compression.py) | + |
 
 
 +: Solved within 30 min
