@@ -60,7 +60,7 @@ def createLList(arr: List) -> ListNode:
 
 class Solution:
     def deleteDuplicates(self, head: ListNode) -> ListNode:
-        """O(N), O(N)
+        """O(N), O(1)
         >>> s = Solution()
         >>> printLList(s.deleteDuplicates(createLList([1, 2, 3, 3, 4, 4, 5])))
         1->2->5
@@ -73,6 +73,39 @@ class Solution:
         >>> printLList(s.deleteDuplicates(createLList([1, 1, 1])))
         None
         >>> printLList(s.deleteDuplicates(createLList([])))
+        None
+        """
+        if not head:
+            return None
+
+        pre_node = ret_node = ListNode(head.val - 1)
+        pre_node.next = cur_node = head
+        while cur_node:
+            if cur_node.next and cur_node.val == cur_node.next.val:
+                val = cur_node.val
+                while cur_node and cur_node.val == val:
+                    cur_node = cur_node.next
+                pre_node.next = cur_node
+            else:
+                cur_node = cur_node.next
+                pre_node = pre_node.next
+
+        return ret_node.next
+
+    def deleteDuplicates2(self, head: ListNode) -> ListNode:
+        """O(N), O(N)
+        >>> s = Solution()
+        >>> printLList(s.deleteDuplicates2(createLList([1, 2, 3, 3, 4, 4, 5])))
+        1->2->5
+        >>> printLList(s.deleteDuplicates2(createLList([1, 1, 1, 2, 3])))
+        2->3
+        >>> printLList(s.deleteDuplicates2(createLList([1, 2, 2])))
+        1
+        >>> printLList(s.deleteDuplicates2(createLList([1])))
+        1
+        >>> printLList(s.deleteDuplicates2(createLList([1, 1, 1])))
+        None
+        >>> printLList(s.deleteDuplicates2(createLList([])))
         None
         """
         if not head:

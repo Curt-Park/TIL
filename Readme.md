@@ -21,6 +21,7 @@
 | 15  | Rotate matrix | array | CTCI 1.7 | [A](array/rotate_matrix.py) | + |
 | 16  | Set matrix zeros | array | CTCI 1.8 | [A](array/set_matrix_zeros.py) | ! |
 | 17  | String rotation | string | CTCI 1.9 | [A](string/string_rotation.py) | ! |
+| 18  | Remove duplicates | linked list | [LeetCode](https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/) | [A](linked_list/remove_duplicates.py) | ! |
 
 
 +: Solved within 30 min
