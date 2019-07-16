@@ -25,6 +25,7 @@
 | 19  | Remove nth from end | linked list | [LeetCode](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) | [A](linked_list/remove_nth_from_end.py) | + |
 | 20  | Delete node | linked list | [LeetCode](https://leetcode.com/problems/delete-node-in-a-linked-list/description/) | [A](linked_list/delete_node.py) | + |
 | 21  | Partition list | linked list | [LeetCode](https://leetcode.com/partition-list/description/) | [A](linked_list/partition_list.py) | + |
+| 22  | Add two numbers | linked list | [LeetCode](https://leetcode.com/problems/add-two-numbers/) | [A](linked_list/add_two_num.py) | + |
 
 
 +: Solved within 30 min
