@@ -70,40 +70,27 @@ class Solution:
         >>> fn(createLList([1, 2, 3, 2, 1]))
         True
         """
-        if not head or not head.next:
-            return True
-
-        # find the middle
+        # find the mid
         slow = ListNode(0)
         slow.next = fast = head
         while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
+            slow, fast = slow.next, fast.next.next
 
         # split into two: half1, half2
-        if fast:  # odd number
-            half2 = slow.next.next
-        else:  # even number
-            half2 = slow.next
+        half2 = slow.next.next if fast else slow.next
         slow.next = None
 
         # reverse half1
-        slow = None
-        fast = head
-        faster = head.next
-        while faster:
-            fast.next = slow
-            slow = fast
-            fast = faster
-            faster = faster.next
-        half1 = fast
+        slow, fast = None, head
+        while fast:
+            fast.next, slow, fast = slow, fast, fast.next
+        half1 = slow
 
         # compare: half1, half2
-        while half1:
+        while half2:
             if half1.val != half2.val:
                 return False
-            half1 = half1.next
-            half2 = half2.next
+            half1, half2 = half1.next, half2.next
 
         return True
 
