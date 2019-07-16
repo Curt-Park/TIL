@@ -56,9 +56,9 @@ def createLList(arr: List) -> ListNode:
 
 
 class Solution:
-    def partition(self, head: ListNode, x: int) -> ListNode:
-        """
-        >>> fn = Solution().partition
+    def partitionInplace(self, head: ListNode, x: int) -> ListNode:
+        """ O(N), O(1)
+        >>> fn = Solution().partitionInplace
         >>> printLList(fn(createLList([1,4,3,2,5,2]), 3))
         1->2->2->4->3->5
         >>> printLList(fn(createLList([5,4,3]), 3))
@@ -79,6 +79,37 @@ class Solution:
                 cur_l = cur_l.next
             else:
                 cur_r.next = cur
+                cur_r = cur_r.next
+            cur = cur.next
+
+        cur_r.next = None
+        cur_l.next = head_r.next
+
+        return head_l.next
+        
+    def partition(self, head: ListNode, x: int) -> ListNode:
+        """ O(N), O(N)
+        >>> fn = Solution().partition
+        >>> printLList(fn(createLList([1,4,3,2,5,2]), 3))
+        1->2->2->4->3->5
+        >>> printLList(fn(createLList([5,4,3]), 3))
+        5->4->3
+        >>> printLList(fn(createLList([3,1,2]), 3))
+        1->2->3
+        """
+        if not head:
+            return None
+
+        cur_l = head_l = ListNode(0)
+        cur_r = head_r = ListNode(0)
+        cur = head
+
+        while cur:
+            if cur.val < x:
+                cur_l.next = ListNode(cur.val)
+                cur_l = cur_l.next
+            else:
+                cur_r.next = ListNode(cur.val)
                 cur_r = cur_r.next
             cur = cur.next
 
