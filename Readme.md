@@ -22,6 +22,7 @@
 | 16  | Set matrix zeros | array | CTCI 1.8 | [A](array/set_matrix_zeros.py) | ! |
 | 17  | String rotation | string | CTCI 1.9 | [A](string/string_rotation.py) | ! |
 | 18  | Remove duplicates | linked list | [LeetCode](https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/) | [A](linked_list/remove_duplicates.py) | ! |
+| 19  | Remove nth from end | linked list | [LeetCode](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) | [A](linked_list/remove_nth_from_end.py) | + |
 
 
 +: Solved within 30 min
