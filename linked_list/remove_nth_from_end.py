@@ -97,7 +97,7 @@ class Solution:
 
 
     def removeNthFromEndRec(self, head: ListNode, n: int) -> ListNode:
-        """ O(N), O(1)
+        """ O(N), O(N)
         >>> fn = Solution().removeNthFromEndRec
         >>> printLList(fn(createLList([1, 2, 3, 4, 5]), 1))
         1->2->3->4
