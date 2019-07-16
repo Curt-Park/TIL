@@ -70,24 +70,17 @@ class Solution:
         >>> fn(createLList([1, 2, 3, 2, 1]))
         True
         """
-        # find the mid
-        slow = ListNode(0)
-        slow.next = fast = head
+        # find the mid, and reverse the first half
+        prev = None
+        slow = fast = head
         while fast and fast.next:
-            slow, fast = slow.next, fast.next.next
+            prev, slow.next, slow, fast = slow, prev, slow.next, fast.next.next
 
         # split into two: half1, half2
-        half2 = slow.next.next if fast else slow.next
-        slow.next = None
-
-        # reverse half1
-        slow, fast = None, head
-        while fast:
-            fast.next, slow, fast = slow, fast, fast.next
-        half1 = slow
+        half1, half2 = prev, slow.next if fast else slow
 
         # compare: half1, half2
-        while half2:
+        while half1:
             if half1.val != half2.val:
                 return False
             half1, half2 = half1.next, half2.next
