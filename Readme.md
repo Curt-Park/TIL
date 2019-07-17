@@ -27,6 +27,7 @@
 | 21  | Partition list | linked list | [LeetCode](https://leetcode.com/partition-list/description/) | [A](linked_list/partition_list.py) | + |
 | 22  | Add two numbers | linked list | [LeetCode](https://leetcode.com/problems/add-two-numbers/) | [A](linked_list/add_two_num.py) | + |
 | 23  | Palindrome | linked list | [LeetCode](https://leetcode.com/problems/palindrome-linked-list/) | [A](linked_list/palindrome.py) | ! |
+| 24  | Intersection | linked list | [LeetCode](https://leetcode.com/problems/intersection-of-two-linked-lists/) | [A](linked_list/intersection.py) | ! |
 
 
 +: Solved within 30 min

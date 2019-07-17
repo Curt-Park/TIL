@@ -69,13 +69,103 @@ def createLList(arr: List) -> ListNode:
     return head
 
 
+def makeIntersection(headA: ListNode, headB: ListNode, n: int) -> ListNode:
+    cur = headA
+    while cur:
+        if cur.val == n:
+            break
+        cur = cur.next
+
+    curB = headB
+    while curB.next:
+        curB = curB.next
+
+    curB.next = cur
+
+    return cur
+
+
 class Solution(object):
-    def getIntersectionNode(self, headA, headB) -> ListNode:
-        """
+    def getIntersectionNode1(self, headA, headB) -> ListNode:
+        """ O(N+M), O(1)
         :type head1, head1: ListNode
         :rtype: ListNode
+        >>> fn = Solution().getIntersectionNode1
+        >>> head1 = createLList([4,1,8,4,5])
+        >>> head2 = createLList([5,0,1])
+        >>> node = makeIntersection(head1, head2, 8)
+        >>> node == fn(head1, head2)
+        True
+        >>> head3 = createLList([0,9,1,2,4])
+        >>> head4 = createLList([3])
+        >>> node = makeIntersection(head3, head4, 2)
+        >>> node == fn(head3, head4)
+        True
+        >>> head5 = createLList([2,6,4])
+        >>> head6 = createLList([1,5])
+        >>> None == fn(head5, head6)
+        True
+        >>> head7 = createLList([2,6,4,3,5])
+        >>> head8 = createLList([1,5,7])
+        >>> node = makeIntersection(head7, head8, 3)
+        >>> node == fn(head7, head8)
+        True
         """
-        pass
+        if not headA or not headB:
+            return None
+
+        cur1, cur2, diff = headA, headB, 0
+        while cur1:
+            cur1, diff = cur1.next, diff + 1
+
+        while cur2:
+            cur2, diff = cur2.next, diff - 1
+
+        cur1, cur2 = (headA, headB) if diff > 0 else (headB, headA)
+        diff = abs(diff)
+
+        while diff > 0:
+            cur1, diff = cur1.next, diff - 1
+
+        while cur1 != cur2:
+            cur1, cur2 = cur1.next, cur2.next
+
+        return cur1
+
+    def getIntersectionNode2(self, headA, headB) -> ListNode:
+        """ O(N+M), O(1)
+        :type head1, head1: ListNode
+        :rtype: ListNode
+        >>> fn = Solution().getIntersectionNode2
+        >>> head1 = createLList([4,1,8,4,5])
+        >>> head2 = createLList([5,0,1])
+        >>> node = makeIntersection(head1, head2, 8)
+        >>> node == fn(head1, head2)
+        True
+        >>> head3 = createLList([0,9,1,2,4])
+        >>> head4 = createLList([3])
+        >>> node = makeIntersection(head3, head4, 2)
+        >>> node == fn(head3, head4)
+        True
+        >>> head5 = createLList([2,6,4])
+        >>> head6 = createLList([1,5])
+        >>> None == fn(head5, head6)
+        True
+        >>> head7 = createLList([2,6,4,3,5])
+        >>> head8 = createLList([1,5,7])
+        >>> node = makeIntersection(head7, head8, 3)
+        >>> node == fn(head7, head8)
+        True
+        """
+        if not headA or not headB:
+            return None
+
+        cur1, cur2 = headA, headB
+        while cur1 != cur2:
+            cur1 = cur1.next if cur1 else headB
+            cur2 = cur2.next if cur2 else headA
+
+        return cur1
 
 
 if __name__ == "__main__":
