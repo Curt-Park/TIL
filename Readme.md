@@ -29,7 +29,7 @@
 | 23  | Palindrome | linked list | [LeetCode](https://leetcode.com/problems/palindrome-linked-list/) | [A](linked_list/palindrome.py) | ! |
 | 24  | Intersection | linked list | [LeetCode](https://leetcode.com/problems/intersection-of-two-linked-lists/) | [A](linked_list/intersection.py) | ! |
 | 25  | Loop detection | linked list | [LeetCode](https://leetcode.com/problems/linked-list-cycle/) | [A](linked_list/loop_detection.py) | + |
-| 26  | Next permutation | array | [LeetCode](https://leetcode.com/problems/next-permutation/) | [A](linked_list/next_permutation.py) | -! |
+| 26  | Next permutation | array | [LeetCode](https://leetcode.com/problems/next-permutation/) | [A](array/next_permutation.py) | -! |
 
 
 +: Solved within 30 min
