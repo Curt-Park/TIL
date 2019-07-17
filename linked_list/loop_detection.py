@@ -63,7 +63,10 @@ def createLList(arr: List) -> ListNode:
     return head
 
 
-def createCycle(head: ListNode, pos: int):
+def createCycle(head: ListNode, pos: int) -> ListNode:
+    if pos < 0:
+        return head
+    
     end = head
     while end.next:
         end = end.next
@@ -73,16 +76,35 @@ def createCycle(head: ListNode, pos: int):
         cyc = cyc.next
 
     end.next = cyc
+    
+    return head
 
 
 class Solution(object):
     def hasCycle(self, head):
-        """
+        """ O(N+M), O(1) - M is the cyclic length
         :type head: ListNode
         :rtype: bool
         >>> fn = Solution().hasCycle
+        >>> head1 = createCycle(createLList([3,2,0,-4]), 1)
+        >>> fn(head1)
+        True
+        >>> head2 = createCycle(createLList([1,2]), 0)
+        >>> fn(head2)
+        True
+        >>> head3 = createCycle(createLList([1]), -1)
+        >>> fn(head3)
+        False
+        >>> head4 = createCycle(createLList([1]), 0)
+        >>> fn(head4)
+        True
         """
-        pass
+        slow = fast = head
+        while fast and fast.next:   
+            slow, fast = slow.next, fast.next.next
+            if slow == fast:
+                return True
+        return False
 
 
 if __name__ == "__main__":
