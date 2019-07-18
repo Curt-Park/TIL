@@ -29,7 +29,7 @@ jump length is 0, which makes it impossible to reach the last index.
 
 class Solution(object):
     def canJump(self, nums):
-        """
+        """ O(N^2), O(N)  => Time Limit Exceeded...  [74/75]
         :type nums: List[int]
         :rtype: bool
         >>> fn = Solution().canJump
@@ -37,8 +37,19 @@ class Solution(object):
         True
         >>> fn([3,2,1,0,4])
         False
+        >>> fn([3,2,1,1,4])
+        True
+        >>> fn([0])
+        True
         """
-        pass
+        n = len(nums)
+        flags = [False] * (n - 1) + [True]
+
+        for i in reversed(range(n - 1)):
+            if sum(flags[i+1:min(i+nums[i]+1, n)]) > 0:
+                flags[i] = True
+
+        return flags[0]
 
 
 if __name__ == "__main__":
