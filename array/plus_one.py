@@ -26,15 +26,25 @@ Explanation: The array represents the integer 4321.
 
 class Solution(object):
     def plusOne(self, digits):
-        """
+        """ O(N), O(N)
         :type digits: List[int]
         :rtype: List[int]
         >>> fn = Solution().plusOne
+        >>> fn([0])
+        [1]
+        >>> fn([9,9])
+        [1, 0, 0]
         >>> fn([1,2,3])
         [1, 2, 4]
         >>> fn([4,3,2,1])
         [4, 3, 2, 2]
         """
+        digits, carry = digits[::-1], 1
+        for i in range(len(digits)):
+            carry, digits[i] = divmod(digits[i] + carry, 10)
+        if carry != 0:
+            digits.append(carry)
+        return digits[::-1]
 
 
 if __name__ == "__main__":

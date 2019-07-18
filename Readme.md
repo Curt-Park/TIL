@@ -32,6 +32,7 @@
 | 26  | Next permutation | array | [LeetCode](https://leetcode.com/problems/next-permutation/) | [A](array/next_permutation.py) | -! |
 | 27  | Multiply Strings | string | [LeetCode](https://leetcode.com/problems/multiply-strings/) | [A](string/multiply_string.py) | + |
 | 28  | Jump Game | array | [LeetCode](https://leetcode.com/problems/jump-game/) | [A](array/jump_game.py) | - |
+| 29  | Plus One | array | [LeetCode](https://leetcode.com/problems/plus-one/) | [A](array/plus_one.py) | + |
 
 
 +: Solved within 30 min
