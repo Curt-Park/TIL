@@ -31,6 +31,7 @@
 | 25  | Loop detection | linked list | [LeetCode](https://leetcode.com/problems/linked-list-cycle/) | [A](linked_list/loop_detection.py) | + |
 | 26  | Next permutation | array | [LeetCode](https://leetcode.com/problems/next-permutation/) | [A](array/next_permutation.py) | -! |
 | 27  | Multiply Strings | string | [LeetCode](https://leetcode.com/problems/multiply-strings/) | [A](string/multiply_string.py) | + |
+| 28  | Jump Game | array | [LeetCode](https://leetcode.com/problems/jump-game/) | [A](array/jump_game.py) | - |
 
 
 +: Solved within 30 min
