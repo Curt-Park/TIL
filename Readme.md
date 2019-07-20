@@ -10,7 +10,7 @@
 | 4   | Single riffle check | array | [Interview Cake](https://www.interviewcake.com/question/python3/single-riffle-check?course=fc1&section=array-and-string-manipulation) | [A](array/single_riffle_check.py) | + |
 | 5   | Longest substring | string | [LeetCode](https://leetcode.com/problems/longest-substring-without-repeating-characters/) | [A](string/longest_substring.py) | - |
 | 6   | Container with most water | array | [LeetCode](https://leetcode.com/problems/container-with-most-water/) | [A](array/container_with_most_water.py) | - |
-| 7   | Three sum | array | [LeetCode](https://leetcode.com/problems/3sum/) | [A](array/three_sum.py) | ? |
+| 7   | Three sum | array | [LeetCode](https://leetcode.com/problems/3sum/) | [A](array/three_sum.py) | ! |
 | 8   | Inflight entertainment | hash | [Interview Cake](https://www.interviewcake.com/question/python3/inflight-entertainment?course=fc1&section=hashing-and-hash-tables) | [A](hash/inflight_entertainment.py) | +! |
 | 9   | Unique string | string | CTCI 1.1 | [A](string/unique_string.py) | + |
 | 10  | Check permutation | string | CTCI 1.2 | [A](string/check_permutation.py) | + |
@@ -33,6 +33,7 @@
 | 27  | Multiply Strings | string | [LeetCode](https://leetcode.com/problems/multiply-strings/) | [A](string/multiply_string.py) | + |
 | 28  | Jump Game | array | [LeetCode](https://leetcode.com/problems/jump-game/) | [A](array/jump_game.py) | - |
 | 29  | Plus One | array | [LeetCode](https://leetcode.com/problems/plus-one/) | [A](array/plus_one.py) | + |
+| 30  | Minimum window substring | string | [LeetCode](https://leetcode.com/problems/minimum-window-substring/) | [A](string/min_window_substring.py) | !! |
 
 
 +: Solved within 30 min

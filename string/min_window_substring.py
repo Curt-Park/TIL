@@ -19,16 +19,45 @@ be only one unique minimum window in S.
 """
 
 
+from collections import Counter
+
+
 class Solution(object):
     def minWindow(self, s, t):
-        """
+        """ O(N), O(M)
         :type s: str
         :type t: str
         :rtype: str
         >>> fn = Solution().minWindow
         >>> fn("ADOBECODEBANC", "ABC")
         'BANC'
+        >>> fn("ABBBBEEODEBAC", "ABC")
+        'BAC'
+        >>> fn("ABBBBEEODEBAC", "ABB")
+        'ABB'
+        >>> fn("AAAABEEODEBAC", "ABB")
+        'ABEEODEB'
+        >>> fn("AA", "AA")
+        'AA'
+        >>> fn("ABBBBEEODEBAC", "ABCZ")
+        ''
+        >>> fn("", "ABCZ")
+        ''
+        >>> fn("ABBBBEEODEBAC", "")
+        ''
         """
+        need, missing = Counter(t), len(t)
+        left = w_l = w_r = 0
+        for right, ch in enumerate(s, 1):
+            missing -= need[ch] > 0
+            need[ch] -= 1
+            if not missing:
+                while left < right and need[s[left]] < 0:
+                    need[s[left]] += 1
+                    left += 1
+                if not w_r or right - left < w_r - w_l:
+                    w_l, w_r = left, right
+        return s[w_l:w_r]
 
 
 if __name__ == "__main__":
