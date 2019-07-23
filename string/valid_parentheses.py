@@ -36,7 +36,7 @@ Output: true
 
 class Solution(object):
     def isValid(self, s):
-        """
+        """ O(N), O(1)
         :type s: str
         :rtype: bool
         >>> fn = Solution().isValid
@@ -51,7 +51,17 @@ class Solution(object):
         >>> fn("{[]}")
         True
         """
-        pass
+        stack = []
+        pair = {")": "(", "}": "{", "]": "["}
+        for ch in s:
+            if ch in pair:
+                if not stack or stack[-1] != pair[ch]:
+                    return False
+                stack.pop()
+            else:
+                stack.append(ch)
+                
+        return len(stack) == 0
 
 
 if __name__ == "__main__":
