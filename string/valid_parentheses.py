@@ -36,7 +36,7 @@ Output: true
 
 class Solution(object):
     def isValid(self, s):
-        """ O(N), O(1)
+        """ O(N), O(N)
         :type s: str
         :rtype: bool
         >>> fn = Solution().isValid
@@ -60,7 +60,6 @@ class Solution(object):
                 stack.pop()
             else:
                 stack.append(ch)
-                
         return len(stack) == 0
 
 

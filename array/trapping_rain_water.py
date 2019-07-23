@@ -63,7 +63,7 @@ class Solution(object):
                 left += 1
             else:
                 right_max = max(right_max, height[right])
-                water += right_max - height[right]
+                water += right_max - height[right]p
                 right -= 1
         return water
 

@@ -37,6 +37,7 @@
 | 31  | Longest Valid Parentheses | string | [LeetCode](https://leetcode.com/problems/longest-valid-parentheses/) | [A](string/longest_valid_parentheses.py) | - |
 | 32  | Trapping rain water | array | [LeetCode](https://leetcode.com/problems/trapping-rain-water/) | [A](array/trapping_rain_water.py) | -! |
 | 33  | Valid parentheses | string | [LeetCode](https://leetcode.com/problems/valid-parentheses/) | [A](string/valid_parentheses.py) | + |
+| 34  | Basic Calculator | string | [LeetCode](https://leetcode.com/problems/basic-calculator/) | [A](string/basic_calculator.py) | - |
 
 
 +: Solved within 30 min
