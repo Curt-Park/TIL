@@ -40,6 +40,7 @@
 | 34  | basic calculator | string | [leetcode](https://leetcode.com/problems/basic-calculator/) | [A](string/basic_calculator.py) | - |
 | 35  | decode string | string | [leetcode](https://leetcode.com/problems/decode-string/) | [A](string/decode_string.py) | -! |
 | 36  | min stack | array | [leetcode](https://leetcode.com/problems/min-stack/) | [A](array/min_stack.py) | +! |
+| 37  | queue using stacks | array | [leetcode](https://leetcode.com/problems/implement-queue-using-stacks/) | [A](array/queue_using_stacks.py) | + |
 
 
 +: Solved within 30 min
