@@ -19,11 +19,11 @@ s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
 
 
 class Solution(object):
-    def decodeString(self, s):
-        """
+    def decodeString2(self, s):
+        """ O(N + M), O(N)
         :type s: str
         :rtype: str
-        >>> fn = Solution().decodeString
+        >>> fn = Solution().decodeString2
         >>> fn("3[a]2[bc]")
         'aaabcbc'
         >>> fn("3[a2[c]]")
@@ -31,7 +31,46 @@ class Solution(object):
         >>> fn("2[abc]3[cd]ef")
         'abcabccdcdcdef'
         """
-        pass
+        stack, num = [(0, [])], 0
+        for ch in s:
+            if ch.isdigit():
+                num = num * 10 + int(ch)
+            elif ch == "[":
+                stack.append((num, []))
+                num = 0
+            elif ch == "]":
+                k, t = stack.pop()
+                stack[-1][1].extend(t * k)
+            else:
+                stack[-1][1].append(ch)
+        return "".join(stack[0][1])
+
+    def decodeString1(self, s):
+        """ O(N + M), O(N)
+        :type s: str
+        :rtype: str
+        >>> fn = Solution().decodeString1
+        >>> fn("3[a]2[bc]")
+        'aaabcbc'
+        >>> fn("3[a2[c]]")
+        'accaccacc'
+        >>> fn("2[abc]3[cd]ef")
+        'abcabccdcdcdef'
+        """
+        stack = []
+        for ch in s:
+            if ch == "]":
+                tmp, n, i = [], 0, 0
+                while stack[-1] != "[":
+                    tmp.append(stack.pop())
+                stack.pop()
+                while stack and stack[-1].isdigit():
+                    n += int(stack.pop()) * 10 ** i
+                    i += 1
+                stack += tmp[::-1] * n
+            else:
+                stack.append(ch)
+        return "".join(stack)
 
 
 if __name__ == "__main__":
