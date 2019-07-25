@@ -42,6 +42,7 @@
 | 36  | min stack | array | [leetcode](https://leetcode.com/problems/min-stack/) | [A](array/min_stack.py) | +! |
 | 37  | queue using stacks | array | [leetcode](https://leetcode.com/problems/implement-queue-using-stacks/) | [A](array/queue_using_stacks.py) | + |
 | 38  | odd even jumps | array | [leetcode](https://leetcode.com/problems/odd-even-jump/) | [A](array/odd_even_jump.py) | ! |
+| 39  | task scheduler | array | [leetcode](https://leetcode.com/problems/task-scheduler/) | [A](array/task_scheduler.py) | ! |
 
 
 +: Solved within 30 min
