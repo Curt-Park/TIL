@@ -62,13 +62,15 @@ Note:
 0 <= A[i] < 100000
 """
 
+from typing import List
+
 
 class Solution(object):
-    def oddEvenJumps(self, A):
-        """
+    def oddEvenJumps2(self, A: List[int]) -> int:
+        """ O(NlogN), O(N)
         :type A: List[int]
         :rtype: int
-        >>> fn = Solution().oddEvenJumps
+        >>> fn = Solution().oddEvenJumps2
         >>> fn([10,13,12,14,15])
         2
         >>> fn([2,3,1,1,4])
@@ -76,14 +78,75 @@ class Solution(object):
         >>> fn([5,1,3,4,2])
         3
         >>> fn([1,3,1,3,1,3,1])
-        4
+        5
+        >>> fn([1,2,3,4,5,6,7])
+        2
+        >>> fn([7,6,5,4,3,2,1])
+        1
+        """
+        def getNextIdx(sorted_idx):
+            stack, ret = [], [None] * len(sorted_idx)
+            for i in sorted_idx:
+                while stack and stack[-1] < i:
+                    ret[stack.pop()] = i
+                stack.append(i)
+            return ret
+
+        n = len(A)
+        odd_sorted_idx = sorted(range(n), key=lambda i: A[i])
+        even_sorted_idx = sorted(range(n), key=lambda i: -A[i])
+        next_odd = getNextIdx(odd_sorted_idx)
+        next_even = getNextIdx(even_sorted_idx)
+
+        odd, even = [False] * n, [False] * n
+        odd[n - 1] = even[n - 1] = True
+        for i in reversed(range(n - 1)):
+            if next_odd[i] is not None:
+                odd[i] = even[next_odd[i]]
+            if next_even[i] is not None:
+                even[i] = odd[next_even[i]]
+        return sum(odd)
+
+    def oddEvenJumps1(self, A: List[int]) -> int:
+        """O(NlogN), O(N)
+        >>> fn = Solution().oddEvenJumps1
+        >>> fn([10,13,12,14,15])
+        2
+        >>> fn([2,3,1,1,4])
+        3
+        >>> fn([5,1,3,4,2])
+        3
+        >>> fn([1,3,1,3,1,3,1])
+        5
         >>> fn([1,2,3,4,5,6,7])
         2
         >>> fn([7,6,5,4,3,2,1])
         1
         """
         n = len(A)
+        next_lower, next_higher = [0] * n, [0] * n
 
+        # next higher
+        stack = []
+        for _, i in sorted([(a, i) for i, a in enumerate(A)]):
+            while stack and stack[-1] < i:
+                next_higher[stack.pop()] = i
+            stack.append(i)
+
+        # next lower
+        stack = []
+        for _, i in sorted([(-a, i) for i, a in enumerate(A)]):
+            while stack and stack[-1] < i:
+                next_lower[stack.pop()] = i
+            stack.append(i)
+
+        higher, lower = [0] * n, [0] * n
+        higher[-1] = lower[-1] = 1
+        for i in reversed(range(n - 1)):
+            higher[i] = lower[next_higher[i]]
+            lower[i] = higher[next_lower[i]]
+
+        return sum(higher)
 
 
 if __name__ == "__main__":
