@@ -43,6 +43,7 @@
 | 37  | queue using stacks | array | [leetcode](https://leetcode.com/problems/implement-queue-using-stacks/) | [A](array/queue_using_stacks.py) | + |
 | 38  | odd even jumps | array | [leetcode](https://leetcode.com/problems/odd-even-jump/) | [A](array/odd_even_jump.py) | ! |
 | 39  | task scheduler | array | [leetcode](https://leetcode.com/problems/task-scheduler/) | [A](array/task_scheduler.py) | ! |
+| 40  | merge two sorted lists | linked list | [leetcode](https://leetcode.com/problems/merge-two-sorted-lists/) | [A](linked_list/merge_two_sorted_lists.py) | + |
 
 
 +: Solved within 30 min

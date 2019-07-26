@@ -57,7 +57,17 @@ class Solution:
         >>> printLList(fn(createLList([1,2,4]), createLList([1,3,4])))
         1->1->2->3->4->4
         """
-        pass
+        cur = dummy = ListNode(0)
+        while l1 or l2:
+            if l1 and (not l2 or l1.val <= l2.val):
+                cur.next = l1
+                l1 = l1.next
+                cur = cur.next
+            else:
+                cur.next = l2
+                l2 = l2.next
+                cur = cur.next 
+        return dummy.next
 
 
 if __name__ == "__main__":
