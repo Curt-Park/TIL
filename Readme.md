@@ -44,7 +44,7 @@
 | 38  | odd even jumps | array | [leetcode](https://leetcode.com/problems/odd-even-jump/) | [A](array/odd_even_jump.py) | ! |
 | 39  | task scheduler | array | [leetcode](https://leetcode.com/problems/task-scheduler/) | [A](array/task_scheduler.py) | ! |
 | 40  | merge two sorted lists | linked list | [leetcode](https://leetcode.com/problems/merge-two-sorted-lists/) | [A](linked_list/merge_two_sorted_lists.py) | + |
-
+| 41  | K closest points to origin | heap | [leetcode](https://leetcode.com/problems/k-closest-points-to-origin/) | [A](heap/k_closest_points_to_origin.py) | +! |
 
 +: Solved within 30 min
 
