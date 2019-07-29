@@ -41,13 +41,19 @@ class MedianFinder:
         """
         initialize your data structure here.
         """
-        pass
+        self.nums = []
 
     def addNum(self, num: int) -> None:
-        pass
+        self.nums.append(num)
 
     def findMedian(self) -> float:
-        pass
+        n = len(self.nums)
+        if n % 2 == 0:
+            median = self.nums[n // 2 - 1] + self.nums[n // 2]
+            median /= 2
+        else:
+            median = self.nums[n // 2]
+        return float(median)
 
 
 # Your MedianFinder object will be instantiated and called as such:
@@ -57,5 +63,10 @@ class MedianFinder:
 
 
 if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
+    medianFinder = MedianFinder()
+    medianFinder.addNum(1)
+    assert medianFinder.findMedian() == 1.0
+    medianFinder.addNum(2)
+    assert medianFinder.findMedian() == 1.5
+    medianFinder.addNum(3)
+    assert medianFinder.findMedian() == 2.0
