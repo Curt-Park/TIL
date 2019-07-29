@@ -40,6 +40,35 @@ from typing import List
 
 
 class Solution:
+    def kClosest3(self, points: List[List[int]], K: int) -> List[List[int]]:
+        """ Avg: O(N), O(1)
+        >>> fn = Solution().kClosest3
+        >>> fn([[3,3],[5,-1],[-2,4]], 2)
+        [[3, 3], [-2, 4]]
+        >>> fn([[1,3],[-2,2]], 1)
+        [[-2, 2]]
+        >>> fn([[0,1],[1,0]], 2)
+        [[0, 1], [1, 0]]
+        """
+        def quickSelect(points: List[List[int]], i: int, j: int, K: int) -> List[List[int]]:
+            dist = lambda p: p[0] ** 2 + p[1] ** 2
+            piv, left, right = i, i + 1, j
+            while left <= right:
+                while left <= right and dist(points[left]) <= dist(points[piv]): 
+                    left += 1
+                while left <= right and dist(points[piv]) < dist(points[right]): 
+                    right -= 1
+                if left <= right:
+                    points[left], points[right] = points[right], points[left]
+            points[piv], points[right] = points[right], points[piv]
+            if K == left:
+                return points[:K]
+            elif K < left:
+                return quickSelect(points, i, right, K)
+            elif K > left:
+                return quickSelect(points, left, j, K)
+        return quickSelect(points, 0, len(points) - 1, K)
+        
     def kClosest2(self, points: List[List[int]], K: int) -> List[List[int]]:
         """ O(NlogK), O(N)
         >>> fn = Solution().kClosest2
