@@ -47,6 +47,7 @@
 | 41  | K closest points to origin | heap | [leetcode](https://leetcode.com/problems/k-closest-points-to-origin/) | [A](heap/k_closest_points_to_origin.py) | +! |
 | 42  | Merge K sorted lists | heap | [leetcode](https://leetcode.com/problems/merge-k-sorted-lists/) | [A](heap/merge_k_sorted_lists.py) | +! |
 | 43  | Kth largest element | heap | [leetcode](https://leetcode.com/problems/kth-largest-element-in-an-array/) | [A](heap/kth_largest_element.py) | +! |
+| 44  | Find Median from Data Stream | heap | [leetcode](https://leetcode.com/problems/kth-largest-element-in-an-array/) | [A](heap/find_median_from_data_stream.py) | -! |
 
 +: Solved within 30 min
 
