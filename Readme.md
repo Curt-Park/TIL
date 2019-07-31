@@ -49,6 +49,7 @@
 | 43  | Kth largest element | heap | [leetcode](https://leetcode.com/problems/kth-largest-element-in-an-array/) | [A](heap/kth_largest_element.py) | +! |
 | 44  | Find Median from Data Stream | heap | [leetcode](https://leetcode.com/problems/kth-largest-element-in-an-array/) | [A](heap/find_median_from_data_stream.py) | -! |
 | 45  | Two sum | hash | [leetcode](https://leetcode.com/problems/two-sum/) | [A](hash/two_sum.py) | ++! |
+| 46  | Group Anagrams | hash | [leetcode](https://leetcode.com/problems/group-anagrams/) | [A](hash/group_anagrams.py) | -! |
 
 +: Solved within 30 min
 

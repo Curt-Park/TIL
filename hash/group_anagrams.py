@@ -24,13 +24,41 @@ from typing import List
 
 
 class Solution:
-    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        """
-        >>> fn = Solution().groupAnagrams
+    def groupAnagrams2(self, strs: List[str]) -> List[List[str]]:
+        """O(N), O(N): N is the total number of characters in strs.
+        >>> fn = Solution().groupAnagrams2
         >>> fn(["eat", "tea", "tan", "ate", "nat", "bat"])
         [['ate', 'eat', 'tea'], ['nat', 'tan'], ['bat']]
         """
-        pass
+        def getKey(s: str) -> str:
+            key = [0] * 26
+            for ch in s:
+                key[ord(ch) - ord("a")] += 1
+            return tuple(key)
+        
+        dic = {}   
+        for s in strs:
+            key = getKey(s)
+            if key in dic:
+                dic[key].append(s)
+            else:
+                dic[key] = [s]
+        return list(dic.values())
+        
+    def groupAnagrams1(self, strs: List[str]) -> List[List[str]]:
+        """O(NMlogM), O(NM): N is the string number and M is max str len.
+        >>> fn = Solution().groupAnagrams1
+        >>> fn(["eat", "tea", "tan", "ate", "nat", "bat"])
+        [['ate', 'eat', 'tea'], ['nat', 'tan'], ['bat']]
+        """
+        dic = {}
+        for s in strs:
+            key = "".join(sorted(s))
+            if key in dic:
+                dic[key].append(s)
+            else:
+                dic[key] = [s]
+        return list(dic.values())
 
 
 if __name__ == "__main__":
