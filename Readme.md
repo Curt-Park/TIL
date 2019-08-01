@@ -50,7 +50,7 @@
 | 44  | Find Median from Data Stream | heap | [leetcode](https://leetcode.com/problems/kth-largest-element-in-an-array/) | [A](heap/find_median_from_data_stream.py) | -! |
 | 45  | Two sum | hash | [leetcode](https://leetcode.com/problems/two-sum/) | [A](hash/two_sum.py) | ++! |
 | 46  | Group Anagrams | hash | [leetcode](https://leetcode.com/problems/group-anagrams/) | [A](hash/group_anagrams.py) | -! |
-| 47  | Subarray Sum Equals | hash | [leetcode](https://leetcode.com/problems/subarray-sum-equals-k/) | [A](hash/subarray_sum_equals_k.py) | - |
+| 47  | Subarray Sum Equals K | hash | [leetcode](https://leetcode.com/problems/subarray-sum-equals-k/) | [A](hash/subarray_sum_equals_k.py) | - |
 
 +: Solved within 30 min
 
