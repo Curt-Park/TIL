@@ -51,6 +51,7 @@
 | 45  | Two sum | hash | [leetcode](https://leetcode.com/problems/two-sum/) | [A](hash/two_sum.py) | ++! |
 | 46  | Group Anagrams | hash | [leetcode](https://leetcode.com/problems/group-anagrams/) | [A](hash/group_anagrams.py) | -! |
 | 47  | Subarray Sum Equals K | hash | [leetcode](https://leetcode.com/problems/subarray-sum-equals-k/) | [A](hash/subarray_sum_equals_k.py) | - |
+| 48  | Palindrome Pairs | hash | [leetcode](https://leetcode.com/problems/palindrome-pairs/) | [A](hash/palindrome_pairs.py) | ! |
 
 +: Solved within 30 min
 
