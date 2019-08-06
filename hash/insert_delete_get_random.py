@@ -39,33 +39,47 @@ randomSet.getRandom();
 """
 
 
+from random import choice
+
+
 class RandomizedSet:
 
     def __init__(self):
         """
         Initialize your data structure here.
         """
-        pass
+        self.d = {}
+        self.l = []
 
     def insert(self, val: int) -> bool:
         """
         Inserts a value to the set. Returns true if the set did not already
         contain the specified element.
         """
-        pass
+        if val in self.d:
+            return False
+        self.d[val] = len(self.l)
+        self.l.append(val)
+        return True
 
     def remove(self, val: int) -> bool:
         """
         Removes a value from the set.
         Returns true if the set contained the specified element.
         """
-        pass
+        if not val in self.d:
+            return False
+        idx = self.d[val]
+        self.d[self.l[-1]], self.l[idx] = idx, self.l[-1]
+        self.l.pop()
+        self.d.pop(val)
+        return True
 
     def getRandom(self) -> int:
         """
         Get a random element from the set.
         """
-        pass
+        return choice(self.l)
 
 
 # Your RandomizedSet object will be instantiated and called as such:
