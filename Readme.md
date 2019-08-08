@@ -55,6 +55,7 @@
 | 49  | Copy List with Random Pointer | hash | [leetcode](https://leetcode.com/problems/copy-list-with-random-pointer/) | [A](hash/copy_list_with_random_pointer.py) | +! |
 | 50  | Insert Delete GetRandom O(1) | hash | [leetcode](https://leetcode.com/problems/insert-delete-getrandom-o1/) | [A](hash/insert_delete_get_random.py) | + |
 | 51  | Backspace String Compare | string | [leetcode](https://leetcode.com/problems/backspace-string-compare/) | [A](string/backspace_string_compare.py) | +- |
+| 52  | Maximal Rectangle | array | [leetcode](https://leetcode.com/problems/maximal-rectangle/) | [A](array/maximal_rectangle.py) | - |
 
 +: Solved within 30 min
 
