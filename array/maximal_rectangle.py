@@ -48,19 +48,17 @@ class Solution:
         """
         if not matrix:
             return 0
-        h, w, res = len(matrix), len(matrix[0]), 0
-        cummat, stack = [0] * (w + 1), []
-        for r in range(h):
-            for c in range(w + 1):
-                if c != w and matrix[r][c] != "0":
-                    cummat[c] += int(matrix[r][c])
-                else:
-                    cummat[c] = 0
-                idx = c
-                while stack and cummat[c] < stack[-1][0]:
+        w, res = len(matrix[0]), 0
+        hist, stack = [0] * (w + 1), []
+        for r in matrix:
+            for i in range(w + 1):
+                if i != w:
+                    hist[i] = hist[i] + 1 if r[i] != "0" else 0
+                idx = i
+                while stack and hist[i] < stack[-1][0]:
                     val, idx = stack.pop()
-                    res = max(res, val * (c - idx))
-                stack.append((cummat[c], idx))
+                    res = max(res, val * (i - idx))
+                stack.append((hist[i], idx))
         return res
 
 
