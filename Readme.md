@@ -56,6 +56,7 @@
 | 50  | Insert Delete GetRandom O(1) | hash | [leetcode](https://leetcode.com/problems/insert-delete-getrandom-o1/) | [A](hash/insert_delete_get_random.py) | + |
 | 51  | Backspace String Compare | string | [leetcode](https://leetcode.com/problems/backspace-string-compare/) | [A](string/backspace_string_compare.py) | +- |
 | 52  | Maximal Rectangle | array | [leetcode](https://leetcode.com/problems/maximal-rectangle/) | [A](array/maximal_rectangle.py) | - |
+| 53  | Read N char given read4 | array | [leetcode](https://leetcode.com/explore/interview/card/google/59/array-and-strings/436/) | [A](array/read_n_char_given_read4.py) | + |
 
 +: Solved within 30 min
 
