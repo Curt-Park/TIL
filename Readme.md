@@ -60,6 +60,7 @@
 | 54  | Longest Substring with At Most Two Distinct Characters | array | [leetcode](https://leetcode.com/explore/interview/card/google/59/array-and-strings/3054/) | [A](array/longest_substring_with_at_most_2_distinct_char.py) | + |
 | 55  | Simplify Path | string | [leetcode](https://leetcode.com/problems/simplify-path/) | [A](/string/simplify_path.py) | + |
 | 56  | Serialize and Deserialize Binary Tree | tree | [leetcode](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/) | [A](tree/serialize_deserialize_binary_tree.py) | - |
+| 57  | Binary Tree Maximum Path Sum | tree | [leetcode](https://leetcode.com/problems/binary-tree-maximum-path-sum/) | [A](tree/binary_tree_maximum_path_sum.py) | + |
 
 +: Solved within 30 min
 
