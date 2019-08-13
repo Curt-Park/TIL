@@ -61,6 +61,7 @@
 | 55  | Simplify Path | string | [leetcode](https://leetcode.com/problems/simplify-path/) | [A](/string/simplify_path.py) | + |
 | 56  | Serialize and Deserialize Binary Tree | tree | [leetcode](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/) | [A](tree/serialize_deserialize_binary_tree.py) | - |
 | 57  | Binary Tree Maximum Path Sum | tree | [leetcode](https://leetcode.com/problems/binary-tree-maximum-path-sum/) | [A](tree/binary_tree_maximum_path_sum.py) | + |
+| 58  | Binary Tree Zigzag Level Order Traversal | tree | [leetcode](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/) | [A](tree/binary_tree_zigzag_level_order_traversal.py) | + |
 
 +: Solved within 30 min
 
