@@ -45,7 +45,17 @@ Explanation: The root node's value is 5 but its right child's value is 4.
 
 
 class Solution:
-    def isValidBST(self, root: TreeNode) -> bool:
+    def isValidBST2(
+        self, node: TreeNode, lower: float = float("-inf"), upper: float = float("inf")
+    ) -> bool:
+        """O(N), O(H)"""
+        return not node or (
+            lower < float(node.val) < upper and 
+            self.isValidBST2(node.left, lower, float(node.val)) and
+            self.isValidBST2(node.right, float(node.val), upper)
+        )
+        
+    def isValidBST1(self, root: TreeNode) -> bool:
         """O(N), O(N)"""
         self.min_d, self.max_d = {}, {}
         def traverse(node: TreeNode) -> bool:
