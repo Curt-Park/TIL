@@ -64,6 +64,7 @@
 | 58  | Binary Tree Zigzag Level Order Traversal | tree | [leetcode](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/) | [A](tree/binary_tree_zigzag_level_order_traversal.py) | + |
 | 59  | Validate Binary Search Tree | tree | [leetcode](https://leetcode.com/problems/validate-binary-search-tree/) | [A](tree/validate_binary_search_tree.py) | - |
 | 60  | Serialize and Deserialize BST | tree | [leetcode](https://leetcode.com/problems/serialize-and-deserialize-bst/) | [A](tree/serialize_and_deserialize_bst.py) | - |
+| 61  | Binary Tree Right Side View | tree | [leetcode](https://leetcode.com/problems/binary-tree-right-side-view/) | [A](tree/binary_tree_right_side_view.py) | + |
 
 +: Solved within 30 min
 
