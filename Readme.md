@@ -63,6 +63,7 @@
 | 57  | Binary Tree Maximum Path Sum | tree | [leetcode](https://leetcode.com/problems/binary-tree-maximum-path-sum/) | [A](tree/binary_tree_maximum_path_sum.py) | + |
 | 58  | Binary Tree Zigzag Level Order Traversal | tree | [leetcode](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/) | [A](tree/binary_tree_zigzag_level_order_traversal.py) | + |
 | 59  | Validate Binary Search Tree | tree | [leetcode](https://leetcode.com/problems/validate-binary-search-tree/) | [A](tree/validate_binary_search_tree.py) | - |
+| 60  | Serialize and Deserialize BST | tree | [leetcode](https://leetcode.com/problems/serialize-and-deserialize-bst/) | [A](tree/serialize_and_deserialize_bst.py) | - |
 
 +: Solved within 30 min
 
