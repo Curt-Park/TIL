@@ -67,6 +67,7 @@
 | 61  | Binary Tree Right Side View | tree | [leetcode](https://leetcode.com/problems/binary-tree-right-side-view/) | [A](tree/binary_tree_right_side_view.py) | + |
 | 62  | Lowest Common Ancestor of a Binary Tree | tree | [leetcode](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) | [A](tree/lowest_common_ancestor_of_a_binary_tree.py) | - |
 | 63  | Symmetric Tree | tree | [leetcode](https://leetcode.com/problems/symmetric-tree/) | [A](tree/symmetric_tree.py) | +! |
+| 64  | Jewels and Stones | tree | [leetcode](https://leetcode.com/problems/jewels-and-stones/) | [A](tree/jewels_and_stones.py) | + |
 
 +: Solved within 30 min
 
