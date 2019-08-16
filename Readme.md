@@ -69,6 +69,7 @@
 | 63  | Symmetric Tree | tree | [leetcode](https://leetcode.com/problems/symmetric-tree/) | [A](tree/symmetric_tree.py) | +! |
 | 64  | Jewels and Stones | hash | [leetcode](https://leetcode.com/problems/jewels-and-stones/) | [A](hash/jewels_and_stones.py) | + |
 | 65  | Find Duplicate File in System | hash | [leetcode](https://leetcode.com/problems/find-duplicate-file-in-system/) | [A](hash/find_duplicate_file_in_system.py) | + |
+| 66  | Subdomain Visit Count | hash | [leetcode](https://leetcode.com/problems/subdomain-visit-count/) | [A](hash/subdomain_visit_count.py) | + |
 
 +: Solved within 30 min
 
