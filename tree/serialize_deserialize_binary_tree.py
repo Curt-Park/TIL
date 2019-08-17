@@ -45,7 +45,43 @@ Your serialize and deserialize algorithms should be stateless.
 from collections import defaultdict
 
 
-class Codec:
+class Codec2:
+
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
+        def traverse(node, s):
+            s.append(str(node.val) if node else "n")
+            if not node:
+                return
+            traverse(node.left, s)
+            traverse(node.right, s)
+        s = []
+        traverse(root, s)
+        return " ".join(s)
+
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        
+        :type data: str
+        :rtype: TreeNode
+        """
+        def traverse(s):
+            if not s:
+                return None
+            v = s.pop()
+            if v == "n":
+                return None
+            node = TreeNode(int(v))
+            node.left, node.right = traverse(s), traverse(s)
+            return node
+        return traverse(data.split()[::-1])
+
+
+class Codec1:
 
     def serialize(self, root):
         """Encodes a tree to a single string.

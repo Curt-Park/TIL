@@ -28,7 +28,9 @@ Example 2:
      / \
     3   6
     
-s: 5 1 n n 4 3 n n 6 n n
+s: 5 1 4 3 6
+5
+1
 """
 
 
@@ -48,14 +50,14 @@ class Codec:
         :rtype: str
         """
         def traverse(node, s):
-            s.append(str(node.val) if node else "n")
             if not node:
                 return
+            s.append(str(node.val))
             traverse(node.left, s)
             traverse(node.right, s)
         s = []
         traverse(root, s)
-        return ",".join(s)
+        return " ".join(s)
 
     def deserialize(self, data):
         """Decodes your encoded data to tree.
@@ -63,16 +65,14 @@ class Codec:
         :type data: str
         :rtype: TreeNode
         """
-        def traverse(s):
-            if not s:
+        def traverse(s, low=float("-inf"), upper=float("inf")):
+            if not s or not low < float(s[-1]) < upper:
                 return None
-            v = s.pop()
-            if v == "n":
-                return None
-            node = TreeNode(int(v))
-            node.left, node.right = traverse(s), traverse(s)
+            v = int(s.pop())
+            node, v = TreeNode(v), float(v)
+            node.left, node.right = traverse(s, low, v), traverse(s, v, upper)
             return node
-        return traverse(data.split(",")[::-1])
+        return traverse(data.split()[::-1])
                 
 
 # Your Codec object will be instantiated and called as such:
