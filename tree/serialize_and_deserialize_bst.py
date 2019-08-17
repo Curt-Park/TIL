@@ -20,17 +20,15 @@ The encoded string should be as compact as possible.
 Note: Do not use class member/global/static variables to store states. 
 Your serialize and deserialize algorithms should be stateless.
 
-Example 2:
+Example:
 
     5
    / \
-  1   4
+  1   7
      / \
-    3   6
+    6   8
     
-s: 5 1 4 3 6
-5
-1
+s: 5 1 7 6 8
 """
 
 
