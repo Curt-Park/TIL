@@ -73,6 +73,7 @@
 | 67  | Sliding Window Maximum | heap | [leetcode](https://leetcode.com/problems/sliding-window-maximum/) | [A](heap/sliding_window_maximum.py) | +! |
 | 68  | Clone Graph | graph | [leetcode](https://leetcode.com/problems/clone-graph/) | [A](graph/clone_graph.py) | + |
 | 69  | Course Schedule | graph | [leetcode](https://leetcode.com/problems/course-schedule/) | [A](graph/course_schedule.py) | - |
+| 70  | Course Schedule2 | graph | [leetcode](https://leetcode.com/problems/course-schedule-ii/) | [A](graph/course_schedule2.py) | - |
 
 +: Solved within 30 min
 
