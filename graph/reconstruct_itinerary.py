@@ -31,19 +31,33 @@ Another possible reconstruction is ["JFK","SFO","ATL","JFK","ATL","SFO"].
 But it is larger in lexical order.
 """
 
+from collections import defaultdict
 from typing import List
 
 
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
-        """
+        """ O(|E|), O(|V|+|E|)
         >>> fn = Solution().findItinerary
         >>> fn([["MUC", "LHR"], ["JFK", "MUC"], ["SFO", "SJC"], ["LHR", "SFO"]])
         ["JFK", "MUC", "LHR", "SFO", "SJC"]
         >>> fn([["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]])
         ["JFK","ATL","JFK","SFO","ATL","SFO"]
+        >>> fn([["JFK","KUL"],["JFK","NRT"],["NRT","JFK"]])
+        ["JFK","NRT","JFK","KUL"]
+        >>> fn([["EZE","AXA"],["TIA","ANU"],["ANU","JFK"],["JFK","ANU"],["ANU","EZE"],["TIA","ANU"],["AXA","TIA"],["TIA","JFK"],["ANU","TIA"],["JFK","TIA"]])
+        ["JFK","ANU","EZE","AXA","TIA","ANU","JFK","TIA","ANU","TIA","JFK"]
         """
-        pass
+        graph, ret = defaultdict(lambda: []), []
+        for arr, des in sorted(tickets, key=lambda e: e[1], reverse=True):
+            graph[arr].append(des)
+
+        def traverse(node: str) -> None:
+            while graph[node]: traverse(graph[node].pop())
+            ret.append(node)
+
+        traverse("JFK")
+        return ret[::-1]
 
 
 if __name__ == "__main__":

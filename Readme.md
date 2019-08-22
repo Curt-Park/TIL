@@ -74,6 +74,7 @@
 | 68  | Clone Graph | graph | [leetcode](https://leetcode.com/problems/clone-graph/) | [A](graph/clone_graph.py) | + |
 | 69  | Course Schedule | graph | [leetcode](https://leetcode.com/problems/course-schedule/) | [A](graph/course_schedule.py) | - |
 | 70  | Course Schedule2 | graph | [leetcode](https://leetcode.com/problems/course-schedule-ii/) | [A](graph/course_schedule2.py) | - |
+| 71  | Reconstruct Itinerary | graph | [leetcode](https://leetcode.com/problems/reconstruct-itinerary/) | [A](graph/reconstruct_itinerary.py) | - |
 
 +: Solved within 30 min
 
