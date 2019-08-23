@@ -78,6 +78,7 @@
 | 72  | Evaluate Division | graph | [leetcode](https://leetcode.com/problems/evaluate-division/) | [A](graph/evaluate_division.py) | - |
 | 73  | Network Delay Time | graph | [leetcode](https://leetcode.com/problems/network-delay-time/) | [A](graph/network_delay_time.py) | - |
 | 74  | Is Graph Bipartite | graph | [leetcode](https://leetcode.com/problems/is-graph-bipartite/) | [A](graph/is_graph_bipartite.py) | + |
+| 75  | Binary Tree Level Order Traversal | tree | [leetcode](https://leetcode.com/problems/binary-tree-level-order-traversal/) | [A](tree/btree_level_order_traversal.py) | + |
 
 +: Solved within 30 min
 
