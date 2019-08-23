@@ -75,6 +75,7 @@
 | 69  | Course Schedule | graph | [leetcode](https://leetcode.com/problems/course-schedule/) | [A](graph/course_schedule.py) | - |
 | 70  | Course Schedule2 | graph | [leetcode](https://leetcode.com/problems/course-schedule-ii/) | [A](graph/course_schedule2.py) | - |
 | 71  | Reconstruct Itinerary | graph | [leetcode](https://leetcode.com/problems/reconstruct-itinerary/) | [A](graph/reconstruct_itinerary.py) | - |
+| 72  | Evaluate Division | graph | [leetcode](https://leetcode.com/problems/evaluate-division/) | [A](graph/evaluate_division.py) | - |
 
 +: Solved within 30 min
 
