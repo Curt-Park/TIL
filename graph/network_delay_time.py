@@ -43,7 +43,7 @@ class Solution:
 
     # Dijkstra
     def networkDelayTime2(self, times: List[List[int]], N: int, K: int) -> int:
-        """O((|E|+|V|)log|V|) / O(|E|+|V|)"""
+        """O((|E|+|V|)log|V|) / O(|V|^2)"""
         graph = defaultdict(lambda: defaultdict(lambda: float("inf")))
         visited, heap, graph[K][K] = set(), [(0, K)], 0
         for u, v, w in times: graph[u][v] = w
