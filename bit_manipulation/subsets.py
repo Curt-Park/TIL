@@ -25,17 +25,10 @@ Output:
 ]
 """
 
-from typing import List
-
 
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        """O(N*2^N) / O(2^N)"""
-        ret = []
-        for i in range(2 ** len(nums)):
-            subset = set()
-            for j in range(len(nums)):
-                if i & (1 << j):
-                    subset.add(nums[j])
-            ret.append(subset)
-        return ret
+        """O(N*2^N) / O(1)"""
+        return [[
+            nums[j] for j in range(len(nums)) if i & (1 << j)
+        ] for i in range(2 ** len(nums))]
