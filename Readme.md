@@ -81,6 +81,7 @@
 | 75  | Binary Tree Level Order Traversal | tree | [leetcode](https://leetcode.com/problems/binary-tree-level-order-traversal/) | [A](tree/btree_level_order_traversal.py) | + |
 | 76  | Subsets | bit manipulation | [leetcode](https://leetcode.com/problems/subsets/) | [A](bit_manipulation/subsets.py) | + |
 | 77  | Single Number | bit manipulation | [leetcode](https://leetcode.com/problems/single-number/) | [A](bit_manipulation/single_number.py) | + |
+| 78  | Single Number2 | bit manipulation | [leetcode](https://leetcode.com/problems/single-number-ii/) | [A](bit_manipulation/single_number2.py) | +? |
 
 
 +: Solved within 30 min
