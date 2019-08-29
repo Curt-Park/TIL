@@ -35,16 +35,26 @@ from typing import List
 
 
 class Solution:
+    def singleNumber4(self, nums: List[int]) -> int:
+        """O(N) / O(1)"""
+        one = two = bitmask = 0
+        for n in nums:
+            one, two = one ^ n, two | (one & n)
+            bitmask = ~(one & two)
+            one, two = one & bitmask, two & bitmask
+        return one
+
+    def singleNumber3(self, nums: List[int]) -> int:
+        """O(N) / O(1)"""
+        bitmask, res = [0] * 32, 0
+        for i in range(32):
+            for n in nums:
+                bitmask[i] += (n >> i) & 1
+            res |= (bitmask[i] % 3) << i
+        return res - (1 << 32) if (res >> 31) & 1 else res
+
     def singleNumber2(self, nums: List[int]) -> int:
-        """O(N) / O(1)
-        >>> fn = Solution().singleNumber2
-        >>> fn([2,2,3,2])
-        3
-        >>> fn([0,1,0,1,0,1,99])
-        99
-        >>> fn([1,2,3,9,1,2,3,1,2,3])
-        9
-        """
+        """O(N) / O(1)"""
         once = twice = 0
         for n in nums:
             once = ~twice & (once ^ n)
@@ -52,13 +62,7 @@ class Solution:
         return once
 
     def singleNumber1(self, nums: List[int]) -> int:
-        """O(N) / O(N)
-        >>> fn = Solution().singleNumber1
-        >>> fn([2,2,3,2])
-        3
-        >>> fn([0,1,0,1,0,1,99])
-        99
-        """
+        """O(N) / O(N)"""
         seen, res = set(), 0
         for n in nums:
             if n not in seen:
