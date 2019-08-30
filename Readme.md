@@ -85,6 +85,7 @@
 | 79  | Majority Element | bit manipulation | [leetcode](https://leetcode.com/problems/majority-element/) | [A](bit_manipulation/majority_element.py) | - |
 | 80  | Bitwise AND of Numbers Range | bit manipulation | [leetcode](https://leetcode.com/problems/bitwise-and-of-numbers-range/) | [A](bit_manipulation/bitwise_and_of_numbers_range.py) | ++!- |
 | 81  | Missing Number | bit manipulation | [leetcode](https://leetcode.com/problems/missing-number/) | [A](bit_manipulation/missing_number.py) | +! |
+| 82  | Sum of Two Integers | bit manipulation | [leetcode](https://leetcode.com/problems/sum-of-two-integers/) | [A](bit_manipulation/sum_two_integers.py) | ! |
 
 
 +: Solved within 30 min
