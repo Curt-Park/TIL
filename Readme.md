@@ -83,6 +83,7 @@
 | 77  | Single Number | bit manipulation | [leetcode](https://leetcode.com/problems/single-number/) | [A](bit_manipulation/single_number.py) | + |
 | 78  | Single Number2 | bit manipulation | [leetcode](https://leetcode.com/problems/single-number-ii/) | [A](bit_manipulation/single_number2.py) | +? |
 | 79  | Majority Element | bit manipulation | [leetcode](https://leetcode.com/problems/majority-element/) | [A](bit_manipulation/majority_element.py) | - |
+| 80  | Bitwise AND of Numbers Range | bit manipulation | [leetcode](https://leetcode.com/problems/bitwise-and-of-numbers-range/) | [A](bit_manipulation/bitwise_and_of_numbers_range.py) | ++!- |
 
 
 +: Solved within 30 min
