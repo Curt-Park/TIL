@@ -29,10 +29,14 @@ carry = x & y
 
 
 class Solution:
-    def getSum(self, a: int, b: int) -> int:
+    def getSum2(self, a: int, b: int) -> int:
         """O(1) / O(1)"""
         mask, sign = 0xffffffff, 0x80000000
-        while b:
-            carry, a = a & b, a ^ b
-            a, b = a & mask, carry << 1
+        if b: return self.getSum2((a ^ b) & mask, (a & b) << 1)
+        return ~(a ^ mask) if a & sign else a
+
+    def getSum1(self, a: int, b: int) -> int:
+        """O(1) / O(1)"""
+        mask, sign = 0xffffffff, 0x80000000
+        while b: a, b = (a ^ b) & mask, (a & b) << 1
         return ~(a ^ mask) if a & sign else a
