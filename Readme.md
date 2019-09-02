@@ -87,6 +87,7 @@
 | 81  | Missing Number | bit manipulation | [leetcode](https://leetcode.com/problems/missing-number/) | [A](bit_manipulation/missing_number.py) | +! |
 | 82  | Sum of Two Integers | bit manipulation | [leetcode](https://leetcode.com/problems/sum-of-two-integers/) | [A](bit_manipulation/sum_two_integers.py) | ! |
 | 83  | UTF-8 Validation | bit manipulation | [leetcode](https://leetcode.com/problems/utf-8-validation/) | [A](bit_manipulation/utf8_validation.py) | ! |
+| 84  | Minimum Height Trees | graph | [leetcode](https://leetcode.com/problems/minimum-height-trees/) | [A](graph/minimum_height_trees.py) | ! |
 
 
 +: Solved within 30 min
