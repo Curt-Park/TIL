@@ -90,6 +90,7 @@
 | 84  | Minimum Height Trees | graph | [leetcode](https://leetcode.com/problems/minimum-height-trees/) | [A](graph/minimum_height_trees.py) | ! |
 | 85  | Reverse Integer | math | [leetcode](https://leetcode.com/problems/reverse-integer/) | [A](math/reverse_integer.py) | + |
 | 86  | Palindrome Number | math | [leetcode](https://leetcode.com/problems/palindrome-number/) | [A](math/palindrome_number.py) | + |
+| 87  | Divide Two Integers | math | [leetcode](https://leetcode.com/problems/divide-two-integers/) | [A](math/div_two_int.py) | ! |
 
 
 +: Solved within 30 min
