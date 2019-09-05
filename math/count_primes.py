@@ -17,7 +17,7 @@ Explanation: There are 4 prime numbers less than 10, they are 2, 3, 5, 7.
 class Solution:
     # Sieve of Eratosthenes
     def countPrimes2(self, n: int) -> int:
-        """O(logNloglogN) / O(N)"""
+        """O(sqrt(N)log(N)) / O(N)"""
         primes = [False] * 2 + [True] * (n - 2)
         for i in range(2, int(n**0.5) + 1):
             if not primes[i]: continue
@@ -26,7 +26,7 @@ class Solution:
         return sum(primes)
         
     def countPrimes1(self, n: int) -> int:
-        """O(NlogN) / O(1)"""
+        """O(Nsqrt(N)) / O(1)"""
         def isPrime(n: int) -> bool:
             if n <= 1: return False
             for i in range(2, int(n**0.5) + 1):
