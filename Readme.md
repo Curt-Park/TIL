@@ -92,6 +92,7 @@
 | 86  | Palindrome Number | math | [leetcode](https://leetcode.com/problems/palindrome-number/) | [A](math/palindrome_number.py) | + |
 | 87  | Divide Two Integers | math | [leetcode](https://leetcode.com/problems/divide-two-integers/) | [A](math/div_two_int.py) | ! |
 | 88  | Happy Number | math | [leetcode](https://leetcode.com/problems/happy-number/) | [A](math/happy_number.py) | +! |
+| 89  | Count Primes | math | [leetcode](https://leetcode.com/problems/count-primes/) | [A](math/count_primes.py) | +! |
 
 
 +: Solved within 30 min
