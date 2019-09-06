@@ -95,6 +95,7 @@
 | 89  | Count Primes | math | [leetcode](https://leetcode.com/problems/count-primes/) | [A](math/count_primes.py) | +! |
 | 90  | Perfect Squares | math | [leetcode](https://leetcode.com/problems/perfect-squares/) | [A](math/perfect_squares.py) | - |
 | 91  | Least Operators to Express Number | math | [leetcode](https://leetcode.com/problems/least-operators-to-express-number/) | [A](math/least_op_for_num.py) | ! |
+| 92  | Power of Two | bit manipulation | [leetcode](https://leetcode.com/problems/power-of-two) | [A](bit_manipulation/pow_of_two.py) | ! |
 
 
 +: Solved within 30 min
