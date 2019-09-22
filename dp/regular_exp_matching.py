@@ -57,25 +57,39 @@ Input:
 s = "mississippi"
 p = "mis*is*p*."
 Output: false
+
+a2
+a*
+a1b1
+.*
+a2b
+c*a*b
+m1s2i1s2p2i1
+m1i1s*i1s*p*.1
 """
+
+import re
 
 
 class Solution:
-    def isMatch(self, s: str, p: str) -> bool:
+    def ismatch(self, s: str, p: str) -> bool:
         """
-        >>> fn = Solution().isMatch
+        >>> fn = solution().ismatch
         >>> fn(s = "aa", p = "a")
-        False
+        false
         >>> fn(s = "aa", p = "a*")
-        True
+        true
         >>> fn(s = "ab",  p = ".*")
-        True
+        true
         >>> fn(s = "aab",  p = "c*a*b")
-        True
+        true
+        >>> fn(s = "aab",  p = "a*a*b")
+        true
         >>> fn(s = "mississippi", p = "mis*is*p*.")
-        False
+        false
         """
-        pass
+        # return re.match(p, s).span() == (0, len(s))
+
 
 
 if __name__ == "__main__":

@@ -97,6 +97,7 @@
 | 91  | Least Operators to Express Number | math | [leetcode](https://leetcode.com/problems/least-operators-to-express-number/) | [A](math/least_op_for_num.py) | ! |
 | 92  | Power of Two | bit manipulation | [leetcode](https://leetcode.com/problems/power-of-two) | [A](bit_manipulation/pow_of_two.py) | ! |
 | 93  | Longest Palindromic Substring | dynamic programming | [leetcode](https://leetcode.com/problems/longest-palindromic-substring) | [A](dp/longest_palindromic_substring.py) | ! |
+| 94  | Maximum Subarray | dynamic programming | [leetcode](https://leetcode.com/problems/maximum-subarray) | [A](dp/max_subarray.py) | +! |
 
 
 +: Solved within 30 min
