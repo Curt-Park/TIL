@@ -100,6 +100,7 @@
 | 94  | Maximum Subarray | dynamic programming | [leetcode](https://leetcode.com/problems/maximum-subarray) | [A](dp/max_subarray.py) | +! |
 | 95  | Minimum Path Sum | dynamic programming | [leetcode](https://leetcode.com/problems/minimum-path-sum) | [A](dp/min_pathsum.py) | + |
 | 96  | Climbing Stairs | dynamic programming | [leetcode](https://leetcode.com/problems/climbing-stairs) | [A](dp/climbing_stairs.py) | + |
+| 97  | Decode Ways | dynamic programming | [leetcode](https://leetcode.com/problems/decode-ways) | [A](dp/decode_ways.py) | + |
 
 
 +: Solved within 30 min
