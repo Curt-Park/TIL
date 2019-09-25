@@ -101,6 +101,7 @@
 | 95  | Minimum Path Sum | dynamic programming | [leetcode](https://leetcode.com/problems/minimum-path-sum) | [A](dp/min_pathsum.py) | + |
 | 96  | Climbing Stairs | dynamic programming | [leetcode](https://leetcode.com/problems/climbing-stairs) | [A](dp/climbing_stairs.py) | + |
 | 97  | Decode Ways | dynamic programming | [leetcode](https://leetcode.com/problems/decode-ways) | [A](dp/decode_ways.py) | + |
+| 98  | Best Time to Buy and Sell Stock | dynamic programming | [leetcode](https://leetcode.com/problems/best-time-to-buy-and-sell-stock) | [A](dp/best_time_for_stock.py) | + |
 
 
 +: Solved within 30 min
