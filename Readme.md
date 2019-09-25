@@ -103,6 +103,7 @@
 | 97  | Decode Ways | dynamic programming | [leetcode](https://leetcode.com/problems/decode-ways) | [A](dp/decode_ways.py) | + |
 | 98  | Best Time to Buy and Sell Stock | dynamic programming | [leetcode](https://leetcode.com/problems/best-time-to-buy-and-sell-stock) | [A](dp/best_time_for_stock.py) | + |
 | 99  | Word Break | dynamic programming | [leetcode](https://leetcode.com/problems/word-break) | [A](dp/word_break.py) | -! |
+| 100  | Coin Change | dynamic programming | [leetcode](https://leetcode.com/problems/coin-change) | [A](dp/coin_change.py) | + |
 
 
 +: Solved within 30 min
