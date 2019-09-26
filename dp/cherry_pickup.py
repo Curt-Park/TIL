@@ -42,7 +42,7 @@ It is guaranteed that grid[0][0] and grid[N-1][N-1] are not -1.
 
 class Solution:
     def cherryPickup(self, grid: List[List[int]]) -> int:
-        """O(N^2) / O(N)"""
+        """O(N^2) / O(N^2)"""
         def double_search(r1, c1, r2, c2, N=len(grid), dp={}):
             if (r1, c1, r2, c2) in dp:
                 return dp[r1, c1, r2, c2];
