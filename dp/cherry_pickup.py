@@ -46,7 +46,7 @@ class Solution:
         def double_search(r1, c1, r2, c2, N=len(grid), dp={}):
             if (r1, c1, r2, c2) in dp:
                 return dp[r1, c1, r2, c2];
-            if (r1, c1) == (N - 1, N - 1) or (r2, c2) == (N - 1, N - 1):
+            if (N - 1, N - 1) in {(r1, c1), (r2, c2)}:
                 return grid[N-1][N-1]
             if N in {r1, c1, r2, c2} or -1 in {grid[r1][c1], grid[r2][c2]}:
                 return float("-inf")
