@@ -106,6 +106,7 @@
 | 100  | Coin Change | dynamic programming | [leetcode](https://leetcode.com/problems/coin-change) | [A](dp/coin_change.py) | + |
 | 101  | Cherry Pickup | dynamic programming | [leetcode](https://leetcode.com/problems/cherry-pickup) | [A](dp/cherry_pickup.py) | ! |
 | 102  | Ugly Number II | math | [leetcode](https://leetcode.com/problems/ugly-number-ii) | [A](math/ugly_number2.py) | ! |
+| 103  | Regular Expression Matching | dynamic programming | [leetcode](https://leetcode.com/problems/regular-expression-matching) | [A](dp/regular_exp_matching.py) | ? |
 
 
 +: Solved within 30 min

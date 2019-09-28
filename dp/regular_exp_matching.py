@@ -57,15 +57,6 @@ Input:
 s = "mississippi"
 p = "mis*is*p*."
 Output: false
-
-a2
-a*
-a1b1
-.*
-a2b
-c*a*b
-m1s2i1s2p2i1
-m1i1s*i1s*p*.1
 """
 
 import re
@@ -73,25 +64,17 @@ import re
 
 class Solution:
     def ismatch(self, s: str, p: str) -> bool:
-        """
-        >>> fn = solution().ismatch
-        >>> fn(s = "aa", p = "a")
-        false
-        >>> fn(s = "aa", p = "a*")
-        true
-        >>> fn(s = "ab",  p = ".*")
-        true
-        >>> fn(s = "aab",  p = "c*a*b")
-        true
-        >>> fn(s = "aab",  p = "a*a*b")
-        true
-        >>> fn(s = "mississippi", p = "mis*is*p*.")
-        false
-        """
+        """O(|S|*|P|) / O(|S|*|P|)"""
+        m, n = len(s), len(p)
+        dp = [[False] * (n + 1) for _ in range(m + 1)]
+        dp[0][0] = True
+        for i in range(2, n + 1):
+            dp[0][i] = p[i - 1] == '*' and dp[0][i - 2];
+        for i in range(1, m + 1):
+            for j in range(1, n + 1):
+                if p[j - 1] != '*':
+                    dp[i][j] = dp[i - 1][j - 1] and p[j - 1] in {'.', s[i - 1]}
+                else:
+                    dp[i][j] = dp[i][j - 2] or p[j - 2] in {'.', s[i - 1]} and dp[i - 1][j]
+        return dp[m][n]
         # return re.match(p, s).span() == (0, len(s))
-
-
-
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
