@@ -107,6 +107,7 @@
 | 101  | Cherry Pickup | dynamic programming | [leetcode](https://leetcode.com/problems/cherry-pickup) | [A](dp/cherry_pickup.py) | ! |
 | 102  | Ugly Number II | math | [leetcode](https://leetcode.com/problems/ugly-number-ii) | [A](math/ugly_number2.py) | ! |
 | 103  | Regular Expression Matching | dynamic programming | [leetcode](https://leetcode.com/problems/regular-expression-matching) | [A](dp/regular_exp_matching.py) | ? |
+| 104  | Median of Two Sorted Arrays | binary search | [leetcode](https://leetcode.com/problems/median-of-two-sorted-arrays) | [A](search/med_two_sorted_arrpy) | +! |
 
 
 +: Solved within 30 min
