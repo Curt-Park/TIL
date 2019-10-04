@@ -108,6 +108,7 @@
 | 102  | Ugly Number II | math | [leetcode](https://leetcode.com/problems/ugly-number-ii) | [A](math/ugly_number2.py) | ! |
 | 103  | Regular Expression Matching | dynamic programming | [leetcode](https://leetcode.com/problems/regular-expression-matching) | [A](dp/regular_exp_matching.py) | ? |
 | 104  | Median of Two Sorted Arrays | binary search | [leetcode](https://leetcode.com/problems/median-of-two-sorted-arrays) | [A](search/med_two_sorted_arr.py) | +! |
+| 105  | Search in Rotated Sorted Array | binary search | [leetcode](https://leetcode.com/problems/search-in-rotated-sorted-array) | [A](search/search_in_rot_sorted_arr.py) | ! |
 
 
 +: Solved within 30 min
