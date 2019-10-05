@@ -111,6 +111,7 @@
 | 105  | Search in Rotated Sorted Array | binary search | [leetcode](https://leetcode.com/problems/search-in-rotated-sorted-array) | [A](search/search_in_rot_sorted_arr.py) | ! |
 | 106  | Merge Intervals | sort | [leetcode](https://leetcode.com/problems/merge-intervals) | [A](sort/merge_intervals.py) | + |
 | 107  | Time Based Key-Value Store | binary search | [leetcode](https://leetcode.com/problems/time-based-key-value-store) | [A](search/time_based_key_value_store.py) | !! |
+| 108  | Split Array Largest Sum | binary search | [leetcode](https://leetcode.com/problems/split-array-largest-sum) | [A](search/split_arr_largest_sum.py) | ! |
 
 
 +: Solved within 30 min
