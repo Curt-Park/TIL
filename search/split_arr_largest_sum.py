@@ -37,7 +37,7 @@ class Solution:
             for num in nums:
                 next_sum = tmp_sum + num
                 if next_sum > max_sum: tmp_sum, pieces = num, pieces + 1
-                else: tmp_sum = next_num
+                else: tmp_sum = next_sum
             return pieces
 
         l, r = max(nums), sum(nums)
