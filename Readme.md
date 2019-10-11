@@ -115,6 +115,7 @@
 | 109  | Reorder Data in Log Files | string | [leetcode](https://leetcode.com/problems/reorder-data-in-log-files) | [A](string/reorder_data_in_log_files.py) | + |
 | 110  | Product of Array Except Self | array | [leetcode](https://leetcode.com/problems/product-of-array-except-self) | [A](array/product_array_except_itself.py) | ! |
 | 111  | Game of Life | array | [leetcode](https://leetcode.com/problems/game-of-life) | [A](array/game_of_life.py) | ! |
+| 112  | Generate Parentheses | array | [leetcode](https://leetcode.com/problems/generate-parentheses) | [A](array/generate_parentheses.py) | + |
 
 
 +: Solved within 30 min
