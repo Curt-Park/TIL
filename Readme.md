@@ -116,6 +116,7 @@
 | 110  | Product of Array Except Self | array | [leetcode](https://leetcode.com/problems/product-of-array-except-self) | [A](array/product_array_except_itself.py) | ! |
 | 111  | Game of Life | array | [leetcode](https://leetcode.com/problems/game-of-life) | [A](array/game_of_life.py) | ! |
 | 112  | Generate Parentheses | array | [leetcode](https://leetcode.com/problems/generate-parentheses) | [A](array/generate_parentheses.py) | + |
+| 113  | Letter Combinations of a Phone Number | string | [leetcode](https://leetcode.com/problems/letter-combinations-of-a-phone-number) | [A](string/letter_combinations.py) | + |
 
 
 +: Solved within 30 min
