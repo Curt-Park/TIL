@@ -117,6 +117,7 @@
 | 111  | Game of Life | array | [leetcode](https://leetcode.com/problems/game-of-life) | [A](array/game_of_life.py) | ! |
 | 112  | Generate Parentheses | array | [leetcode](https://leetcode.com/problems/generate-parentheses) | [A](array/generate_parentheses.py) | + |
 | 113  | Letter Combinations of a Phone Number | string | [leetcode](https://leetcode.com/problems/letter-combinations-of-a-phone-number) | [A](string/letter_combinations.py) | + |
+| 114  | First Missing Positive | array | [leetcode](https://leetcode.com/problems/first-missing-positive) | [A](array/first_missing_positive.py) | +- |
 
 
 +: Solved within 30 min
