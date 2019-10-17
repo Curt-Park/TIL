@@ -120,6 +120,7 @@
 | 114  | First Missing Positive | array | [leetcode](https://leetcode.com/problems/first-missing-positive) | [A](array/first_missing_positive.py) | +- |
 | 115  | Move Zeroes | array | [leetcode](https://leetcode.com/problems/move-zeroes) | [A](array/move_zeros.py) | ++- |
 | 116  | Word Search | array | [leetcode](https://leetcode.com/problems/word-search) | [A](array/word_search.py) | - |
+| 117  | Spiral Matrix | array | [leetcode](https://leetcode.com/problems/spiral-matrix) | [A](array/spiral_matrix.py) | + |
 
 
 +: Solved within 30 min
