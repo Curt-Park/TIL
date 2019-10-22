@@ -27,6 +27,19 @@ from itertools import combinations, product
 
 class Solution:
     def fourSum3(self, nums: List[int], target: int) -> List[List[int]]:
+        """Worst: O(N^4) / O(N^2) - all pairs have a same sum value.
+        Best: O(N^2) / O(N^2) - all pairs have different sum values.
+        """
+        dic, ret = {}, set()
+        for i, j in combinations(range(len(nums)), 2):
+            dic.setdefault(nums[i] + nums[j], []).append((i, j))
+        for k in dic:
+            for t1, t2 in product(dic[k], dic.get(target - k, [])):
+                if all(idx not in t2 for idx in t1):
+                    ret.add(tuple(sorted(nums[idx] for idx in t1 + t2)))
+        return [list(e) for e in ret]
+
+    def fourSum2(self, nums: List[int], target: int) -> List[List[int]]:
         """O(N^3) / O(1)"""
         ret, i = [], 0
         nums.sort()
@@ -46,17 +59,6 @@ class Solution:
                 while i < j and nums[old_j] == nums[j]: j -= 1
             while i < len(nums) - 1 and nums[old_i] == nums[i]: i += 1
         return ret
-
-    def fourSum2(self, nums: List[int], target: int) -> List[List[int]]:
-        """Faster than 3rd solution: O(N^4) / O(N^2) in the worst case (all 0)."""
-        dic, ret = {}, set()
-        for i, j in combinations(range(len(nums)), 2):
-            dic.setdefault(nums[i] + nums[j], []).append((i, j))
-        for k in dic:
-            for t1, t2 in product(dic[k], dic.get(target - k, [])):
-                if all(idx not in t2 for idx in t1):
-                    ret.add(tuple(sorted(nums[idx] for idx in t1 + t2)))
-        return [list(e) for e in ret]
 
     def fourSum1(self, nums: List[int], target: int) -> List[List[int]]:
         """Time over!: O(N^4) / O(1)"""
