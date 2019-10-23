@@ -125,6 +125,7 @@
 | 119  | Top K Frequent Elements | hash | [leetcode](https://leetcode.com/problems/top-k-frequent-elements) | [A](hash/top_k_freq_ele.py) | +! |
 | 120  | Verifying an Alien Dictionary | hash | [leetcode](https://leetcode.com/problems/verifying-an-alien-dictionary) | [A](hash/alien_dict.py) | + |
 | 121  | Longest String Chain | hash | [leetcode](https://leetcode.com/problems/longest-string-chain) | [A](hash/longest_str_chain.py) | + |
+| 122  | Sudoku Solver | hash | [leetcode](https://leetcode.com/problems/sudoku-solver) | [A](hash/sudoku_solver.py) | + |
 
 
 +: Solved within 30 min
