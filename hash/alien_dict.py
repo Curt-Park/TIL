@@ -43,7 +43,7 @@ All characters in words[i] and order are english lowercase letters.
 
 class Solution:
     def isAlienSorted2(self, words: List[str], order: str) -> bool:
-        """O(N) / O(N)"""
+        """O(N) / O(1)"""
         ordermap, prev = {ch: i for i, ch in enumerate(order)}, None
         for w in words:
             curr = [ordermap[ch] for ch in w]
