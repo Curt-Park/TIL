@@ -126,6 +126,7 @@
 | 120  | Verifying an Alien Dictionary | hash | [leetcode](https://leetcode.com/problems/verifying-an-alien-dictionary) | [A](hash/alien_dict.py) | + |
 | 121  | Longest String Chain | hash | [leetcode](https://leetcode.com/problems/longest-string-chain) | [A](hash/longest_str_chain.py) | + |
 | 122  | Sudoku Solver | hash | [leetcode](https://leetcode.com/problems/sudoku-solver) | [A](hash/sudoku_solver.py) | + |
+| 123  | Swap Nodes in Pairs | linked list | [leetcode](https://leetcode.com/problems/swap-nodes-in-pairs) | [A](linked_list/swap_nodes_in_pairs.py) | + |
 
 
 +: Solved within 30 min
