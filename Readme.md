@@ -127,6 +127,7 @@
 | 121  | Longest String Chain | hash | [leetcode](https://leetcode.com/problems/longest-string-chain) | [A](hash/longest_str_chain.py) | + |
 | 122  | Sudoku Solver | hash | [leetcode](https://leetcode.com/problems/sudoku-solver) | [A](hash/sudoku_solver.py) | + |
 | 123  | Swap Nodes in Pairs | linked list | [leetcode](https://leetcode.com/problems/swap-nodes-in-pairs) | [A](linked_list/swap_nodes_in_pairs.py) | + |
+| 124  | Reverse Linked List | linked list | [leetcode](https://leetcode.com/problems/reverse-linked-list) | [A](linked_list/reverse_linked_list.py) | + |
 
 
 +: Solved within 30 min
