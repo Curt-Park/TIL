@@ -128,6 +128,7 @@
 | 122  | Sudoku Solver | hash | [leetcode](https://leetcode.com/problems/sudoku-solver) | [A](hash/sudoku_solver.py) | + |
 | 123  | Swap Nodes in Pairs | linked list | [leetcode](https://leetcode.com/problems/swap-nodes-in-pairs) | [A](linked_list/swap_nodes_in_pairs.py) | + |
 | 124  | Reverse Linked List | linked list | [leetcode](https://leetcode.com/problems/reverse-linked-list) | [A](linked_list/reverse_linked_list.py) | + |
+| 125  | Add two numbers 2 | linked list | [leetcode](https://leetcode.com/problems/add-two-numbers-ii) | [A](linked_list/add_two_num2.py) | -- |
 
 
 +: Solved within 30 min
