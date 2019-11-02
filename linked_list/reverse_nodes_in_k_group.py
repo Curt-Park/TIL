@@ -25,14 +25,12 @@ You may not alter the values in the list's nodes, only nodes itself may be chang
 class Solution:
     def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
         """O(N) / O(1)"""
-        def reverseList(prev: ListNode, cur: ListNode, cnt: int) -> ListNode:
-            while cur and cnt:
-                cur.next, prev, cur, cnt = prev, cur, cur.next, cnt - 1
-            return cur, prev
-        cnt, p = 0, head
-        while p and cnt < k:
-            p, cnt = p.next, cnt + 1
-        if cnt < k: return head
-        n_head, prev = reverseList(p, head, cnt)
-        head.next = self.reverseKGroup(n_head, k)
+        cnt, prev, cur = 0, head, head
+        while prev and cnt < k:
+            prev, cnt = prev.next, cnt + 1
+        if cnt < k:
+            return head
+        while cur and cnt:
+            cur.next, prev, cur, cnt = prev, cur, cur.next, cnt - 1
+        head.next = self.reverseKGroup(cur, k)
         return prev
