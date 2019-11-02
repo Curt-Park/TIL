@@ -129,6 +129,7 @@
 | 123  | Swap Nodes in Pairs | linked list | [leetcode](https://leetcode.com/problems/swap-nodes-in-pairs) | [A](linked_list/swap_nodes_in_pairs.py) | + |
 | 124  | Reverse Linked List | linked list | [leetcode](https://leetcode.com/problems/reverse-linked-list) | [A](linked_list/reverse_linked_list.py) | + |
 | 125  | Add two numbers 2 | linked list | [leetcode](https://leetcode.com/problems/add-two-numbers-ii) | [A](linked_list/add_two_num2.py) | -- |
+| 126  | Reverse Nodes in k-Group | linked list | [leetcode](https://leetcode.com/problems/reverse-nodes-in-k-group) | [A](linked_list/reverse_nodes_in_k_group.py) | - |
 
 
 +: Solved within 30 min
