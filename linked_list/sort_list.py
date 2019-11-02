@@ -19,7 +19,7 @@ Output: -1->0->3->4->5
 
 class Solution:
     def sortList(self, head: ListNode) -> ListNode:
-        """O(NlogN) / O(1)"""
+        """O(NlogN) / O(logN)"""
         def merge(l1: ListNode, l2: ListNode) -> ListNode:
             dummy = p = ListNode(0)
             while l1 and l2:
