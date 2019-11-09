@@ -131,6 +131,7 @@
 | 125  | Add two numbers 2 | linked list | [leetcode](https://leetcode.com/problems/add-two-numbers-ii) | [A](linked_list/add_two_num2.py) | -- |
 | 126  | Reverse Nodes in k-Group | linked list | [leetcode](https://leetcode.com/problems/reverse-nodes-in-k-group) | [A](linked_list/reverse_nodes_in_k_group.py) | - |
 | 127  | Sort List| linked list | [leetcode](https://leetcode.com/problems/sort-list) | [A](linked_list/sort_list.py) | ! |
+| 128  | BST Iterator | tree (stack) | [leetcode](https://leetcode.com/problems/binary-search-tree-iterator/) | [A](tree/bst_iterator.py) | - |
 
 
 +: Solved within 30 min
