@@ -64,11 +64,9 @@ output 1
 class Solution:
     def maximalSquare(self, matrix: List[List[str]]) -> int:
         """O(MN) / O(1)"""
-        sqrt_ans, dp = 0, matrix
         for i in range(len(matrix)):
             for j in range(len(matrix[0])):
-                dp[i][j] = int(dp[i][j])
-                if i and j and dp[i][j]:
-                    dp[i][j] = min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1]) + 1
-                sqrt_ans = max(sqrt_ans, dp[i][j])
-        return sqrt_ans ** 2
+                matrix[i][j] = min(
+                    matrix[i-1][j-1], matrix[i-1][j], matrix[i][j-1]
+                ) + 1 if i and j and matrix[i][j] == "1" else int(matrix[i][j])
+        return len(matrix) and max(map(max, matrix)) ** 2
