@@ -24,6 +24,14 @@ Total amount you can rob = 2 + 9 + 1 = 12.
 
 class Solution:
     def rob(self, nums: List[int]) -> int:
+        """O(N) / O(1)"""
+        dp = [0] + nums[:2]
+        for i in range(2, len(nums)):
+            dp[0], dp[1], dp[2] = dp[1], dp[2], nums[i]
+            dp[2] += max(dp[0], dp[1] - nums[i-1])
+        return max(dp)
+        
+    def rob(self, nums: List[int]) -> int:
         """O(N) / O(N)"""
         dp = nums[:]
         for i in range(2, len(dp)):
