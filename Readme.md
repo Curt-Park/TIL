@@ -135,6 +135,7 @@
 | 129  | House Robber | dp | [leetcode](https://leetcode.com/problems/house-robber/) | [A](dp/house_robber.py) | + |
 | 130  | Maximal Square | dp | [leetcode](https://leetcode.com/problems/maximal-square/) | [A](dp/maximal_square.py) | - |
 | 131  | Palindromic Substring | dp | [leetcode](https://leetcode.com/problems/palindromic-substrings/) | [A](dp/palindromic_substring.py) | + |
+| 132  | Combination Sum | dp | [leetcode](https://leetcode.com/problems/combination-sum/) | [A](dp/combination_sum.py) | -! |
 
 
 +: Solved within 30 min
