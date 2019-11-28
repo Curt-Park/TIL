@@ -137,6 +137,7 @@
 | 131  | Palindromic Substring | dp | [leetcode](https://leetcode.com/problems/palindromic-substrings/) | [A](dp/palindromic_substring.py) | + |
 | 132  | Combination Sum | dp | [leetcode](https://leetcode.com/problems/combination-sum/) | [A](dp/combination_sum.py) | -! |
 | 133  | Maximum product subarray | dp | [leetcode](https://leetcode.com/problems/maximum-product-subarray/) | [A](dp/max_product_subarray.py) | -! |
+| 134  | Longest increasing subsquence | dp | [leetcode](https://leetcode.com/problems/longest-increasing-subsequence/) | [A](dp/longest_increasing_subsquence.py) | + |
 
 
 +: Solved within 30 min
