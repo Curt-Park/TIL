@@ -139,6 +139,7 @@
 | 133  | Maximum product subarray | dp | [leetcode](https://leetcode.com/problems/maximum-product-subarray/) | [A](dp/max_product_subarray.py) | -! |
 | 134  | Longest increasing subsquence | dp | [leetcode](https://leetcode.com/problems/longest-increasing-subsequence/) | [A](dp/longest_increasing_subsquence.py) | + |
 | 135  | Restore IP Addresses | dp | [leetcode](https://leetcode.com/problems/restore-ip-addresses/) | [A](dp/restore_ip_addr.py) | + |
+| 136  | Minimum Cost Tree From Leaf Values | dp | [leetcode](https://leetcode.com/problems/minimum-cost-tree-from-leaf-values/) | [A](dp/min_cost_tree_from_leaf.py) | -! |
 
 
 +: Solved within 30 min
