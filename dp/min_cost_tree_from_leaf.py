@@ -38,12 +38,12 @@ It is guaranteed that the answer fits into a 32-bit signed integer (ie. it is le
 class Solution:
     def mctFromLeafValues(self, arr: List[int]) -> int:
         """O(N^3) / O(N^2)"""
-        def mct(s = 0, e = len(arr) - 1, dp = {}):
-            if (s, e) in dp or e <= s:
-                return s < e and dp[s, e]
-            dp[s, e] = min(
-                mct(s, k - 1) + mct(k, e) + max(arr[s:k]) * max(arr[k:e+1])
-                for k in range(s + 1, e + 1)
-            )
-            return dp[s, e]
+        def mct(s = 0, e = len(arr) - 1, n = float("inf"), dp0 = {}, dp1 = {}):
+            if (s, e) in dp0 or e <= s:
+                return s < e and dp0[s, e]
+            for k in range(s + 1, e + 1):
+                max_l = dp1[s, k] if (s, k) in dp1 else max(arr[s:k])
+                max_r = dp1[k, e+1] if (k, e+1) in dp1 else max(arr[k:e+1])
+                n = min(n, mct(s, k - 1) + mct(k, e) + max_l * max_r)
+            return dp0.setdefault((s, e), n)
         return mct()
