@@ -141,6 +141,7 @@
 | 135  | Restore IP Addresses | dp | [leetcode](https://leetcode.com/problems/restore-ip-addresses/) | [A](dp/restore_ip_addr.py) | + |
 | 136  | Minimum Cost Tree From Leaf Values | dp | [leetcode](https://leetcode.com/problems/minimum-cost-tree-from-leaf-values/) | [A](dp/min_cost_tree_from_leaf.py) | -! |
 | 137  | N-Queens | dp | [leetcode](https://leetcode.com/problems/n-queens/) | [A](dp/n_queens.py) | + |
+| 138  | Unique BST | tree | [leetcode](https://leetcode.com/problems/unique-binary-search-trees/) | [A](tree/unique_bst.py) | ! |
 
 
 +: Solved within 30 min
