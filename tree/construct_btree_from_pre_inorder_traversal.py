@@ -28,13 +28,10 @@ from collections import deque
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
         """O(N) / O(N)"""
-        def traverse(idx_l: int, idx_r: int) -> TreeNode:
-            if not idx_l <= idx_r: return None
-            node = TreeNode(preorder_dq[0])
-            idx = inorder_map[preorder_dq.popleft()]
-            node.left = traverse(idx_l, idx - 1)
-            node.right = traverse(idx + 1, idx_r)
-            return node
-        preorder_dq = deque(preorder)
-        inorder_map = {v: i for i, v in enumerate(inorder)}
+        def traverse(i_l: int, i_r: int) -> TreeNode:
+                if not i_l <= i_r: return None
+                node, i = TreeNode(preorder[-1]), idx_map[preorder.pop()]
+                node.left, node.right = traverse(i_l, i - 1), traverse(i + 1, i_r)
+                return node
+        idx_map, preorder = {v: i for i, v in enumerate(inorder)}, preorder[::-1]
         return traverse(0, len(preorder) - 1)
