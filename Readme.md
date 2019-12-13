@@ -143,6 +143,7 @@
 | 137  | N-Queens | dp | [leetcode](https://leetcode.com/problems/n-queens/) | [A](dp/n_queens.py) | + |
 | 138  | Unique BST | tree | [leetcode](https://leetcode.com/problems/unique-binary-search-trees/) | [A](tree/unique_bst.py) | ! |
 | 139  | Construct Binary Tree from Preorder and Inorder Traversal | tree | [leetcode](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/) | [A](tree/construct_btree_from_pre_inorder_traversal.py) | ! |
+| 140  | Count Complete Tree Nodes | tree | [leetcode](https://leetcode.com/problems/count-complete-tree-nodes/) | [A](tree/count_complete_tree_nodes.py) | +! |
 
 
 +: Solved within 30 min
