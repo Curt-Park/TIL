@@ -40,13 +40,16 @@ Return false.
 class Solution:
     def isSubtree(self, s: TreeNode, t: TreeNode) -> bool:
         """O(|S|+|T|) / O(|S|+|T|)"""
-        def convertToStr(node: TreeNode):
-            if not node: return "|N"
-            return "|" + str(node.val) + convertToStr(node.left) + convertToStr(node.right)
-        return convertToStr(t) in convertToStr(s)
+        def convert(node: TreeNode, ret: List[str]):
+            if not node:
+                ret.append("|N")
+                return
+            ret.append(f"|{node.val}"); convert(node.left, ret); convert(node.right, ret)
+        s_str, t_str = [], []; convert(s, s_str); convert(t, t_str)
+        return "".join(t_str) in "".join(s_str)
 
     def isSubtree(self, s: TreeNode, t: TreeNode) -> bool:
-        """O(|S|+|T|) / O(log|S|)"""
+        """O(|S|*|T|) / O(log|S|)"""
         def isIdentical(s: TreeNode, t: TreeNode) -> bool:
             if not s and not t: return True
             if not s and t or s and not t: return False
