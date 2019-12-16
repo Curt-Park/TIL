@@ -146,6 +146,7 @@
 | 140  | Count Complete Tree Nodes | tree | [leetcode](https://leetcode.com/problems/count-complete-tree-nodes/) | [A](tree/count_complete_tree_nodes.py) | +! |
 | 141  | Subtree of Another Tree | tree | [leetcode](https://leetcode.com/problems/subtree-of-another-tree/) | [A](tree/subtree_of_another_tree.py) | +! |
 | 142  | All Nodes Distance K in Binary Tree | tree | [leetcode](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/) | [A](tree/all_nodes_dist_k_in_btree.py) | ! |
+| 143  | Diameter of Binary Tree | tree | [leetcode](https://leetcode.com/problems/diameter-of-binary-tree) | [A](tree/diameter_of_btree.py) | + |
 
 
 +: Solved within 30 min
