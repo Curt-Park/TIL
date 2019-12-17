@@ -55,7 +55,6 @@ Could you devise a constant space solution?
 #         self.left = None
 #         self.right = None
 
-from collections import deque
 from typing import Callable
 
 
@@ -65,16 +64,15 @@ class Solution:
         Do not return anything, modify root in-place instead.
         """
         def traverse(node: TreeNode) -> None:
-            if not node or len(wrong) == 2: return
+            if not node: return
             traverse(node.left)
-            if latest and node.val < latest[-1].val:
-                wrong.append((latest[-1], node))
-            latest.append(node)
+            if self.recent and node.val < self.recent.val:
+                if not self.fix: self.fix = [self.recent, node]
+                else: self.fix[1] = node
+            self.recent = node
             traverse(node.right)
-        latest, wrong = deque(maxlen=1), []; traverse(root)
-        if len(wrong) == 2: swap0, swap1 = wrong[0][0], wrong[-1][1]
-        else: swap0, swap1 = wrong[0][0], wrong[0][1])
-        swap0.val, swap1.val = swap1.val, swap0.val
+        self.recent = self.fix = None; traverse(root)
+        self.fix[0].val, self.fix[1].val = self.fix[1].val, self.fix[0].val
 
     def recoverTree1(self, root: TreeNode) -> None:
         """O(NH) / O(H)
