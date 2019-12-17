@@ -55,27 +55,25 @@ Could you devise a constant space solution?
 #         self.left = None
 #         self.right = None
 
+from collections import deque
 from typing import Callable
 
 
 class Solution:
     def recoverTree2(self, root: TreeNode) -> None:
-        """O(N) / O(N)
+        """O(N) / O(H)
         Do not return anything, modify root in-place instead.
         """
         def traverse(node: TreeNode) -> None:
-            if not node or len(wrong) == 2:
-                return
+            if not node or len(wrong) == 2: return
             traverse(node.left)
-            if arr and node.val < arr[-1].val:
-                wrong.append((arr[-1], node))
-            arr.append(node)
+            if latest and node.val < latest[-1].val:
+                wrong.append((latest[-1], node))
+            latest.append(node)
             traverse(node.right)
-        arr, wrong = [], []; traverse(root)
-        if len(wrong) == 2:
-            swap0, swap1 = wrong[0][0], wrong[-1][1]
-        else:
-            swap0, swap1 = wrong[0][0], wrong[0][1])
+        latest, wrong = deque(maxlen=1), []; traverse(root)
+        if len(wrong) == 2: swap0, swap1 = wrong[0][0], wrong[-1][1]
+        else: swap0, swap1 = wrong[0][0], wrong[0][1])
         swap0.val, swap1.val = swap1.val, swap0.val
 
     def recoverTree1(self, root: TreeNode) -> None:
