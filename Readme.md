@@ -147,6 +147,7 @@
 | 141  | Subtree of Another Tree | tree | [leetcode](https://leetcode.com/problems/subtree-of-another-tree/) | [A](tree/subtree_of_another_tree.py) | +! |
 | 142  | All Nodes Distance K in Binary Tree | tree | [leetcode](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/) | [A](tree/all_nodes_dist_k_in_btree.py) | ! |
 | 143  | Diameter of Binary Tree | tree | [leetcode](https://leetcode.com/problems/diameter-of-binary-tree) | [A](tree/diameter_of_btree.py) | + |
+| 144  | Recover Binary Search Tree | tree | [leetcode](https://leetcode.com/problems/recover-binary-search-tree) | [A](tree/recover_bst.py) | -! |
 
 
 +: Solved within 30 min
