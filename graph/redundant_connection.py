@@ -40,7 +40,39 @@ from collections import defaultdict
 
 
 class Solution:
-    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
+    def findRedundantConnection3(self, edges: List[List[int]]) -> List[int]:
+        """O(N) / O(N)"""
+        root = list(range(len(edges) + 1))
+        for u, v in edges:
+            if root[u] == root[v]:
+                return u, v
+            target = root[u]
+            for i in range(len(root)):
+                if root[i] == target:
+                    root[i] = root[v]
+        return []
+
+    def findRedundantConnection2(self, edges: List[List[int]]) -> List[int]:
+        """O(N) / O(N)
+        https://en.wikipedia.org/wiki/Disjoint-set_data_structure#Time_complexity
+        """
+        def find(x: int) -> int:
+            if self.par[x] == x: return x
+            self.par[x] = find(self.par[x])
+            return self.par[x]
+        def union(x: int, y: int) -> bool:
+            x, y = find(x), find(y)
+            if x == y: return False
+            if self.rank[x] < self.rank[y]: self.par[x] = y
+            elif self.rank[y] < self.rank[x]: self.par[y] = x
+            else: self.par[x], self.rank[y] = y, self.rank[y] + 1
+            return True
+        self.par, self.rank = list(range(len(edges) + 1)), [0] * (len(edges) + 1)
+        for e in edges:
+            if not union(*e): return e
+        return []
+
+    def findRedundantConnection1(self, edges: List[List[int]]) -> List[int]:
         """O(N^2) / O(N)"""
         def isReachable(v: int, target: int) -> bool:
             if v in visited: return False

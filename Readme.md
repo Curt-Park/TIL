@@ -150,6 +150,7 @@
 | 144  | Recover Binary Search Tree | tree | [leetcode](https://leetcode.com/problems/recover-binary-search-tree) | [A](tree/recover_bst.py) | -! |
 | 145  | Keys and Rooms | graph | [leetcode](https://leetcode.com/problems/keys-and-rooms) | [A](graph/keys_and_rooms.py) | + |
 | 146  | Find the town judge | graph | [leetcode](https://leetcode.com/problems/find-the-town-judge) | [A](graph/find_the_town_judge.py) | ++ |
+| 147  | Redundant Connection | graph | [leetcode](https://leetcode.com/problems/redundant-connection) | [A](graph/redundant_connection.py) | -! |
 
 
 +: Solved within 30 min
