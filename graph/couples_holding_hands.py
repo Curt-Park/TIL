@@ -33,23 +33,23 @@ row is guaranteed to be a permutation of 0...len(row)-1.
 class Solution:
     def minSwapsCouples(self, row: List[int]) -> int:
         """O(N) / O(N)"""
-        self.par, self.rank, ans = [i - (i % 2) for i in range(len(row))], [0] * len(row), 0
+        self.par = [i - (i % 2) for i in range(len(row))]
+        self.rank, swap = [0] * len(row), 0
         for i in range(0, len(row), 2):
-            p1, p2 = row[i], row[i + 1]
+            p1, p2, c1, c2 = row[i], row[i + 1]
             c1, c2 = p1 // 2, p2 // 2
-            if c1 != c2 and self.find(p1) != self.find(p2):
-                ans += 1
-                self.union(p1, p2)
-        return ans
+            swap += c1 != c2 and self.union(p1, p2)
+        return swap
 
     def find(self, x: int) -> int:
         if self.par[x] == x: return x
         self.par[x] = self.find(self.par[x])
         return self.par[x]
 
-    def union(self, x: int, y: int)  -> None:
+    def union(self, x: int, y: int)  -> bool:
         x, y = self.find(x), self.find(y)
-        if x == y: return
+        if x == y: return False
         if self.rank[x] < self.rank[y]: self.par[x] = y
         elif self.rank[y] < self.rank[x]: self.par[y] = x
         else: self.par[x], self.rank[y] = y, self.rank[y] + 1
+        return True
