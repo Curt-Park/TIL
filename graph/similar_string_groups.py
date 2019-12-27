@@ -30,13 +30,13 @@ import collections, itertools
 
 class Solution:
     def numSimilarGroups2(self, A: List[str]) -> int:
-        """O(N^2W or NW^2) / O(NW^3)"""
+        """O(NW * min(N, W^2)) / O(N or NW^3)"""
         self.par, self.rank = list(range(len(A))), [0] * len(A)
         N, W, ans = len(A), len(A[0]), len(A)
         if N < W * W: # If few words, then check for pairwise similarity: O(N^2W)
             for (i1, word1), (i2, word2) in itertools.combinations(enumerate(A), 2):
                 ans -= self.isSimilar(word1, word2) and self.union(i1, i2)
-        else: # If short words, check all neighbors: O(NW^2)
+        else: # If short words, check all neighbors: O(NW^3)
             buckets = collections.defaultdict(set)
             for i, word in enumerate(A):
                 L = list(word)
