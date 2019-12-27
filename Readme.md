@@ -152,6 +152,7 @@
 | 146  | Find the town judge | graph | [leetcode](https://leetcode.com/problems/find-the-town-judge) | [A](graph/find_the_town_judge.py) | ++ |
 | 147  | Redundant Connection | graph | [leetcode](https://leetcode.com/problems/redundant-connection) | [A](graph/redundant_connection.py) | -! |
 | 148  | Regions Cut By Slashes | graph | [leetcode](https://leetcode.com/problems/regions-cut-by-slashes) | [A](graph/regions_cut_by_slashes.py) | -! |
+| 149  | Couples Holding Hands | graph | [leetcode](https://leetcode.com/problems/couples-holding-hands) | [A](graph/couples_holding_hands.py) | -! |
 
 
 +: Solved within 30 min
