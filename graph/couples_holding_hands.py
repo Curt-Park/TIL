@@ -36,7 +36,7 @@ class Solution:
         self.par = [i - (i % 2) for i in range(len(row))]
         self.rank, swap = [0] * len(row), 0
         for i in range(0, len(row), 2):
-            p1, p2, c1, c2 = row[i], row[i + 1]
+            p1, p2 = row[i], row[i + 1]
             c1, c2 = p1 // 2, p2 // 2
             swap += c1 != c2 and self.union(p1, p2)
         return swap

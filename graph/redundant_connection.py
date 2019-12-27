@@ -41,7 +41,7 @@ from collections import defaultdict
 
 class Solution:
     def findRedundantConnection3(self, edges: List[List[int]]) -> List[int]:
-        """O(N) / O(N)"""
+        """O(N^2) / O(N)"""
         root = list(range(len(edges) + 1))
         for u, v in edges:
             if root[u] == root[v]:
