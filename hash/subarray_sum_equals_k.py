@@ -19,45 +19,13 @@ The range of numbers in the array is [-1000, 1000] and
 the range of the integer k is [-1e7, 1e7].
 """
 
-from typing import List
-
-
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        """ O(N), O(N)
-        >>> fn = Solution().subarraySum
-        >>> fn([1], 1)
-        1
-        >>> fn([1,1,1], 2)
-        2
-        >>> fn([1,1,1], 1)
-        3
-        >>> fn([1,1,1,1,1], 3)
-        3
-        >>> fn([1,1,-1,1,1], 3)
-        1
-        >>> fn([1,1,-1,1,1], 2)
-        4
-        >>> fn([-1,-1,1,-1,-1], -2)
-        4
-        >>> fn([5,4,3,4,5], 9)
-        2
-        >>> fn([5,2,3,2,5], 5)
-        4
-        >>> fn([0,0,1,0,0], 1)
-        9
-        >>> fn([1,2,3,4,5], 6)
-        1
-        """
+        """ O(N), O(N)"""
         tot, cnt, dic = 0, 0, {0: 1}
         for n in nums:
             tot += n
             if tot - k in dic:
                 cnt += dic[tot - k]
-            dic[tot] = dic[tot] + 1 if tot in dic else 1
+            dic[tot] = dic.get(tot, 0) + 1
         return cnt
-
-
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
