@@ -25,7 +25,6 @@ class Solution:
         tot, cnt, dic = 0, 0, {0: 1}
         for n in nums:
             tot += n
-            if tot - k in dic:
-                cnt += dic[tot - k]
+            cnt += dic.get(tot - k, 0)
             dic[tot] = dic.get(tot, 0) + 1
         return cnt
