@@ -154,6 +154,7 @@
 | 148  | Regions Cut By Slashes | graph | [leetcode](https://leetcode.com/problems/regions-cut-by-slashes) | [A](graph/regions_cut_by_slashes.py) | -! |
 | 149  | Couples Holding Hands | graph | [leetcode](https://leetcode.com/problems/couples-holding-hands) | [A](graph/couples_holding_hands.py) | -! |
 | 150  | Similar String Groups | graph | [leetcode](https://leetcode.com/problems/similar-string-groups) | [A](graph/similar_string_groups.py) | -! |
+| 151  | Longest Substring Without Repeating Characters | hash | [leetcode](https://leetcode.com/problems/longest-substring-without-repeating-characters) | [A](hash/longest_substr_wo_repeating_ch.py) | + |
 
 
 +: Solved within 30 min
