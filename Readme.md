@@ -155,6 +155,9 @@
 | 149  | Couples Holding Hands | graph | [leetcode](https://leetcode.com/problems/couples-holding-hands) | [A](graph/couples_holding_hands.py) | -! |
 | 150  | Similar String Groups | graph | [leetcode](https://leetcode.com/problems/similar-string-groups) | [A](graph/similar_string_groups.py) | -! |
 | 151  | Longest Substring Without Repeating Characters | hash | [leetcode](https://leetcode.com/problems/longest-substring-without-repeating-characters) | [A](hash/longest_substr_wo_repeating_ch.py) | + |
+| 152  | Arranging Coins | search | [leetcode](https://leetcode.com/explore/featured/card/july-leetcoding-challenge/544/week-1-july-1st-july-7th/3377/) | [A](search/arranging_coins.py) | ++-! |
+| 153  | Binary Tree Level Order Traversal II | tree | [leetcode](https://leetcode.com/explore/featured/card/july-leetcoding-challenge/544/week-1-july-1st-july-7th/3378/) | [A](tree/binary_tree_level_order_traversal_2.py) | + |
+| 154  | Prison Cells After N Days | bit manipulation | [leetcode](https://leetcode.com/problems/prison-cells-after-n-days/) | [A](bit_manipulation/prison_cells_after_n_days.py) | +! |
 
 
 +: Solved within 30 min
