@@ -159,6 +159,7 @@
 | 153  | Binary Tree Level Order Traversal II | tree | [leetcode](https://leetcode.com/explore/featured/card/july-leetcoding-challenge/544/week-1-july-1st-july-7th/3378/) | [A](tree/binary_tree_level_order_traversal_2.py) | + |
 | 154  | Prison Cells After N Days | bit manipulation | [leetcode](https://leetcode.com/problems/prison-cells-after-n-days/) | [A](bit_manipulation/prison_cells_after_n_days.py) | +! |
 | 155  | Hamming Distance | bit manipulation | [leetcode](https://leetcode.com/problems/hamming-distance/) | [A](bit_manipulation/hamming_distance.py) | + |
+| 156  | Island Perimeter | array | [leetcode](https://leetcode.com/problems/island-perimeter) | [A](array/island_perimeter.py) | + |
 
 
 +: Solved within 30 min
