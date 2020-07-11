@@ -28,6 +28,21 @@ from typing import List
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         """O(N^2) / O(1)"""
+        nums.sort()
+        i, N, sol = 0, len(nums), []
+        while i < N - 2:
+            l, r = i + 1, N - 1
+            while l < r:
+                three_sum = sum([nums[i], nums[l], nums[r]])
+                if three_sum == 0:
+                    sol.append([nums[i], nums[l], nums[r]])
+                    l = next((j for j in range(l, r) if nums[l] != nums[j]), r)
+                l, r = l + (three_sum < 0), r - (three_sum > 0)
+            i = next((k for k in range(i, N - 2) if nums[i] != nums[k]), N - 2)
+        return sol
+
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        """O(N^2) / O(1)"""
         N, ans = len(nums), []
         nums.sort()
         for i in range(N - 2):
