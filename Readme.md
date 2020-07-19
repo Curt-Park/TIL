@@ -160,6 +160,8 @@
 | 154  | Prison Cells After N Days | bit manipulation | [leetcode](https://leetcode.com/problems/prison-cells-after-n-days/) | [A](bit_manipulation/prison_cells_after_n_days.py) | +! |
 | 155  | Hamming Distance | bit manipulation | [leetcode](https://leetcode.com/problems/hamming-distance/) | [A](bit_manipulation/hamming_distance.py) | + |
 | 156  | Island Perimeter | array | [leetcode](https://leetcode.com/problems/island-perimeter) | [A](array/island_perimeter.py) | + |
+| 157  | Reverse words in a string | string | [leetcode](https://leetcode.com/problems/reverse-words-in-a-string/) | [A](string/reverse_words_in_a_string.py) | + |
+| 158  | pow_x_n | math | [leetcode](https://leetcode.com/problems/powx-n/) | [A](math/pow_x_n.py) | + |
 
 
 +: Solved within 30 min
