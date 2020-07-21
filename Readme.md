@@ -162,6 +162,8 @@
 | 156  | Island Perimeter | array | [leetcode](https://leetcode.com/problems/island-perimeter) | [A](array/island_perimeter.py) | + |
 | 157  | Reverse words in a string | string | [leetcode](https://leetcode.com/problems/reverse-words-in-a-string/) | [A](string/reverse_words_in_a_string.py) | + |
 | 158  | pow_x_n | math | [leetcode](https://leetcode.com/problems/powx-n/) | [A](math/pow_x_n.py) | + |
+| 159  | Remove Linked List Elements | linked list | [leetcode](https://leetcode.com/problems/remove-linked-list-elements/) | [A](linked_list/remove_linked_list_elements.py) | + |
+| 160  | Add binary | math | [leetcode](https://leetcode.com/problems/add-binary/) | [A](math/add_binary.py) | + |
 
 
 +: Solved within 30 min
