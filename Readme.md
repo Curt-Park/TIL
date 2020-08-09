@@ -166,7 +166,7 @@
 | 160  | Add binary | math | [leetcode](https://leetcode.com/problems/add-binary/) | [A](math/add_binary.py) | + |
 | 161  | Power of four | math | [leetcode](https://leetcode.com/problems/power-of-four/) | [A](math/power_of_four.py) | + |
 | 162  | Add and Search Word | tree | [leetcode](https://leetcode.com/problems/add-and-search-word-data-structure-design/) | [A](tree/add_and_search_word.py) | - |
-| 163  | Find all duplicates in an array | bit manipulation | [leetcode](https://leetcode.com/problems/add-and-search-word-data-structure-design/) | [A](tree/add_and_search_word.py) | +! |
+| 163  | Find all duplicates in an array | array | [leetcode](https://leetcode.com/problems/find-all-duplicates-in-an-array) | [A](array/find_all_duplicates_in_an_array.py) | +!! |
 
 
 +: Solved within 30 min
