@@ -167,6 +167,9 @@
 | 161  | Power of four | math | [leetcode](https://leetcode.com/problems/power-of-four/) | [A](math/power_of_four.py) | + |
 | 162  | Add and Search Word | tree | [leetcode](https://leetcode.com/problems/add-and-search-word-data-structure-design/) | [A](tree/add_and_search_word.py) | - |
 | 163  | Find all duplicates in an array | array | [leetcode](https://leetcode.com/problems/find-all-duplicates-in-an-array) | [A](array/find_all_duplicates_in_an_array.py) | +!! |
+| 164  | Vertical Order Traversal of a Binary Tree | tree | [leetcode](https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree) | [A](tree/vertical_order_traverse_of_a_binary_tree.py) | + |
+| 165  | Rotting Oranges | array | [leetcode](https://leetcode.com/problems/rotting-oranges/) | [A](array/rotting_oranges.py) | + |
+| 166  | Excel Sheet Column Number | string | [leetcode](https://leetcode.com/problems/excel-sheet-column-number/) | [A](string/excel_sheet_column_number.py) | + |
 
 
 +: Solved within 30 min
