@@ -171,6 +171,7 @@
 | 165  | Rotting Oranges | array | [leetcode](https://leetcode.com/problems/rotting-oranges/) | [A](array/rotting_oranges.py) | + |
 | 166  | Excel Sheet Column Number | string | [leetcode](https://leetcode.com/problems/excel-sheet-column-number/) | [A](string/excel_sheet_column_number.py) | + |
 | 167  | Path Sum iii | tree | [leetcode](https://leetcode.com/problems/path-sum-iii/) | [A](tree/path_sum_3.py) | ! |
+| 168  | H-Index | array | [leetcode](https://leetcode.com/problems/h-index/) | [A](array/h_index.py) | +++ |
 
 
 +: Solved within 30 min
