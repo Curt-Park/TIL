@@ -173,6 +173,7 @@
 | 167  | Path Sum iii | tree | [leetcode](https://leetcode.com/problems/path-sum-iii/) | [A](tree/path_sum_3.py) | ! |
 | 168  | H-Index | array | [leetcode](https://leetcode.com/problems/h-index/) | [A](array/h_index.py) | +++ |
 | 169  | Pascal's Triangle ii | array | [leetcode](https://leetcode.com/problems/pascals-triangle-ii) | [A](array/pascals_triangle_2.py) | ++! |
+| 170  | Iterator for combination | string | [leetcode](https://leetcode.com/problems/iterator-for-combination) | [A](string/iterator_for_combination.py) | + |
 
 
 +: Solved within 30 min
