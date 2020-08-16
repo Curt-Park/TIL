@@ -46,8 +46,8 @@ class Solution:
             total += node.val
             cnt = mem.get(total - target, 0)
             mem[total] = mem.get(total, 0) + 1
-            cnt += traverse(node.left, path, total)
-            cnt += traverse(node.right, path, total)
+            cnt += dfs(node.left, path, total)
+            cnt += dfs(node.right, path, total)
             mem[total] -= 1
             path.pop()
             return cnt
