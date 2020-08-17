@@ -175,6 +175,7 @@
 | 169  | Pascal's Triangle ii | array | [leetcode](https://leetcode.com/problems/pascals-triangle-ii) | [A](array/pascals_triangle_2.py) | ++! |
 | 170  | Iterator for combination | string | [leetcode](https://leetcode.com/problems/iterator-for-combination) | [A](string/iterator_for_combination.py) | + |
 | 171  | Longest Palindrome | string | [leetcode](https://leetcode.com/problems/longest-palindrome) | [A](string/longest_palindrome.py) | + |
+| 172  | Non-Overlapping Intervals | array | [leetcode](https://leetcode.com/problems/non-overlapping-intervals) | [A](array/non_overlapping_intervals.py) | -! |
 
 
 +: Solved within 30 min
