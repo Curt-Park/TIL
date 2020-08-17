@@ -40,15 +40,14 @@ Return 3. The paths that sum to 8 are:
 class Solution:
     def pathSum(self, root: TreeNode, target: int) -> int:
         """O(N) / O(N)"""
-        def dfs(node, path = [], total = 0, mem = {0: 1}):
+        def dfs(node, total = 0, mem = {0: 1}):
+            def dfs(node, total = 0, mem = {0: 1}):
             if not node: return 0
-            path.append(node.val)
             total += node.val
             cnt = mem.get(total - target, 0)
             mem[total] = mem.get(total, 0) + 1
-            cnt += dfs(node.left, path, total)
-            cnt += dfs(node.right, path, total)
+            cnt += dfs(node.left, total)
+            cnt += dfs(node.right, total)
             mem[total] -= 1
-            path.pop()
             return cnt
         return dfs(root)
