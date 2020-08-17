@@ -41,7 +41,6 @@ class Solution:
     def pathSum(self, root: TreeNode, target: int) -> int:
         """O(N) / O(N)"""
         def dfs(node, total = 0, mem = {0: 1}):
-            def dfs(node, total = 0, mem = {0: 1}):
             if not node: return 0
             total += node.val
             cnt = mem.get(total - target, 0)
