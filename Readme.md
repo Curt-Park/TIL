@@ -178,6 +178,7 @@
 | 172  | Non-Overlapping Intervals | array | [leetcode](https://leetcode.com/problems/non-overlapping-intervals) | [A](array/non_overlapping_intervals.py) | -! |
 | 173  | Best Time to Buy and Sell Stock 3 | dp | [leetcode](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii) | [A](dp/best_time_buy_and_sell_stock_3.py) | ! |
 | 174  | Distribute candies to people | array | [leetcode](https://leetcode.com/problems/distribute-candies-to-people) | [A](array/distribute_candies_to_people.py) | ! |
+| 175  | Numbers With Same Consecutive Differences | array | [leetcode](https://leetcode.com/problems/numbers-with-same-consecutive-differences) | [A](array/num_with_same_consecutive_diff.py) | + |
 
 
 +: Solved within 30 min
