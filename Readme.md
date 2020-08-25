@@ -180,6 +180,8 @@
 | 174  | Distribute candies to people | array | [leetcode](https://leetcode.com/problems/distribute-candies-to-people) | [A](array/distribute_candies_to_people.py) | ! |
 | 175  | Numbers With Same Consecutive Differences | array | [leetcode](https://leetcode.com/problems/numbers-with-same-consecutive-differences) | [A](array/num_with_same_consecutive_diff.py) | + |
 | 176  | Sum of left leaves | tree | [leetcode](https://leetcode.com/problems/sum-of-left-leaves) | [A](tree/sum_of_left_leaves.py) | + |
+| 177  | Sort array by parity | array | [leetcode](https://leetcode.com/problems/sort-array-by-parity) | [a](array/sort_arr_by_parity.py) | + |
+| 178  | Goat Latin | string | [leetcode](https://leetcode.com/problems/goat-latin) | [a](string/goat_latin.py) | + |
 
 
 +: Solved within 30 min
