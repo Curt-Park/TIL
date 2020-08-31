@@ -182,6 +182,11 @@
 | 176  | Sum of left leaves | tree | [leetcode](https://leetcode.com/problems/sum-of-left-leaves) | [A](tree/sum_of_left_leaves.py) | + |
 | 177  | Sort array by parity | array | [leetcode](https://leetcode.com/problems/sort-array-by-parity) | [a](array/sort_arr_by_parity.py) | + |
 | 178  | Goat Latin | string | [leetcode](https://leetcode.com/problems/goat-latin) | [a](string/goat_latin.py) | + |
+| 179  | Fizz Buzz | array | [leetcode](https://leetcode.com/problems/fizz-buzz) | [a](array/fizz_buzz.py) | + |
+| 180  | Count Unique Characters of All Substrings of a Given String | string | [leetcode](https://leetcode.com/problems/count-unique-characters-of-all-substrings-of-a-given-string) | [a](string/count-unique-characters-of-all-substrings-of-a-given-string.py) | ! |
+| 181  | Minimum Cost For Tickets | dp | [leetcode](https://leetcode.com/problems/minimum-cost-for-tickets) | [a](dp/minimum-cost-for-tickets.py) | ! |
+| 182  | Find Right Interval | search | [leetcode](https://leetcode.com/problems/find-right-interval) | [a](search/find-right-interval.py) | ! |
+| 183  | Implement Rand10() Using Rand7() | math | [leetcode](https://leetcode.com/problems/implement-rand10-using-rand7) | [a](math/implement-rand10-using-rand7.py) | ! |
 
 
 +: Solved within 30 min
