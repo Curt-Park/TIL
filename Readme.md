@@ -187,6 +187,7 @@
 | 181  | Minimum Cost For Tickets | dp | [leetcode](https://leetcode.com/problems/minimum-cost-for-tickets) | [a](dp/minimum-cost-for-tickets.py) | ! |
 | 182  | Find Right Interval | search | [leetcode](https://leetcode.com/problems/find-right-interval) | [a](search/find-right-interval.py) | ! |
 | 183  | Implement Rand10() Using Rand7() | math | [leetcode](https://leetcode.com/problems/implement-rand10-using-rand7) | [a](math/implement-rand10-using-rand7.py) | ! |
+| 184  | Delete Node in a BST | tree | [leetcode](https://leetcode.com/problems/delete-node-in-a-bst) | [a](tree/delete-node-in-a-bst.py) | ! |
 
 
 +: Solved within 30 min
