@@ -188,8 +188,12 @@
 | 182  | Find Right Interval | search | [leetcode](https://leetcode.com/problems/find-right-interval) | [a](search/find-right-interval.py) | ! |
 | 183  | Implement Rand10() Using Rand7() | math | [leetcode](https://leetcode.com/problems/implement-rand10-using-rand7) | [a](math/implement-rand10-using-rand7.py) | ! |
 | 184  | Delete Node in a BST | tree | [leetcode](https://leetcode.com/problems/delete-node-in-a-bst) | [a](tree/delete-node-in-a-bst.py) | ! |
+<<<<<<< Updated upstream
 | 185  | Majority Element II | array | [leetcode](https://leetcode.com/problems/majority-element-ii) | [a](array/majority-element-ii.py) | + |
 | 186 | Find the difference | array | [leetcode](https://leetcode.com/problems/find-the-difference) | [a](array/find-the-difference.py) | + |
+=======
+| 185  | Insert into a Binary Search Tree | tree | [leetcode](https://leetcode.com/problems/insert-into-a-binary-search-tree) | [a](tree/insert-into-a-binary-search-tree.py) | + |
+>>>>>>> Stashed changes
 
 
 +: Solved within 30 min
