@@ -23,14 +23,29 @@ class Solution:
         def merge(l1: ListNode, l2: ListNode) -> ListNode:
             dummy = p = ListNode(0)
             while l1 and l2:
-                if l1.val < l2.val: p.next, l1 = l1, l1.next
-                else: p.next, l2 = l2, l2.next
+                if l1.val < l2.val:
+                    p.next, l1 = l1, l1.next
+                else:
+                    p.next, l2 = l2, l2.next
                 p = p.next
             p.next = l1 if l1 else l2
             return dummy.next
-        if not head or not head.next: return head
+
+        if not head or not head.next:
+            return head
         pre, slow, fast = None, head, head
         while fast and fast.next:
             pre, slow, fast = slow, slow.next, fast.next.next
         pre.next = None
         return merge(self.sortList(head), self.sortList(slow))
+
+    def sortList(self, head: ListNode) -> ListNode:
+        """O(NlogN) / O(N)"""
+        l, cur = [], head
+        while cur:
+            l.append(cur)
+            cur.next, cur = None, cur.next
+        l.sort(key=lambda node: node.val)
+        for i in range(len(l) - 1):
+            l[i].next = l[i + 1]
+        return head and l[0]

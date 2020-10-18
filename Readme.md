@@ -191,6 +191,8 @@
 | 185  | Majority Element II | array | [leetcode](https://leetcode.com/problems/majority-element-ii) | [a](array/majority-element-ii.py) | + |
 | 186 | Find the difference | array | [leetcode](https://leetcode.com/problems/find-the-difference) | [a](array/find-the-difference.py) | + |
 | 187  | Insert into a Binary Search Tree | tree | [leetcode](https://leetcode.com/problems/insert-into-a-binary-search-tree) | [a](tree/insert-into-a-binary-search-tree.py) | + |
+| 188  | House Robber II | dp | [leetcode](https://leetcode.com/problems/house-robber-ii) | [a](dp/house-robber-ii.py) | ! |
+| 189  | Rotate Array | array | [leetcode](https://leetcode.com/problems/rotate-array) | [a](array/rotate-array.py) | +! |
 
 
 +: Solved within 30 min
