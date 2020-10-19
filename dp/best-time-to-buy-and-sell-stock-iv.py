@@ -39,3 +39,19 @@ class Solution:
                 buy[j] = min(buy[j], prices[i] - sell[j - 1])
                 sell[j] = max(sell[j], prices[i] - buy[j])
         return sell[k]
+
+    def maxProfit(self, k: int, prices: List[int]) -> int:
+        """O(KN) / O(KN)
+
+        DP Formula:
+            dp[k, i] = max(dp[k, i-1], prices[i] - prices[j] + dp[k-1, j-1]), j=[0..i-1]
+        """
+        if k >= len(prices) / 2:
+            return sum(i - j for i, j in zip(prices[1:], prices[:-1]) if i - j > 0)
+        dp = dict()
+        for i in range(k):
+            m, dp[i, 0] = prices[0], 0
+            for j in range(1, len(prices)):
+                m = min(m, prices[j] - dp.get((i - 1, j - 1), 0))
+                dp[i, j] = max(dp[i, j - 1], prices[j] - m)
+        return int(k > 0) and dp[k - 1, len(prices) - 1]
