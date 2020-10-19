@@ -196,6 +196,7 @@
 | 190  | Search a 2D Matrix | array | [leetcode](https://leetcode.com/problems/search-a-2d-matrix) | [a](array/search-a-2d-matrix.py) | + |
 | 191  | Repeated DNA Sequences | string | [leetcode](https://leetcode.com/problems/repeated-dna-sequences) | [a](string/repeated-dna-sequences.py) | + |
 | 192  | Best Time to Buy and Sell Stock IV | dp | [leetcode](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv) | [a](dp/best-time-to-buy-and-sell-stock-iv.py) | ! |
+| 193  | Minimum Domino Rotations For Equal Row | array | [leetcode](https://leetcode.com/problems/minimum-domino-rotations-for-equal-row) | [a](array/minimum-domino-rotations-for-equal-row.py) | + |
 
 
 +: Solved within 30 min
