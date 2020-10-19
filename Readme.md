@@ -193,6 +193,9 @@
 | 187  | Insert into a Binary Search Tree | tree | [leetcode](https://leetcode.com/problems/insert-into-a-binary-search-tree) | [a](tree/insert-into-a-binary-search-tree.py) | + |
 | 188  | House Robber II | dp | [leetcode](https://leetcode.com/problems/house-robber-ii) | [a](dp/house-robber-ii.py) | ! |
 | 189  | Rotate Array | array | [leetcode](https://leetcode.com/problems/rotate-array) | [a](array/rotate-array.py) | +! |
+| 190  | Search a 2D Matrix | array | [leetcode](https://leetcode.com/problems/search-a-2d-matrix) | [a](array/search-a-2d-matrix.py) | + |
+| 191  | Repeated DNA Sequences | string | [leetcode](https://leetcode.com/problems/repeated-dna-sequences) | [a](string/repeated-dna-sequences.py) | + |
+| 192  | Best Time to Buy and Sell Stock IV | dp | [leetcode](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv) | [a](dp/best-time-to-buy-and-sell-stock-iv.py) | ! |
 
 
 +: Solved within 30 min
