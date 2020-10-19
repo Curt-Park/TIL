@@ -35,7 +35,7 @@ class Solution:
             return sum(i - j for i, j in zip(prices[1:], prices[:-1]) if i - j > 0)
         sell, buy = [0] * (k + 1), [float("inf")] * (k + 1)
         for i in range(len(prices)):
-            for k in range(1, k + 1):
-                buy[k] = min(buy[k], prices[i] - sell[k - 1])
-                sell[k] = max(sell[k], prices[i] - buy[k])
+            for j in range(1, k + 1):
+                buy[j] = min(buy[j], prices[i] - sell[j - 1])
+                sell[j] = max(sell[j], prices[i] - buy[j])
         return sell[k]
