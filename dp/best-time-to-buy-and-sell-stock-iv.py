@@ -29,7 +29,8 @@ Constraints:
 
 class Solution:
     def maxProfit(self, k: int, prices: List[int]) -> int:
-        """O(KN) / O(K): Memory Exceeds"""
+        """O(KN) / O(K)"""
+        # memory exeeds without this statement
         if k >= len(prices) / 2:
             return sum(i - j for i, j in zip(prices[1:], prices[:-1]) if i - j > 0)
         sell, buy = [0] * (k + 1), [float("inf")] * (k + 1)
