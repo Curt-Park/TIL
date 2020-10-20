@@ -36,6 +36,21 @@ Constraints:
 class Solution:
     def minDominoRotations(self, A: List[int], B: List[int]) -> int:
         """O(N) / O(1)"""
+        for i, v in enumerate([A[0], B[0]]):
+            if all(v in c for c in zip(A, B)):
+                return len(A) - max(A.count(v), B.count(v))
+        return -1
+
+    def minDominoRotations(self, A: List[int], B: List[int]) -> int:
+        """O(N) / O(1)"""
+        cnts, found = [float("inf")] * 2, False
+        for i, v in enumerate([A[0], B[0]]):
+            if all(v in c for c in zip(A, B)):
+                cnts[i], found = len(A) - max(A.count(v), B.count(v)), True
+        return min(cnts) if found else -1
+
+    def minDominoRotations(self, A: List[int], B: List[int]) -> int:
+        """O(N) / O(1)"""
         n_rot = float("inf")
         for v in [A[0], B[0]]:
             i = cnt_A = cnt_B = 0
