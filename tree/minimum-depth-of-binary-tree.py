@@ -49,8 +49,8 @@ class Solution:
             return 0
         l_depth = 1 + self.minDepth(root.left)
         r_depth = 1 + self.minDepth(root.right)
-        if root.left is not None and root.right is None:
+        if root.left and not root.right:
             return l_depth
-        elif root.right is not None and root.left is None:
+        elif root.right and not root.left:
             return r_depth
         return min(l_depth, r_depth)
