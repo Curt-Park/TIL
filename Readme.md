@@ -200,6 +200,8 @@
 | 194  | Clone Graph | graph | [leetcode](https://leetcode.com/problems/clone-graph) | [a](graph/clone-graph.py) | + |
 | 195  | Asteroid Collision | array | [leetcode](https://leetcode.com/problems/asteroid-collision) | [a](array/asteroid-collision.py) | + |
 | 196  | Minimum Depth of Binary Tree | tree | [leetcode](https://leetcode.com/problems/minimum-depth-of-binary-tree) | [a](tree/minimum-depth-of-binary-tree.py) | + |
+| 197  | Linked List Cycle II | linked list | [leetcode](https://leetcode.com/problems/linked-list-cycle-ii) | [a](linked_list/linked-list-cycle-ii.py) | +! |
+| 198  | Summary Ranges | array | [leetcode](https://leetcode.com/problems/summary-ranges) | [a](array/summary-ranges.py) | + |
 
 
 +: Solved within 30 min
