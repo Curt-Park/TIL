@@ -95,3 +95,20 @@ class Solution:
         elif condition0: l_node.val, root.val = root.val, l_node.val
         elif condition1: r_node.val, root.val = root.val, r_node.val
         else: self.recoverTree(root.left); self.recoverTree(root.right)
+
+    def recoverTree0(self, root: TreeNode) -> None:
+        """O(N) / O(N)
+        Do not return anything, modify root in-place instead.
+        """
+        def traverse(node: TreeNode) -> None:
+            if not node:
+                return
+            traverse(node.left)
+            log.append(node)
+            traverse(node.right)
+        log = []
+        traverse(root)
+        l, r = 0, len(log) - 1
+        while log[l].val < log[l + 1].val: l += 1
+        while log[r - 1].val < log[r].val: r -= 1
+        log[l].val, log[r].val = log[r].val, log[l].val
