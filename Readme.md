@@ -203,9 +203,8 @@
 | 197  | Linked List Cycle II | linked list | [leetcode](https://leetcode.com/problems/linked-list-cycle-ii) | [a](linked_list/linked-list-cycle-ii.py) | +! |
 | 198  | Summary Ranges | array | [leetcode](https://leetcode.com/problems/summary-ranges) | [a](array/summary-ranges.py) | + |
 | 199  | Maximize Distance to Closest Person | array | [leetcode](https://leetcode.com/problems/maximize-distance-to-closest-person) | [a](array/maximize-distance-to-closest-person.py) | -! |
-| 200  | Number of Longest Increasing Subsequence | array | [leetcode](https://leetcode.com/problems/number-of-longest-increasing-subsequence) | [a](array/number-of-longest-increasing-subsequence.py) |  |
-| 201  | Third Maximum Number | array | [leetcode](https://leetcode.com/problems/third-maximum-number) | [a](array/third-maximum-number.py) | + |
-| 202  | Find Lucky Integer in an Array | array | [leetcode](https://leetcode.com/problems/find-lucky-integer-in-an-array) | [a](array/find-lucky-integer-in-an-array.py) | + |
+| 200  | Third Maximum Number | array | [leetcode](https://leetcode.com/problems/third-maximum-number) | [a](array/third-maximum-number.py) | + |
+| 201  | Find Lucky Integer in an Array | array | [leetcode](https://leetcode.com/problems/find-lucky-integer-in-an-array) | [a](array/find-lucky-integer-in-an-array.py) | + |
 
 
 +: Solved within 30 min
