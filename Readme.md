@@ -205,6 +205,10 @@
 | 199  | Maximize Distance to Closest Person | array | [leetcode](https://leetcode.com/problems/maximize-distance-to-closest-person) | [a](array/maximize-distance-to-closest-person.py) | -! |
 | 200  | Third Maximum Number | array | [leetcode](https://leetcode.com/problems/third-maximum-number) | [a](array/third-maximum-number.py) | + |
 | 201  | Find Lucky Integer in an Array | array | [leetcode](https://leetcode.com/problems/find-lucky-integer-in-an-array) | [a](array/find-lucky-integer-in-an-array.py) | + |
+| 202  | Check Array Formation Through Concatenation | array | [leetcode](https://leetcode.com/problems/check-array-formation-through-concatenation) | [a](array/check-array-formation-through-concatenation.py) | + |
+| 203  | Count Sorted Vowel Strings | dp | [leetcode](https://leetcode.com/problems/count-sorted-vowel-strings) | [a](dp/count-sorted-vowel-strings.py) | + |
+| 204  | Furthest Building You Can Reach | heap | [leetcode](https://leetcode.com/problems/furthest-building-you-can-reach) | [a](heap/furthest-building-you-can-reach.py) | ! |
+| 205  | Kth Smallest Instructions | dp | [leetcode](https://leetcode.com/problems/kth-smallest-instructions) | [a](dp/kth-smallest-instructions.py) | ! |
 
 
 +: Solved within 30 min
