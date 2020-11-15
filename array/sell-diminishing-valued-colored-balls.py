@@ -51,6 +51,25 @@ import heapq
 
 class Solution:
     def maxProfit(self, inventory: List[int], orders: int) -> int:
+        """O(IlogI) / O(1)"""
+        sum_range = lambda b, e: (e - b + 1) * (b + e) // 2
+        inventory.sort(reverse=True)
+        inventory += [0]
+        ans, k = 0, 0
+        for i in range(len(inventory) - 1):
+            l, r, k = inventory[i], inventory[i + 1], k + 1
+            if l == r:  # keep going to find the square
+                continue
+            if orders <= k * (l - r):  # when it cannot use all the square
+                break
+            ans += k * sum_range(r + 1, l)  # use the square
+            orders -= k * (l - r)
+        (q, r), top = divmod(orders, k), inventory[i]
+        ans += k * sum_range(top - q + 1, top)
+        ans += r * (top - q)
+        return ans % (10**9 + 7)
+
+    def maxProfit(self, inventory: List[int], orders: int) -> int:
         """O(OlogI) / O(I): Time limit exceeds."""
         inv, prof = [-n for n in inventory], 0
         heapq.heapify(inv)
@@ -60,4 +79,4 @@ class Solution:
                 break
             prof += n
             heapq.heappush(inv, -n + 1)
-        return prof
+        return prof % (10**9 + 7)
