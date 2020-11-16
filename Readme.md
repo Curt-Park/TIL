@@ -212,6 +212,7 @@
 | 206  | Get Maximum in Generated Array | dp | [leetcode](https://leetcode.com/problems/get-maximum-in-generated-array) | [a](dp/get-maximum-in-generated-array.py) | + |
 | 207  | Minimum Deletions to Make Character Frequencies Unique | string | [leetcode](https://leetcode.com/problems/minimum-deletions-to-make-character-frequencies-unique) | [a](string/minimum-deletions-to-make-character-frequencies-unique.py) | + |
 | 208  | Sell Diminishing-Valued Colored Balls | array | [leetcode](https://leetcode.com/problems/sell-diminishing-valued-colored-balls) | [a](array/sell-diminishing-valued-colored-balls.py) | ! |
+| 209  | Create Sorted Array through Instructions | array | [leetcode](https://leetcode.com/problems/create-sorted-array-through-instructions) | [a](array/create-sorted-array-through-instructions.py) | ! |
 
 
 +: Solved within 30 min
