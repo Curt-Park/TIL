@@ -213,6 +213,8 @@
 | 207  | Minimum Deletions to Make Character Frequencies Unique | string | [leetcode](https://leetcode.com/problems/minimum-deletions-to-make-character-frequencies-unique) | [a](string/minimum-deletions-to-make-character-frequencies-unique.py) | + |
 | 208  | Sell Diminishing-Valued Colored Balls | array | [leetcode](https://leetcode.com/problems/sell-diminishing-valued-colored-balls) | [a](array/sell-diminishing-valued-colored-balls.py) | ! |
 | 209  | Create Sorted Array through Instructions | array | [leetcode](https://leetcode.com/problems/create-sorted-array-through-instructions) | [a](array/create-sorted-array-through-instructions.py) | ! |
+| 210  | Check If Two String Arrays are Equivalent | string | [leetcode](https://leetcode.com/problems/check-if-two-string-arrays-are-equivalent) | [a](string/check-if-two-string-arrays-are-equivalent.py) | +! |
+| 211  | Smallest String With A Given Numeric Value | string | [leetcode](https://leetcode.com/problems/smallest-string-with-a-given-numeric-value) | [a](string/smallest-string-with-a-given-numeric-value.py) | ! |
 
 
 +: Solved within 30 min
