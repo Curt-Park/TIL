@@ -35,7 +35,7 @@ n <= k <= 26 * n
 class Solution:
     def getSmallestString(self, n: int, k: int) -> str:
         """O(N) / O(N)"""
-        d = {k: ch for k, ch in enumerate("abcdefghijklmnopqrstuvwxyz")}
+        d = {k: chr(i + ord("a")) for k, i in enumerate(27)}
         s, k, i = ["a"] * n, k - n, n - 1
         while k > 0:
             ch = min(25, k)
