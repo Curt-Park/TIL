@@ -42,7 +42,7 @@ class Solution:
         """O(N) / O(N)"""
         s = ["a"] * n
         k -= n
-        n_z, r = divmod(k - n, 25)
+        n_z, r = divmod(k, 25)
         if n_z:
             s[-n_z:] = ["z"] * n_z
         if r:
