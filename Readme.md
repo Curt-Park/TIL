@@ -215,6 +215,8 @@
 | 209  | Create Sorted Array through Instructions | array | [leetcode](https://leetcode.com/problems/create-sorted-array-through-instructions) | [a](array/create-sorted-array-through-instructions.py) | ! |
 | 210  | Check If Two String Arrays are Equivalent | string | [leetcode](https://leetcode.com/problems/check-if-two-string-arrays-are-equivalent) | [a](string/check-if-two-string-arrays-are-equivalent.py) | +! |
 | 211  | Smallest String With A Given Numeric Value | string | [leetcode](https://leetcode.com/problems/smallest-string-with-a-given-numeric-value) | [a](string/smallest-string-with-a-given-numeric-value.py) | ! |
+| 212  | Richest Customer Wealth | array | [leetcode](https://leetcode.com/problems/richest-customer-wealth) | [a](array/richest-customer-wealth.py) | + |
+| 213  | Find the Most Competitive Subsequence | array | [leetcode](https://leetcode.com/problems/find-the-most-competitive-subsequence) | [a](array/find-the-most-competitive-subsequence.py) | - |
 
 
 +: Solved within 30 min
