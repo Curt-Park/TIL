@@ -219,6 +219,7 @@
 | 213  | Find the Most Competitive Subsequence | array | [leetcode](https://leetcode.com/problems/find-the-most-competitive-subsequence) | [a](array/find-the-most-competitive-subsequence.py) | - |
 | 214  | Count of Matches in Tournament | math | [leetcode](https://leetcode.com/problems/count-of-matches-in-tournament) | [a](math/count-of-matches-in-tournament.py) | + |
 | 215  | Partitioning Into Minimum Number Of Deci-Binary Numbers | math | [leetcode](https://leetcode.com/problems/partitioning-into-minimum-number-of-deci-binary-numbers) | [a](math/partitioning-into-minimum-number-of-deci-binary-numbers.py) | + |
+| 216  | Stone Game VII | array | [leetcode](https://leetcode.com/problems/stone-game-vii) | [a](array/stone-game-vii.py) | ! |
 
 
 +: Solved within 30 min
