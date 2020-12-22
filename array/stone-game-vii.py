@@ -45,7 +45,7 @@ class Solution:
         dp = [[0] * len(stones) for _ in range(len(stones))]
         partial_sum = [0] + list(accumulate(stones))
         for l in range(len(stones) - 2, -1, -1):
-            for r in range(l, len(stones)):
+            for r in range(l + 1, len(stones)):
                 score_lr = partial_sum[r + 1] - partial_sum[l]
                 dp[l][r] = max(
                     score_lr - stones[l] - dp[l + 1][r],
