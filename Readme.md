@@ -220,6 +220,9 @@
 | 214  | Count of Matches in Tournament | math | [leetcode](https://leetcode.com/problems/count-of-matches-in-tournament) | [a](math/count-of-matches-in-tournament.py) | + |
 | 215  | Partitioning Into Minimum Number Of Deci-Binary Numbers | math | [leetcode](https://leetcode.com/problems/partitioning-into-minimum-number-of-deci-binary-numbers) | [a](math/partitioning-into-minimum-number-of-deci-binary-numbers.py) | + |
 | 216  | Stone Game VII | array | [leetcode](https://leetcode.com/problems/stone-game-vii) | [a](array/stone-game-vii.py) | ! |
+| 217  | Check if Numbers Are Ascending in a Sentence | string | [leetcode](https://leetcode.com/problems/check-if-numbers-are-ascending-in-a-sentence) | [a](string/check_if_numbers_are_ascending_in_a_sentence.py) | + |
+| 218  | Simple Bank System | array | [leetcode](https://leetcode.com/problems/simple-bank-system) | [a](array/simple-bank-system.py) | + |
+| 219  | Count Number of Maximum Bitwise-OR Subsets | bit manipulation | [leetcode](https://leetcode.com/problems/count-number-of-maximum-bitwise-or-subsets) | [a](bit_manipulation/count-number-of-maximum-bitwise-or-subsets.py) | + |
 
 
 +: Solved within 30 min
