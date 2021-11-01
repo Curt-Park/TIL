@@ -43,8 +43,28 @@ Constraints:
 
 
 class Solution:
+    def countMaxOrSubsets2(self, nums: List[int]) -> int:
+        """O(N^2) / O(N^2)."""
+        dp = {0: 1}
+        for n in nums:
+            for bitwise_or, cnt in list(dp.items()):
+                bitwise_or |= n
+                dp.setdefault(bitwise_or, 0)
+                dp[bitwise_or] += cnt
+        return dp[max(dp)]
+
+    def countMaxOrSubsets1(self, nums: List[int]) -> int:
+        """O(2^N) / O(2^N)."""
+        counter = {}
+        for n in range(1, len(nums) + 1):
+            for subset in itertools.combinations(nums, n):
+                bitwise_or = functools.reduce(lambda x, y: x | y, subset)
+                counter.setdefault(bitwise_or, 0)
+                counter[bitwise_or] += 1
+        return counter[max(counter)]
+
     def countMaxOrSubsets0(self, nums: List[int]) -> int:
-        """O(2^N * N) / O(N)."""
+        """O(2^N) / O(N)."""
         max_bitwise_or = self.bitwise_or(nums)
         return sum(
             max_bitwise_or == self.bitwise_or(subset)

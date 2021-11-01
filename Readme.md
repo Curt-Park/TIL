@@ -222,7 +222,8 @@
 | 216  | Stone Game VII | array | [leetcode](https://leetcode.com/problems/stone-game-vii) | [a](array/stone-game-vii.py) | ! |
 | 217  | Check if Numbers Are Ascending in a Sentence | string | [leetcode](https://leetcode.com/problems/check-if-numbers-are-ascending-in-a-sentence) | [a](string/check_if_numbers_are_ascending_in_a_sentence.py) | + |
 | 218  | Simple Bank System | array | [leetcode](https://leetcode.com/problems/simple-bank-system) | [a](array/simple-bank-system.py) | + |
-| 219  | Count Number of Maximum Bitwise-OR Subsets | bit manipulation | [leetcode](https://leetcode.com/problems/count-number-of-maximum-bitwise-or-subsets) | [a](bit_manipulation/count-number-of-maximum-bitwise-or-subsets.py) | + |
+| 219  | Count Number of Maximum Bitwise-OR Subsets | bit manipulation | [leetcode](https://leetcode.com/problems/count-number-of-maximum-bitwise-or-subsets) | [a](bit_manipulation/count-number-of-maximum-bitwise-or-subsets.py) | +! |
+| 220  | Second Minimum Time to Reach Destination | [leetcode](https://leetcode.com/problems/second-minimum-time-to-reach-destination) | [a](tbd/second-minimum-time-to-reach-destination.py) | tbd |
 
 
 +: Solved within 30 min
