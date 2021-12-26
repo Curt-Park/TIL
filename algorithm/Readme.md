@@ -224,6 +224,10 @@
 | 218  | Simple Bank System | array | [leetcode](https://leetcode.com/problems/simple-bank-system) | [a](array/simple-bank-system.py) | + |
 | 219  | Count Number of Maximum Bitwise-OR Subsets | bit manipulation | [leetcode](https://leetcode.com/problems/count-number-of-maximum-bitwise-or-subsets) | [a](bit_manipulation/count-number-of-maximum-bitwise-or-subsets.py) | +! |
 | 220  | Second Minimum Time to Reach Destination | graph | [leetcode](https://leetcode.com/problems/second-minimum-time-to-reach-destination) | [a](graph/second-minimum-time-to-reach-destination.py) | ! |
+| 221  | 완주하지 못한 선수| hash | [programmers](https://programmers.co.kr/learn/courses/30/lessons/42576) | [a](hash/완주하지_못한_선수.py) | + |
+| 222  | 전화번호 목록 | hash | [programmers](https://programmers.co.kr/learn/courses/30/lessons/42577) | [a](hash/전화번호_목록.py) | - |
+| 223  | 위장 | hash | [programmers](https://programmers.co.kr/learn/courses/30/lessons/42578) | [a](hash/위장.py) | + |
+| 224  | 베스트앨범 | hash | [programmers](https://programmers.co.kr/learn/courses/30/lessons/42579) | [a](hash/베스트앨범.py) | + |
 
 
 +: Solved within 30 min
