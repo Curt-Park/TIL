@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sync"
 	"time"
 )
 
@@ -52,11 +53,21 @@ func defaultSelection() {
 	}
 }
 
+func syncMutex() {
+	c := SafeCounter{v: make(map[string]int)}
+	for i := 0; i < 1000; i++ {
+		go c.Inc("someKey")
+	}
+	time.Sleep(time.Second)
+	fmt.Println(c.Value("someKey"))
+}
+
 func main() {
 	channel()
 	bufferedChannel()
 	rangeAndClose()
 	defaultSelection()
+	syncMutex()
 }
 
 /* Helper functions */
@@ -76,4 +87,21 @@ func fibonacci(n int, c chan int) {
 		x, y = y, x+y
 	}
 	close(c) // v, ok <- ch tells the channel is closed
+}
+
+type SafeCounter struct {
+	mu sync.Mutex
+	v  map[string]int
+}
+
+func (c *SafeCounter) Inc(key string) {
+	c.mu.Lock()
+	c.v[key]++
+	c.mu.Unlock()
+}
+
+func (c *SafeCounter) Value(key string) int {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.v[key]
 }
