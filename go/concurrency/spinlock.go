@@ -1,7 +1,8 @@
-package main
+package concurrency
 
 import (
 	"runtime"
+	"sync"
 	"sync/atomic"
 )
 
@@ -24,4 +25,9 @@ func (sl *SpinLock) String() string {
 		return "Locked"
 	}
 	return "Unlocked"
+}
+
+func NewSpinLock() sync.Locker {
+	var lock spinLock
+	return &lock
 }

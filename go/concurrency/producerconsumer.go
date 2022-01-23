@@ -1,4 +1,4 @@
-package main
+package concurrency
 
 import (
 	"fmt"
@@ -18,10 +18,10 @@ func main() {
 func produce(n int) {
 	for i := 0; i < n; i++ {
 		time.Sleep(time.Second) // production time
-		msgs <- i // wait until consumed
+		msgs <- i               // wait until consumed
 		fmt.Println("Produced", i)
 	}
-	close(msgs)  // channel must be closed by producer
+	close(msgs) // channel must be closed by producer
 }
 
 func consume() {
