@@ -47,6 +47,54 @@ kubectl get pods -A
 ## Deploying a Knative Service
 ```bash
 kn service create hello --image gcr.io/knative-samples/helloworld-go --port 8080 --env TARGET=World
+# Creating service 'hello' in namespace 'default':
+#
+#   0.023s The Route is still working to reflect the latest desired specification.
+#   0.040s Configuration "hello" is waiting for a Revision to become ready.
+#   0.073s ...
+#  33.351s ...
+#  33.442s Ingress has not yet been reconciled.
+#  33.484s Waiting for load balancer to be ready
+#  33.668s Ready to serve.
+#
+# Service 'hello' created to latest revision 'hello-00001' is available at URL:
+# http://hello.default.example.com
+```
+
+or
+
+```bash
+kubectl apply -f hello.yaml
+# service.serving.knative.dev/hello created
+```
+
+Access the service.
+```bash
+kn service list
+# NAME    URL                                       LATEST        AGE   CONDITIONS   READY   REASON
+# hello   http://hello.default.127.0.0.1.sslip.io   hello-00001   10m   3 OK / 3     True
+
+curl "$(kn service describe hello -o url)"
+# Hello World!
+```
+
+## Observe autoscaling
+Wait for all pod terminated. It may take up to 2 minutes.
+```bash
+kubectl get pod -l serving.knative.dev/service=hello -w
+# NAME                                      READY   STATUS        RESTARTS   AGE
+# hello-00001-deployment-85b6c8d697-hjgsq   2/2     Terminating   0          66s
+# hello-00001-deployment-85b6c8d697-hjgsq   1/2     Terminating   0          90s
+# hello-00001-deployment-85b6c8d697-hjgsq   0/2     Terminating   0          93s
+# hello-00001-deployment-85b6c8d697-hjgsq   0/2     Terminating   0          93s
+# hello-00001-deployment-85b6c8d697-hjgsq   0/2     Terminating   0          93s
+```
+
+Rerun `curl "$(kn service describe hello -o url)"`.
+```bash
+hello-00001-deployment-85b6c8d697-zrjpn   0/2     ContainerCreating   0          0s
+hello-00001-deployment-85b6c8d697-zrjpn   1/2     Running             0          2s
+hello-00001-deployment-85b6c8d697-zrjpn   2/2     Running             0          2s
 ```
 
 ## References
