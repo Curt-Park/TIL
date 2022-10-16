@@ -13,7 +13,7 @@ brew install \
     knative-sandbox/kn-plugins/quickstart
 ```
 
-## Create a cluster
+## Cluster Creation
 ```bash
 kn quickstart minikube
 minikube tunnel --profile knative  # run this command in a separate terminal window
@@ -78,7 +78,7 @@ curl "$(kn service describe hello -o url)"
 # Hello World!
 ```
 
-## Observe autoscaling
+## Autoscaling
 Wait for all pod terminated. It may take up to 2 minutes.
 ```bash
 kubectl get pod -l serving.knative.dev/service=hello -w
@@ -95,6 +95,135 @@ Rerun `curl "$(kn service describe hello -o url)"`.
 hello-00001-deployment-85b6c8d697-zrjpn   0/2     ContainerCreating   0          0s
 hello-00001-deployment-85b6c8d697-zrjpn   1/2     Running             0          2s
 hello-00001-deployment-85b6c8d697-zrjpn   2/2     Running             0          2s
+```
+
+## Traffic Splitting
+Traffic splitting is useful for blue/green deployments and canary deployments.
+
+A Revision is a snapshot-in-time of application code and configuration.
+A new Revision is created every time you make changes to the configuration of a Knative Service.
+When splitting traffic, Knative splits traffic between different Revisions of your Knative Service.
+
+Instead of TARGET=World, update the environment variable TARGET on your Knative Service to greet "Knative" instead.
+
+```bash
+kn service update hello --env TARGET=Knative
+# Updating Service 'hello' in namespace 'default':
+#
+#   0.021s The Configuration is still working to reflect the latest desired specification.
+#   1.185s Traffic is not yet migrated to the latest revision.
+#   1.254s Ingress has not yet been reconciled.
+#   1.267s Waiting for load balancer to be ready
+#   1.433s Ready to serve.
+#
+# Service 'hello' updated to latest revision 'hello-00002' is available at URL:
+# http://hello.default.127.0.0.1.sslip.io
+```
+
+or
+
+Edit your existing hello.yaml file to contain the following:
+```yaml
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: hello
+spec:
+  template:
+    spec:
+      containers:
+        - image: gcr.io/knative-samples/helloworld-go
+          ports:
+            - containerPort: 8080
+          env:
+            - name: TARGET
+              value: "Knative"
+```
+
+Deploy.
+```bash
+kubectl apply -f hello.yaml
+# service.serving.knative.dev/hello configured
+```
+
+Access the new revision.
+```bash
+curl $(kn service describe hello -o url)
+# Hello Knative!
+```
+
+Split traffic between revisions.
+```bash
+kn service update hello \
+    --traffic hello-00001=50 \
+    --traffic @latest=50
+```
+
+or
+
+Add the `traffic` section to the bottom of your existing `hello.yaml` file:
+```yaml
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: hello
+spec:
+  template:
+    spec:
+      containers:
+        - image: gcr.io/knative-samples/helloworld-go
+          ports:
+            - containerPort: 8080
+          env:
+            - name: TARGET
+              value: "Knative"
+  traffic:
+  - latestRevision: true
+    percent: 50
+  - latestRevision: false
+    percent: 50
+    revisionName: hello-00001
+```
+
+Run:
+```bash
+kubectl apply -f hello.yaml
+```
+
+Check the traffic split:
+```bash
+kn revisions list
+# NAME          SERVICE   TRAFFIC   TAGS   GENERATION   AGE     CONDITIONS   READY   REASON
+# hello-00002   hello     50%              2            7m12s   3 OK / 4     True
+# hello-00001   hello     50%              1            92m     3 OK / 4     True
+
+curl "$(kn service describe hello -o url)"
+# Hello World!
+ 204 curl "$(kn service describ)"
+curl "$(kn service describe hello -o url)"
+# Hello World!
+curl "$(kn service describe hello -o url)"
+# Hello World!
+curl "$(kn service describe hello -o url)"
+# Hello Knative!
+curl "$(kn service describe hello -o url)"
+# Hello Knative!
+curl "$(kn service describe hello -o url)"
+# Hello Knative!
+```
+
+## Shutdown the service
+```bash
+kn service delete hello
+# Service 'hello' successfully deleted in namespace 'default'.
+
+kn service list
+# No services found.
+```
+
+## Shutdown the cluster
+```bash
+minikube delete --profile knative
 ```
 
 ## References

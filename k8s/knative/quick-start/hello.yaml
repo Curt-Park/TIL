@@ -12,3 +12,9 @@ spec:
           env:
             - name: TARGET
               value: "World"
+  traffic:
+  - latestRevision: true
+    percent: 50
+  - latestRevision: false
+    percent: 50
+    revisionName: hello-00001
