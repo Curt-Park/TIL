@@ -58,7 +58,7 @@ kn broker list
 # example-broker   http://broker-ingress.knative-eventing.svc.cluster.local/default/example-broker   26s   6 OK / 6     True
 ```
 
-### Using a Knative Service as a source
+## Using a Knative Service as a source
 In this tutorial, you will use the [CloudEvents Player app](https://github.com/ruromero/cloudevents-player) to showcase the core concepts of Knative Eventing.
 By the end of this tutorial, you should have an architecture that looks like this:
 ![image](https://user-images.githubusercontent.com/14961526/196023858-8dcd999f-7abe-4c9b-9872-02e14196fb9b.png)
@@ -115,3 +115,34 @@ or
 curl http://cloudevents-player.default.127.0.0.1.sslip.io/messages
 # [{"event":{"attributes":{"datacontenttype":"application/json","id":"123456789","mediaType":"application/json","source":"command-line","specversion":"1.0","type":"some-type"},"data":{"msg":"Hello CloudEvents!"},"extensions":{}},"id":"123456789","receivedAt":"2022-10-16T09:40:43.243206+02:00[Europe/Madrid]","type":"RECEIVED"}]%
 ```
+
+## Using Triggers and Sinks
+In the last topic we used the CloudEvents Player as an event source to send events to the Broker.
+We now want the event to go from the Broker to an event sink.
+
+In this topic, we will use the CloudEvents Player as the sink as well as a source.
+This means we will be using the CloudEvents Player to both send and receive events.
+We will use a Trigger to listen for events in the Broker to send to the sink.
+
+### Creating you first Trigger
+Create a Trigger that listens for CloudEvents from the event source and places them into the sink, which is also the CloudEvents Player app.
+
+```bash
+kn trigger create cloudevents-trigger --sink cloudevents-player  --broker example-broker
+# Trigger 'cloudevents-trigger' successfully created in namespace 'default'.
+```
+
+or
+
+```bash
+kubectl apply -f ce-trigger.yaml
+# trigger.eventing.knative.dev/cloudevents-trigger created
+```
+
+> Because we didn't specify a --filter in our kn command, the Trigger is listening for any CloudEvents coming into the Broker.
+> You can specify a filter with --filter option:
+> `kn trigger create cloudevents-player-filter --sink cloudevents-player  --broker example-broker --filter type=some-type`
+
+
+## References
+- https://knative.dev/docs/getting-started/getting-started-eventing/
