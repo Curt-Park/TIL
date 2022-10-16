@@ -94,3 +94,24 @@ kubectl apply -f cloudevents-player.yaml
 ### Examining the CloudEvents Player
 
 Open `http://cloudevents-player.default.127.0.0.1.sslip.io` in your web-browser.
+
+Post an event.
+```bash
+curl -i http://cloudevents-player.default.127.0.0.1.sslip.io \
+    -H "Content-Type: application/json" \
+    -H "Ce-Id: 123456789" \
+    -H "Ce-Specversion: 1.0" \
+    -H "Ce-Type: some-type" \
+    -H "Ce-Source: command-line" \
+    -d '{"msg":"Hello CloudEvents!"}'
+```
+
+See the posted event:
+<img width="1278" src="https://user-images.githubusercontent.com/14961526/196024155-fccebc93-0c5c-43b7-b7e8-a04b58006f3b.png">
+
+or
+
+```bash
+curl http://cloudevents-player.default.127.0.0.1.sslip.io/messages
+# [{"event":{"attributes":{"datacontenttype":"application/json","id":"123456789","mediaType":"application/json","source":"command-line","specversion":"1.0","type":"some-type"},"data":{"msg":"Hello CloudEvents!"},"extensions":{}},"id":"123456789","receivedAt":"2022-10-16T09:40:43.243206+02:00[Europe/Madrid]","type":"RECEIVED"}]%
+```
