@@ -61,3 +61,4 @@ kn broker list
 ## Using a Knative Service as a source
 In this tutorial, you will use the [CloudEvents Player app](https://github.com/ruromero/cloudevents-player) to showcase the core concepts of Knative Eventing.
 By the end of this tutorial, you should have an architecture that looks like this:
+![image](https://user-images.githubusercontent.com/14961526/196023858-8dcd999f-7abe-4c9b-9872-02e14196fb9b.png)
