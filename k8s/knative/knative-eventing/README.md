@@ -58,7 +58,39 @@ kn broker list
 # example-broker   http://broker-ingress.knative-eventing.svc.cluster.local/default/example-broker   26s   6 OK / 6     True
 ```
 
-## Using a Knative Service as a source
+### Using a Knative Service as a source
 In this tutorial, you will use the [CloudEvents Player app](https://github.com/ruromero/cloudevents-player) to showcase the core concepts of Knative Eventing.
 By the end of this tutorial, you should have an architecture that looks like this:
 ![image](https://user-images.githubusercontent.com/14961526/196023858-8dcd999f-7abe-4c9b-9872-02e14196fb9b.png)
+
+### Creating your first source
+Run the command:
+```bash
+kn service create cloudevents-player \
+    --image ruromero/cloudevents-player:latest \
+    --env BROKER_URL=http://broker-ingress.knative-eventing.svc.cluster.local/default/example-broker
+
+# Creating service 'cloudevents-player' in namespace 'default':
+#
+#   0.025s The Route is still working to reflect the latest desired specification.
+#   0.039s Configuration "cloudevents-player" is waiting for a Revision to become ready.
+#   0.047s ...
+#  18.186s ...
+#  18.275s Ingress has not yet been reconciled.
+#  18.365s Waiting for load balancer to be ready
+#  18.487s Ready to serve.
+#
+# Service 'cloudevents-player' created to latest revision 'cloudevents-player-00001' is available at URL:
+# http://cloudevents-player.default.127.0.0.1.sslip.io
+```
+
+or
+
+```bash
+kubectl apply -f cloudevents-player.yaml
+# service.serving.knative.dev/cloudevents-player created
+```
+
+### Examining the CloudEvents Player
+
+Open `http://cloudevents-player.default.127.0.0.1.sslip.io` in your web-browser.
