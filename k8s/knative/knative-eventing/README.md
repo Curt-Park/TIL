@@ -143,6 +143,8 @@ kubectl apply -f ce-trigger.yaml
 > You can specify a filter with --filter option:
 > `kn trigger create cloudevents-player-filter --sink cloudevents-player  --broker example-broker --filter type=some-type`
 
+Now, when we go back to the CloudEvents Player and send an event, we see that CloudEvents are both sent and received by the CloudEvents Player:
+<img width="1270" src="https://user-images.githubusercontent.com/14961526/196024630-c230a38a-d217-492b-b34e-97689f8a1ee0.png">
 
 ## References
 - https://knative.dev/docs/getting-started/getting-started-eventing/
