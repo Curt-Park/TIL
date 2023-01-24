@@ -53,8 +53,13 @@ Click `Project` -> `Create Project`.
 
 ## Run the workflow
 
+- Create tenant (`Security` -> `Tenant Manage` -> `Create Tenant`)
+- Add tenant to the user (`Security` -> `User Manage` -> `Edit`)
+- Go to `Project` -> `Workflow Definition`
 - Click `Online`
 - Click `Start`
 
+<img width="1351" src="https://user-images.githubusercontent.com/14961526/214243710-0745e42f-e5ba-4d16-8d7b-b667465bacc9.png">
+<img width="1344" src="https://user-images.githubusercontent.com/14961526/214243915-a7c30624-c896-4cf2-8edc-7bd8f0044d63.png">
 <img width="1117" src="https://user-images.githubusercontent.com/14961526/214241645-4cce65a8-d636-4df4-88e6-ac9de7188d10.png">
 <img width="1120" src="https://user-images.githubusercontent.com/14961526/214241701-88b5cf38-e61c-4121-9f56-b871e8043a39.png">
