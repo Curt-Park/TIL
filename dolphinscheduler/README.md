@@ -25,4 +25,10 @@ e3dbffbf42e4   bitnami/postgresql:11.11.0                                       
 
 ```
 
-## Login
+Open http://localhost:12345/dolphinscheduler/ui
+![image](https://user-images.githubusercontent.com/14961526/214229341-cf3d2b5f-19fa-4f04-8adb-81380adccb8a.png)
+
+- ID: admin
+- PW: dolphinscheduler123
+
+<img width="1340" src="https://user-images.githubusercontent.com/14961526/214229464-9d87cc21-496a-437e-b66d-9519aba5c87c.png">
