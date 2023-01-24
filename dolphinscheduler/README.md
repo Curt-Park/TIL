@@ -31,4 +31,12 @@ Open http://localhost:12345/dolphinscheduler/ui
 - ID: admin
 - PW: dolphinscheduler123
 
-<img width="1340" src="https://user-images.githubusercontent.com/14961526/214229464-9d87cc21-496a-437e-b66d-9519aba5c87c.png">
+## Create a project
+<img width="1345" src="https://user-images.githubusercontent.com/14961526/214239800-2bfae09c-11bd-406a-aee6-830b631c921a.png">
+
+Click `Project` -> `Create Project`.
+
+<img width="1352" src="https://user-images.githubusercontent.com/14961526/214240310-28866a08-5d35-4ec6-912b-4b0c9744906b.png">
+
+## Workflow Definition
+TBD
