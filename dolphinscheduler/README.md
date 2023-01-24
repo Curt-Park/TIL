@@ -39,4 +39,22 @@ Click `Project` -> `Create Project`.
 <img width="1352" src="https://user-images.githubusercontent.com/14961526/214240310-28866a08-5d35-4ec6-912b-4b0c9744906b.png">
 
 ## Workflow Definition
-TBD
+
+<img width="1348" src="https://user-images.githubusercontent.com/14961526/214240526-bc7733a7-7a37-4daf-ba7b-4c13217daa28.png">
+
+- Click `Workflow Definition` -> `Create Workflow`.
+- Drag `SHELL` from the left.
+- Configure the node and click `Confirm`.
+- Click `Save`
+
+<img width="1352" src="https://user-images.githubusercontent.com/14961526/214241047-7dad709d-27ea-4590-bdea-f678a8a86b82.png">
+<img width="1121" src="https://user-images.githubusercontent.com/14961526/214241096-92c1d3c6-7320-4dc8-bc11-6cc1c2802d53.png">
+<img width="1350" src="https://user-images.githubusercontent.com/14961526/214241294-e6f8cc34-8975-434b-acc0-bfb68ec75179.png">
+
+## Run the workflow
+
+- Click `Online`
+- Click `Start`
+
+<img width="1117" src="https://user-images.githubusercontent.com/14961526/214241645-4cce65a8-d636-4df4-88e6-ac9de7188d10.png">
+<img width="1120" src="https://user-images.githubusercontent.com/14961526/214241701-88b5cf38-e61c-4121-9f56-b871e8043a39.png">
