@@ -109,6 +109,8 @@ Task schduler의 설계를 그려보면 다음과 같다.
 | DelayTolerance  | Time  | This indicates how much delay we can sustain before starting a task.  |
 | ScriptPath  | VarChar  | The path of the script that needs to be executed. The script is a file placed in a file system. The file should be made accessible so that it can be executed, just like how we mount Google Drive in the Google Colaboratory and then execute our code files there.  |
 
-  - Batching and prioritization: Task가 RDB에 저장되면 Task들은 Batch로 묶인다. 우선순위의 경우 delay tolerace / execution cap 등 task의 여러가지 성격에 의해 결정한다. 그리고 Top K priority의 task들은 distributed queue에 넣어진다. Queue service 또한 
-  - 
-  - Batching and prioritization: Task가 RDB에 저장되면 Task들은 Batch로 묶인다. 우선순위의 경우 delay tolerace / execution cap 등 task의 여러가지 성격에 의해 결정한다. Top K priority의 task들은 distributed queue에 넣어진다. Queue service 또한 비용을 
+  - Batching and prioritization: Task가 RDB에 저장되면 Task들은 Batch로 묶인다. 우선순위의 경우 delay tolerace / execution cap 등 task의 여러가지 성격에 의해 결정한다. Top K priority의 task들은 distributed queue에 넣어진다. Queue service는 비용을 소요하는 요인이므로 최대한 각 task들이 Queue를 이용하는 시간을 줄이는 것이 좋다. 또한 Scheduling Type에 긴 주기마다 실행하는 Task가 존재하므로 Task에 대한 정보를 Storage에 저장해야 한다.
+  - Distributed Queue:
+  - Queue Manager:
+  - Resource Manager:
+  - Monitoring Service: 
