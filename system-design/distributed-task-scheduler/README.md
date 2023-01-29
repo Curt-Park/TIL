@@ -79,3 +79,32 @@ Task scheduler는 여러가지 형태가 될 수 있다.
 - Client를 Task execution으로부터 분리할 필요가 있음.
 
 ## Design
+Task scheduling을 위해서는 다음과 같은 정보들이 필요하다.
+
+- Resource Requirements: CPU cores / RAM / Disk Space / Disk Access Rate / TCP Ports 등. 하지만 Clients가 이 요구사항을 정확히 기술하는 것은 어렵다. 이 문제를 개선하기 위해 basic / regular / premium으로 resource의 등급을 나누도록 한다. Client는 설정을 통해 이 등급의 세부사항을 변경할 수 있다.
+- Dependency: Task 간 의존성이 있는 경우 task의 실행순서가 보장되어야 한다. 반면 의존성이 없는 task들의 경우 동시에 실행되어 자원을 좀 더 효율적으로 사용할 수 있다.
+
+Task schduler의 설계를 그려보면 다음과 같다.
+
+<img width="943" src="https://user-images.githubusercontent.com/14961526/215319151-60289b9b-a3e4-4a36-b014-0f77cd6b3abd.png">
+
+- Clients: Task를 실행하는 주체로써, 어떤 조직이거나 또는 Cloud provider의 개개인 이용자일  수 있다.
+- Rate limiter: 서비스의 안정성(reliability)을 위해서는 task의 실행규모를 제약할 수 있어야 한다. (예를 들어, 시간당 X개의 task 수행만 허용.) Rate limiter는 Clients의 요금제에 따라 실행할 수 있는 task 규모를 제한한다. 만약 제한을 초과하면 `Limit Exceeded` 메시지를 반환한다.
+- Task submitter: Rate limiter를 통과한 task들을 처리한다. Task submitter는 task의 요청이 급등하는 것을 대비해 single node가 아닌 클러스터로 구성한다.
+- Unique ID generator: task에 식별자를 부여한다.
+- Database: Task submitter는 distributed database에 task를 저장한다.
+  - Relational Database (RDB): RDB는 task ID, user ID, required resources, execution caps, total number of attempts made by the client, delay tolerance 등의 정보를 저장한다.
+  - Graph Database (GDB): Task 간의 의존성 정보를 다루기 위해 Directed Acyclic Graph (DAG) 형태로 task의 정보를 저장한다. 이 DAG 정보를 바탕으로 Task Scheduling을 수행한다.
+  
+### Database Schema
+| Column Name  | Datatype | Description  |
+|---|---|---|
+| TaskID |  Integer | Uniquely identifies each task.  | 
+| UserID  | Integer  | This is the ID of the task owner.  |
+| SchedulingType  | VarChar   | This can be either once, daily, weekly, monthly, or annually.   |
+| TotalAttempts  | Integer  | This is the maximum number of retries in case a task execution fails.  |
+| ResourceRequirements  | VarChar  | Clients have to specify the type of the offered resource categories, such as Basic, Regular, or Premium. The specified resource category is saved in the form of a string in the RDB.  |
+| ExecutionCap  | Time  | This is the maximum time allowed for the task execution. (This time starts when a resource is allocated to the task.)  |
+| Status  | VarChar  | This can be waiting, in progress, done, or failed.  |
+| DelayTolerance  | Time  | This indicates how much delay we can sustain before starting a task.  |
+| ScriptPath  | VarChar  | The path of the script that needs to be executed. The script is a file placed in a file system. The file should be made accessible so that it can be executed, just like how we mount Google Drive in the Google Colaboratory and then execute our code files there.  |
