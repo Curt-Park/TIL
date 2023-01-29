@@ -175,3 +175,47 @@ Task를 성공적으로 실행했으나, 어떤 문제로 asknowledgement를 전
 (Database에 video를 올리는 것이 idempotency의 예가 될 수 있다.)
 
 ## Schedule and execute untrusted tasks
+
+Untrusted task란 task script가 malicious instructions를 포함할 가능성이 있는 task를 의미한다. 한 task의 수행이 다른 task의 수행에 나쁜 영향을 끼치지 않도록 해야한다. (e.g. shared environment에 대한 malicious instruction을 가지고 있는 task)
+
+다음을 염두하자.
+
+- 적절한 인증과 자원에 대한 인가 절차 적용
+
+- Docker나 Virtual Machine를 사용해서 Code Sandboxing
+
+- 각 Task의 Resource Utilization Monitoring을 통해 Task 간의 Performance Isolation
+
+## Evaluation
+
+### Availability
+
+- rate limiter가 적절하게 replicated 되는지
+
+- node가 task의 실패를 알렸을때 다른 node가 task의 수행을 대신할 수 있는지
+
+- queue가 task를 수용가능한 상태인지
+
+### Durability
+
+- Task를 제출하고 수행되기까지 Database에서 유지되는지
+
+### Scalability
+
+- 각 component와 resource를 확장/축소할 수 있는지
+
+### Fault Tolerance
+
+- Task 실행에 실패했을때 재실행 할 수 있는지
+
+- task가 infinite loop에 빠졌을때 특정 시간 이후 task를 종료하고 유저에게 알릴 수 있는지
+
+### Bounded waiting time
+
+- 유저의 waiting time에 상한이 있는지
+
+- waiting time에 도달했는데도 task의 실행이 불가할때 유저에게 그 사실을 알릴 수 있는지
+
+## Conclusion
+
+Datacenter level의 task scheduling system에 대한 설계를 살펴봤다. 
