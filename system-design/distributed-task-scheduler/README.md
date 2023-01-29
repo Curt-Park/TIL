@@ -25,3 +25,38 @@ Datacenter task scheduler는 다수의 사용자로부터 요청받은 수많은
 - Datacenter에 흩어져있는 여러 계산 자원을 활용한다.
 
 동시에 시스템은 확장가능해야 하며(scalable), 신뢰성이 있고(reliable), 장애애 강인해야(fault-tolerant) 한다.
+
+## Requirements
+Task scheduler의 설계에 앞서 시스템의 functional / non-functional requirements를 정리해본다.
+
+### Functional Requirements
+
+<img width="579" src="https://user-images.githubusercontent.com/14961526/215316990-61aae8a8-4bf5-4b71-a9d7-12c28eff114b.png">
+
+- Submit Tasks
+- Allocate Resources
+- Remove Tasks
+- Monitor Task Execution
+- Efficient Resource Utilization
+- Release Resources
+- Show Task Status
+
+### Non-Functional Requiremetns
+
+<img width="381" src="https://user-images.githubusercontent.com/14961526/215317012-77d8c936-d9f7-4765-b56d-801e0009fca2.png">
+
+- Availability: Task를 스케쥴하고 실행하는데 있어 높은 가용성을 가져야 한다.
+- Durability: 시스템이 요청받은 task는 유실되어서는 안된다.
+- Scalability: 증가하는 task에 대한 대응이 가능해야 한다.
+- Fault-tolerance: 시스템의 컴포넌트에 발생하는 장애에 의해 서비스가 중단되어서는 안된다.
+- Bounded Waiting Time: Task가 실행되기까지 최대로 기다리는 시간에 대한 상한이 있어야 한다.
+
+## Building blocks we will use
+
+<img width="533" src="https://user-images.githubusercontent.com/14961526/215317229-a2901f6a-73a8-4790-8d25-e1dfda4f92b7.png">
+
+- Rate limiter: System을 안정적으로 유지하기 위해서는 task의 수에 대한 제한이 필요하다.
+- A sequencer: Task를 식별할 수 있어야 한다.
+- Database: Task에 대한 정보를 저장한다.
+- A distributed queue: Task의 순서를 적절하게 배열하는데 필요하다.
+- Monitoring: 서비스를 안정적으로 제공하기 위해 자원의 상태나 task의 실패여부를 확인할 수 있어야 한다.
