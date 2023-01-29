@@ -60,3 +60,22 @@ Task scheduler의 설계에 앞서 시스템의 functional / non-functional requ
 - Database: Task에 대한 정보를 저장한다.
 - A distributed queue: Task의 순서를 적절하게 배열하는데 필요하다.
 - Monitoring: 서비스를 안정적으로 제공하기 위해 자원의 상태나 task의 실패여부를 확인할 수 있어야 한다.
+
+## Components
+Task scheduler는 여러가지 형태가 될 수 있다.
+- 특정 조직 내부에서 그들이 구축한 자원 클러스터를 이용하는 형태
+- 클라우드 제공사가 다수의 클라이언트로부터 들어오는 task를 처리하는 형태
+
+일반적으로 System Component는 다음과 같이 4가지로 나눈다.
+- Clients: Task의 실행을 요청한다.
+- Resources: 이 Component 상에서 Task가 실행된다.
+- Scheduler: 어떤 task를 어떤 Resource에 배치할지 결정한다.
+
+<img width="537" src="https://user-images.githubusercontent.com/14961526/215318304-8771af02-e65d-48e9-ac0c-602010df5e86.png">
+
+또한 위 그림에 보이는 것처럼 일련의 task 요청들을 담아둘 수 있는 queue가 필요하다.
+- 당장 task를 수행하기에 충분한 resource가 없을 수도 있음
+- Task간의 의존성이 있는 경우 다른 Task가 끝날 때까지 대기해야 함
+- Client를 Task execution으로부터 분리할 필요가 있음.
+
+## Design
