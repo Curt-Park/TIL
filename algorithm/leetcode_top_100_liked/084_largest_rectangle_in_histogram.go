@@ -1,5 +1,24 @@
 package main
 
+func largestRectangleArea0(heights []int) int {
+	stack, maxArea := [][2]int{}, 0
+	for i, h := range heights {
+		start := i
+		for len(stack) > 0 && stack[len(stack)-1][1] > h {
+			idx, v := stack[len(stack)-1][0], stack[len(stack)-1][1]
+			stack = stack[:len(stack)-1]
+			maxArea = max(maxArea, (i-idx)*v)
+			start = idx
+		}
+		stack = append(stack, [2]int{start, h})
+	}
+	for i := 0; i < len(stack); i++ {
+		idx, h := stack[i][0], stack[i][1]
+		maxArea = max(maxArea, h*(len(heights)-idx))
+	}
+	return maxArea
+}
+
 func largestRectangleArea1(heights []int) int {
 	area := make([]int, len(heights))
 	getArea(&heights, &area)
