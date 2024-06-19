@@ -35,3 +35,28 @@ $ python server.py
 
 open http://localhost:8000/docs
 <img width="1472" src="https://github.com/Curt-Park/TIL/assets/14961526/e9cc1091-b11e-4038-aaa0-4989d890c2fd">
+
+## Test
+```bash
+$ curl -X 'POST' \
+  'http://localhost:8000/chain/invoke' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "input": {
+    "language": "korean",
+    "text": "this thing slaps!"
+  },
+  "config": {},
+  "kwargs": {}
+}'
+
+# response
+{
+  "output": "이거 진짜 좋아요!",
+  "metadata": {
+    "run_id": "73b92825-2370-4b4f-a098-436b6d98f241",
+    "feedback_tokens": []
+  }
+}
+```
