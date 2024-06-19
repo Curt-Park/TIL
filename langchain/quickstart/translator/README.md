@@ -32,3 +32,6 @@ $ python server.py
  INFO:     ::1:53928 - "GET /docs HTTP/1.1" 200 OK
  INFO:     ::1:53928 - "GET /openapi.json HTTP/1.1" 200 OK
 ```
+
+open http://localhost:8000/docs
+<img width="1472" src="https://github.com/Curt-Park/TIL/assets/14961526/e9cc1091-b11e-4038-aaa0-4989d890c2fd">
