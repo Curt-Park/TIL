@@ -1,5 +1,5 @@
 cvlib==0.2.7
-Pillow==10.0.1
+Pillow==10.3.0
 uvicorn==0.16.0
 python-multipart==0.0.7
 fastapi==0.109.1
