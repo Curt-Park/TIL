@@ -20,7 +20,54 @@ import subprocess
 
 os.environ["OPENAI_API_KEY"] = subprocess.check_output(
     "security find-generic-password -s 'api-key.openai' -w",
-    shell=True,
-    text=True
+        shell=True,
+            text=True
+            
 ).strip()
 ```
+
+
+## Setup
+```bash
+conda create -n langchain -y python=3.10
+conda activate langchain
+pip install requirements.txt
+```
+
+## Execution
+```bash
+$ python main.py
+```
+
+open http://localhost:8000/docs
+<img width="1472" src="https://github.com/Curt-Park/TIL/assets/14961526/e9cc1091-b11e-4038-aaa0-4989d890c2fd">
+
+## Test
+translator:
+```bash
+$ curl -X 'POST' \
+  'http://localhost:8000/translate/invoke' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "input": {
+    "language": "korean",
+    "text": "this thing slaps!"
+  },
+  "config": {},
+  "kwargs": {}
+}'
+
+# response
+{
+  "output": "이거 진짜 좋아요!",
+  "metadata": {
+    "run_id": "73b92825-2370-4b4f-a098-436b6d98f241",
+    "feedback_tokens": []
+  }
+}
+```
+
+## Reference
+- https://python.langchain.com/v0.2/docs/tutorials/llm_chain/
+- https://python.langchain.com/v0.2/docs/tutorials/chatbot/
