@@ -1,7 +1,7 @@
 cvlib==0.2.7
 Pillow==10.0.1
 uvicorn==0.16.0
-python-multipart==0.0.5
+python-multipart==0.0.7
 fastapi==0.109.1
 nest-asyncio==1.5.4
 jupyterlab==3.2.5
