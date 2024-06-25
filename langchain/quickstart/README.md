@@ -53,19 +53,11 @@ $ curl -X 'POST' \
   "input": {
     "language": "korean",
     "text": "this thing slaps!"
-  },
-  "config": {},
-  "kwargs": {}
+  }
 }'
 
 # response
-{
-  "output": "이거 진짜 좋아요!",
-  "metadata": {
-    "run_id": "73b92825-2370-4b4f-a098-436b6d98f241",
-    "feedback_tokens": []
-  }
-}
+{"output": "이거 진짜 좋아요!", ...}
 ```
 
 #### chatbot
@@ -82,9 +74,7 @@ $ curl -X 'POST' \
 }'
 
 # response
-{
-  "output":{"content":"Your name is Curt. How can I assist you" ...  }
-}
+{"output": "Your name is Curt. How can I assist you" ...}
 
 
 $ curl -X 'POST' \
@@ -99,7 +89,7 @@ $ curl -X 'POST' \
 }'
 
 # response
-{"output":{"content":"Your name is Curt. How can I assist you today?" ...}}
+{"output": "Your name is Curt. How can I assist you today?" ...}
 
 
 $ curl -X 'POST' \
@@ -114,7 +104,7 @@ $ curl -X 'POST' \
 }'
 
 # response
-{"output":{"content":"I'm sorry, but I don't have access to personal information about you, including your name." ...}}
+{"output": "I'm sorry, but I don't have access to personal information about you, including your name." ...}
 ```
 
 ## Reference

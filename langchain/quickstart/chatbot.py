@@ -17,8 +17,9 @@ from langchain_community.chat_message_histories import FileChatMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import ConfigurableFieldSpec
-from langchain_core.runnables.base import RunnableSequence
+from langchain_core.runnables.base import Runnable
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from typing_extensions import TypedDict
 
@@ -92,7 +93,7 @@ class InputChat(TypedDict):
     text: str
 
 
-def get_chain(model: BaseChatModel) -> RunnableSequence:
+def get_chain(model: BaseChatModel) -> Runnable:
     """Get translator chain."""
     system_template = (
         "You are a helpful assistant. Answer all questions to the best of your ability."
@@ -100,15 +101,17 @@ def get_chain(model: BaseChatModel) -> RunnableSequence:
     prompt_template = ChatPromptTemplate.from_messages(
         [
             ("system", system_template),
-            # MessagesPlaceholder(variable_name="history"),
-            ("user", "{text}"),
+            MessagesPlaceholder(variable_name="history"),
+            ("human", "{text}"),
         ]
     )
-    chain = prompt_template | model
+    parser = StrOutputParser()
+    chain: Runnable = prompt_template | model | parser
     chain_with_history = RunnableWithMessageHistory(
         chain,
         create_session_factory("chat_histories"),
         input_messages_key="text",
+        history_messages_key="history",
         history_factory_config=[
             ConfigurableFieldSpec(
                 id="user_id",
