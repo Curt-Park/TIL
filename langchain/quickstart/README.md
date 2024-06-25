@@ -24,3 +24,90 @@ os.environ["OPENAI_API_KEY"] = subprocess.check_output(
     text=True
 ).strip()
 ```
+
+
+## Setup
+```bash
+conda create -n langchain -y python=3.10
+conda activate langchain
+pip install requirements.txt
+```
+
+## Execution
+```bash
+$ python main.py
+```
+
+open http://localhost:8000/docs
+<img width="1472" src="https://github.com/Curt-Park/TIL/assets/14961526/e9cc1091-b11e-4038-aaa0-4989d890c2fd">
+
+## Test
+
+#### translator
+```bash
+$ curl -X 'POST' \
+  'http://localhost:8000/translate/invoke' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "input": {
+    "language": "korean",
+    "text": "this thing slaps!"
+  }
+}'
+
+# response
+{"output": "이거 진짜 좋아요!", ...}
+```
+
+#### chatbot
+```bash
+$ curl -X 'POST' \
+  --cookie "user_id=curt123;conversation_id=conv123" \
+  'http://localhost:8000/chat/invoke' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "input": {
+    "text": "hi! my name is Curt"
+  }
+}'
+
+# response
+{"output": "Your name is Curt. How can I assist you" ...}
+
+
+$ curl -X 'POST' \
+  --cookie "user_id=curt123;conversation_id=conv123" \
+  'http://localhost:8000/chat/invoke' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "input": {
+    "text": "what is my name?"
+  }
+}'
+
+# response
+{"output": "Your name is Curt. How can I assist you today?" ...}
+
+
+$ curl -X 'POST' \
+  --cookie "user_id=bob123;conversation_id=conv123" \
+  'http://localhost:8000/chat/invoke' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "input": {
+    "text": "what is my name?"
+  }
+}'
+
+# response
+{"output": "I'm sorry, but I don't have access to personal information about you, including your name." ...}
+```
+
+## Reference
+- https://python.langchain.com/v0.2/docs/tutorials/llm_chain/
+- https://python.langchain.com/v0.2/docs/tutorials/chatbot/
+- https://github.com/langchain-ai/langserve/blob/main/examples/chat_with_persistence_and_user/server.py
