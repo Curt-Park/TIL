@@ -67,6 +67,48 @@ $ curl -X 'POST' \
 }
 ```
 
+chatbot:
+```bash
+$ curl -X 'POST' \
+  --cookie "user_id=curt123" \
+  'http://localhost:8000/chat/invoke' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "input": {
+    "text": "hi! my name is Curt"
+  },
+  "config": {},
+  "kwargs": {}
+}'
+
+# response
+{
+  "output": "이거 진짜 좋아요!",
+  "metadata": {
+    "run_id": "73b92825-2370-4b4f-a098-436b6d98f241",
+    "feedback_tokens": []
+  }
+}
+
+
+$ curl -X 'POST' \
+  --cookie "user_id=curt123" \
+  'http://localhost:8000/chat/invoke' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "input": {
+    "text": "what is my name?"
+  },
+  "config": {},
+  "kwargs": {}
+}'
+
+# response
+```
+
 ## Reference
 - https://python.langchain.com/v0.2/docs/tutorials/llm_chain/
 - https://python.langchain.com/v0.2/docs/tutorials/chatbot/
+- https://github.com/langchain-ai/langserve/blob/main/examples/chat_with_persistence_and_user/server.py
