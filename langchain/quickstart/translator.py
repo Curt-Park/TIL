@@ -1,18 +1,15 @@
 from langchain_core.output_parsers import StrOutputParser
+from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_openai import ChatOpenAI
+from langchain_core.runnables.base import RunnableSequence
 
-# 1. Create prompt template
-system_template = "Translate the following into {language}:"
-prompt_template = ChatPromptTemplate.from_messages(
-    [("system", system_template), ("user", "{text}")]
-)
 
-# 2. Create model
-model = ChatOpenAI()
-
-# 3. Create parser
-parser = StrOutputParser()
-
-# 4. Create chain
-chain = prompt_template | model | parser
+def get_chain(model: BaseChatModel) -> RunnableSequence:
+    """Get translator chain."""
+    system_template = "Translate the following into {language}:"
+    prompt_template = ChatPromptTemplate.from_messages(
+        [("system", system_template), ("user", "{text}")]
+    )
+    parser = StrOutputParser()
+    chain = prompt_template | model | parser
+    return chain

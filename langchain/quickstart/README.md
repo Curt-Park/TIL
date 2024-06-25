@@ -20,9 +20,8 @@ import subprocess
 
 os.environ["OPENAI_API_KEY"] = subprocess.check_output(
     "security find-generic-password -s 'api-key.openai' -w",
-        shell=True,
-            text=True
-            
+    shell=True,
+    text=True
 ).strip()
 ```
 
