@@ -7,19 +7,20 @@ There are several other related concepts that you may be looking for:
 This tutorial will cover the basics which will be helpful for those two more advanced topics.
 """
 
-import re
 import logging
-from fastapi import Request, HTTPException
-from typing import Any, Callable, Dict, Union
+import re
 from pathlib import Path
+from typing import Any, Callable, Dict, Union
 
+from fastapi import HTTPException, Request
 from langchain_community.chat_message_histories import FileChatMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain_core.runnables.base import RunnableSequence
 from langchain_core.runnables import ConfigurableFieldSpec
+from langchain_core.runnables.base import RunnableSequence
 from langchain_core.runnables.history import RunnableWithMessageHistory
+from typing_extensions import TypedDict
 
 
 def _is_valid_identifier(value: str) -> bool:
@@ -35,21 +36,28 @@ def per_request_config_modifier(
     """Update the config"""
     config = config.copy()
     configurable = config.get("configurable", {})
-    # Look for a cookie named "user_id"
     user_id = request.cookies.get("user_id", None)
-
     if user_id is None:
         raise HTTPException(
             status_code=400,
             detail="No user id found. Please set a cookie named 'user_id'.",
         )
+    conversation_id = request.cookies.get("conversation_id", None)
+    if user_id is None:
+        raise HTTPException(
+            status_code=400,
+            detail="No conversation id found. Please set a cookie named 'conversation_id'.",
+        )
 
     configurable["user_id"] = user_id
+    configurable["conversation_id"] = conversation_id
     config["configurable"] = configurable
     return config
 
 
-def create_session_factory(base_dir: Union[str, Path]) -> Callable[[str], BaseChatMessageHistory]:
+def create_session_factory(
+    base_dir: Union[str, Path]
+) -> Callable[[str], BaseChatMessageHistory]:
     """Create a factory that can retrieve chat histories.
 
     the chat histories are keyed by user ID and conversation ID.
@@ -78,13 +86,23 @@ def create_session_factory(base_dir: Union[str, Path]) -> Callable[[str], BaseCh
     return get_chat_history
 
 
+class InputChat(TypedDict):
+    """Input for the chat endpoint."""
+
+    text: str
+
+
 def get_chain(model: BaseChatModel) -> RunnableSequence:
     """Get translator chain."""
     system_template = (
         "You are a helpful assistant. Answer all questions to the best of your ability."
     )
     prompt_template = ChatPromptTemplate.from_messages(
-        [("system", system_template), MessagesPlaceholder(variable_name="message"), ("user", "{text}")]
+        [
+            ("system", system_template),
+            # MessagesPlaceholder(variable_name="history"),
+            ("user", "{text}"),
+        ]
     )
     chain = prompt_template | model
     chain_with_history = RunnableWithMessageHistory(
@@ -108,6 +126,6 @@ def get_chain(model: BaseChatModel) -> RunnableSequence:
                 default="",
                 is_shared=True,
             ),
-        ]
-    )
+        ],
+    ).with_types(input_type=InputChat)
     return chain_with_history
