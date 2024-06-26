@@ -43,7 +43,7 @@ open http://localhost:8000/docs
 
 ## Test
 
-#### translator
+#### Translator
 ```bash
 $ curl -X 'POST' \
   'http://localhost:8000/translate/invoke' \
@@ -60,7 +60,7 @@ $ curl -X 'POST' \
 {"output": "이거 진짜 좋아요!", ...}
 ```
 
-#### chatbot
+#### Chatbot
 ```bash
 $ curl -X 'POST' \
   --cookie "user_id=curt123;conversation_id=conv123" \
@@ -107,7 +107,26 @@ $ curl -X 'POST' \
 {"output": "I'm sorry, but I don't have access to personal information about you, including your name." ...}
 ```
 
+#### Retriever
+```bash
+$ curl -X 'POST' \
+  'http://localhost:8000/retriever/invoke' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "input": "tell me about cats"
+}'
+
+# response
+{"output": "Cats are independent pets that often enjoy their own space.", ...}
+```
+
+
 ## Reference
+#### Translator
 - https://python.langchain.com/v0.2/docs/tutorials/llm_chain/
+#### Chatbot
 - https://python.langchain.com/v0.2/docs/tutorials/chatbot/
 - https://github.com/langchain-ai/langserve/blob/main/examples/chat_with_persistence_and_user/server.py
+#### Vector stores and retrievers
+- https://python.langchain.com/v0.2/docs/tutorials/retrievers/

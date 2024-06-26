@@ -10,6 +10,7 @@ from langserve import add_routes
 
 import chatbot
 import translator
+import retriever
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-m", "--model", type=str, default="gpt-4o")
@@ -50,6 +51,11 @@ add_routes(
     #    without validation users are likely going to forget to do that.
     #    In addition, there's likely little sense in support batch for a chatbot.
     disabled_endpoints=["playground", "batch"],
+)
+add_routes(
+    app,
+    retriever.get_chain(model),
+    path="/retriever",
 )
 
 if __name__ == "__main__":

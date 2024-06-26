@@ -1,4 +1,5 @@
 langchain == 0.2.5
+langchain-chroma == 0.1.1
 langchain-community == 0.2.5
 langchain-openai == 0.1.8
 langserve[all] == 0.2.2
