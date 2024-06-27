@@ -19,7 +19,7 @@ args = parser.parse_args()
 
 # Get OpenAI model.
 os.environ["OPENAI_API_KEY"] = subprocess.check_output(
-    "security find-generic-password -s 'api-key.openai' -w", shell=True, text=True
+    "security find-generic-password -s 'openai.api-key' -w", shell=True, text=True
 ).strip()
 
 # Create model

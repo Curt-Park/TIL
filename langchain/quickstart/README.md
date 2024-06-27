@@ -2,16 +2,27 @@
 
 LangChain은 LLM application의 개발부터 배포, 모니터링까지 전반적인 life cycle을 구축하는 도구다.
 
-## Set OpenAI API Key
-For MAC,
+## API Keys and Others
+
+### For MAC
 ```bash
-security add-generic-password -s 'api-key.openai' -a '' -w 'API-KEY'
+security add-generic-password -s 'openai.api-key' -a '' -w 'API-KEY'
+security add-generic-password -s 'google.api-key' -a '' -w 'API-KEY'
+security add-generic-password -s 'google.cse-id' -a '' -w 'CSE-ID'
 ```
+
+### For Google Search
+- Google API key: https://console.cloud.google.com/apis/credentials
+- Google CSE ID: https://programmablesearchengine.google.com/controlpanel/overview
+- Create Credentials: https://console.cloud.google.com/apis/api/customsearch.googleapis.com/
+
 
 ## Get OpenAI API Key
 ```bash
 # bash
-security find-generic-password -s 'api-key.openai' -w
+security find-generic-password -s 'openai.api-key' -w
+security find-generic-password -s 'google.api-key' -w
+security find-generic-password -s 'google.cse-id' -w
 ```
 
 ```python
@@ -19,9 +30,13 @@ security find-generic-password -s 'api-key.openai' -w
 import subprocess
 
 os.environ["OPENAI_API_KEY"] = subprocess.check_output(
-    "security find-generic-password -s 'api-key.openai' -w",
-    shell=True,
-    text=True
+    "security find-generic-password -s 'api-key.openai' -w", shell=True, text=True
+).strip()
+os.environ["GOOGLE_API_KEY"] = subprocess.check_output(
+    "security find-generic-password -s 'google.api-key' -w", shell=True, text=True
+).strip()
+os.environ["GOOGLE_CSE_ID"] = subprocess.check_output(
+    "security find-generic-password -s 'google.cse-id' -w", shell=True, text=True
 ).strip()
 ```
 
@@ -130,3 +145,5 @@ $ curl -X 'POST' \
 - https://github.com/langchain-ai/langserve/blob/main/examples/chat_with_persistence_and_user/server.py
 #### Vector stores and retrievers
 - https://python.langchain.com/v0.2/docs/tutorials/retrievers/
+#### Search agent
+- https://python.langchain.com/v0.2/docs/tutorials/agents/
