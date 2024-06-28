@@ -1,13 +1,13 @@
 """This tutorial will familiarize you with LangChain's vector store and retriever abstractions."""
+
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
 from langchain_core.language_models.chat_models import BaseChatModel
-from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnableLambda, RunnablePassthrough
 from langchain_core.runnables.base import Runnable
 from langchain_openai import OpenAIEmbeddings
-
 
 # Sample documents.
 documents = [
@@ -47,7 +47,11 @@ def get_chain(model: BaseChatModel) -> Runnable:
     system_template = "Answer this question using the provided context only."
     context_template = "Context:\n{context}"
     prompt_template = ChatPromptTemplate.from_messages(
-        [("system", system_template), ("user", "{question}"), ("system", context_template)]
+        [
+            ("system", system_template),
+            ("user", "{question}"),
+            ("system", context_template),
+        ]
     )
     parser = StrOutputParser()
     rag_chain = (

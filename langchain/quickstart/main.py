@@ -9,17 +9,24 @@ from langchain_openai import ChatOpenAI
 from langserve import add_routes
 
 import chatbot
-import translator
 import retriever
+import translator
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-m", "--model", type=str, default="gpt-4o")
 args = parser.parse_args()
 
 
-# Get OpenAI model.
+# OpenAI API.
 os.environ["OPENAI_API_KEY"] = subprocess.check_output(
-    "security find-generic-password -s 'api-key.openai' -w", shell=True, text=True
+    "security find-generic-password -s 'openai.api-key' -w", shell=True, text=True
+).strip()
+# Google API.
+os.environ["GOOGLE_API_KEY"] = subprocess.check_output(
+    "security find-generic-password -s 'google.api-key' -w", shell=True, text=True
+).strip()
+os.environ["GOOGLE_CSE_ID"] = subprocess.check_output(
+    "security find-generic-password -s 'google.cse-id' -w", shell=True, text=True
 ).strip()
 
 # Create model

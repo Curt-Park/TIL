@@ -19,9 +19,28 @@ from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables import ConfigurableFieldSpec
-from langchain_core.runnables.base import Runnable
+from langchain_core.runnables.base import Runnable, RunnableConfig
 from langchain_core.runnables.history import RunnableWithMessageHistory
+from langchain_core.tools import Tool
+from langchain_google_community import GoogleSearchAPIWrapper, GoogleSearchResults
+from langgraph.prebuilt import create_react_agent
+from langgraph.pregel.io import AddableValuesDict
 from typing_extensions import TypedDict
+
+
+class LastMessageGetter(Runnable):
+    """Get the last message only."""
+
+    def invoke(
+        self,
+        input: Any,
+        config: RunnableConfig = None,
+        **kwargs: Any,
+    ) -> Any:
+        """Works as identity function if the input is not dict."""
+        if isinstance(input, AddableValuesDict):
+            return input["messages"][-1]
+        return input
 
 
 def _is_valid_identifier(value: str) -> bool:
@@ -105,8 +124,21 @@ def get_chain(model: BaseChatModel) -> Runnable:
             ("human", "{text}"),
         ]
     )
-    parser = StrOutputParser()
-    chain: Runnable = prompt_template | model | parser
+
+    # Tools.
+    google_search = GoogleSearchResults(
+        num_results=2, api_wrapper=GoogleSearchAPIWrapper()
+    )
+    search = Tool(
+        name="google_search",
+        description="Search Google for recent results.",
+        func=google_search._run,
+    )
+    tools = [search]
+
+    # Chaining.
+    agent_executor = create_react_agent(model, tools)
+    chain: Runnable = prompt_template | agent_executor | LastMessageGetter() | StrOutputParser()
     chain_with_history = RunnableWithMessageHistory(
         chain,
         create_session_factory("chat_histories"),

@@ -4,3 +4,6 @@ langchain-community == 0.2.5
 langchain-openai == 0.1.8
 langserve[all] == 0.2.2
 pydantic == 1.10.13
+langchain-google-community == 1.0.6
+google-api-python-client == 2.134.0
+langgraph == 0.1.2
