@@ -7,3 +7,4 @@ pydantic == 1.10.13
 langchain-google-community == 1.0.6
 google-api-python-client == 2.134.0
 langgraph == 0.1.2
+beautifulsoup4 == 4.12.3

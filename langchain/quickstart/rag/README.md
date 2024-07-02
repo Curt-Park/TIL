@@ -11,12 +11,19 @@ Setup API keys and python env. (See [README.md](../README.md))
 ### Indexing
 a pipeline for ingesting data from a source and indexing it. This usually happens offline.
 
-1. Load
-2. Split
-3. Store
+![image](https://github.com/Curt-Park/TIL/assets/14961526/dffd838f-3c01-42d3-89ea-19edf276cd8d)
+
+1. Load: Data load that is done with [Document Loaders](https://python.langchain.com/v0.2/docs/concepts/#document-loaders)
+2. Split: Splits documents into smaller chunks by [Text Splitters](https://python.langchain.com/v0.2/docs/concepts/#text-splitters)
+3. Store: the chunks are stored, so that they can later be searched over. It's done using [VectorStore](https://python.langchain.com/v0.2/docs/concepts/#vector-stores) and [Embeddings](https://python.langchain.com/v0.2/docs/concepts/#embedding-models)
 
 ### Retrieval and generation
 The actual RAG chain, which takes the user query at run time and retrieves the relevant data from the index, then passes that to the model.
+
+![image](https://github.com/Curt-Park/TIL/assets/14961526/662692d5-d54b-4433-a63a-11c6eb3340f1)
+
+1. Retrieve: Given a user input, relevant splits are retrieved from storage using a [Retriever](https://python.langchain.com/v0.2/docs/concepts/#retrievers).
+2. Generate: A [ChatModel](https://python.langchain.com/v0.2/docs/concepts/#chat-models) / [LLM](https://python.langchain.com/v0.2/docs/concepts/#llms) produces an answer using a prompt that includes the question and the retrieved data
 
 
 ## References
