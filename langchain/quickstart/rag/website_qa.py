@@ -36,20 +36,32 @@ vectorstore = Chroma.from_documents(documents=splits, embedding=OpenAIEmbeddings
 # Retrieve and generate using the relevant snippets of the blog.
 retriever = vectorstore.as_retriever()
 prompt = hub.pull("rlm/rag-prompt")
+print("prompt:", prompt)
+print()
+print("retriever:", retriever)
+print()
 
 
 def format_docs(docs):
     return "\n\n".join(doc.page_content for doc in docs)
 
 
+# format_docs is cast to a RunnableLambda.
+# "context" and "question" is cast to a RunnableParallel.
 rag_chain = (
-    {"context": retriever | format_docs, "question": RunnablePassthrough()}
+    {
+        # retriever | format_docs passes the question through the retriever, generating Document objects,
+        # and then to format_docs to generate strings;
+        "context": retriever | format_docs,
+        # RunnablePassthrough() passes through the input question unchanged.
+        "question": RunnablePassthrough(),
+    }
     | prompt
     | llm
     | StrOutputParser()
 )
 result = rag_chain.invoke("What is Task Decomposition?")
-print(result)
+print("result:", result)
 
 
 # Cleanup.
