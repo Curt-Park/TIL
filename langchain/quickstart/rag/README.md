@@ -25,6 +25,15 @@ The actual RAG chain, which takes the user query at run time and retrieves the r
 1. Retrieve: Given a user input, relevant splits are retrieved from storage using a [Retriever](https://python.langchain.com/v0.2/docs/concepts/#retrievers).
 2. Generate: A [ChatModel](https://python.langchain.com/v0.2/docs/concepts/#chat-models) / [LLM](https://python.langchain.com/v0.2/docs/concepts/#llms) produces an answer using a prompt that includes the question and the retrieved data
 
+## Examples
+### Website Q&A
+```bash
+# Q&A based on https://lilianweng.github.io/posts/2023-06-23-agent/
+$ python website_qa.py
+
+Task Decomposition is the process of breaking down a complicated task into smaller, more manageable steps. This helps in utilizing more computation time effectively by making complex tasks simpler to handle. Techniques like Chain of Thought (CoT) and Tree of Thoughts extend this concept by exploring multiple reasoning possibilities at each step, often using prompting methods to guide the decomposition.
+```
+
 
 ## References
 - https://python.langchain.com/v0.2/docs/tutorials/rag/
