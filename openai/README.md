@@ -10,7 +10,7 @@ pip install -r requirements.txt
 
 ## Website Crawler
 ```bash
-python crawl_web.py --url https://huggingface.co/papers --max-depth 1
+python crawl_web.py --url https://huggingface.co/papers --max-depth 1 --must-include "/papers/"
 ```
 
 ## References

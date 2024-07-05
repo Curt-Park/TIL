@@ -11,6 +11,7 @@ import re
 import urllib.request
 from collections import deque
 from html.parser import HTMLParser
+from typing import Optional
 from urllib.parse import urlparse
 
 import requests
@@ -51,7 +52,7 @@ def get_hyperlinks(url: str) -> list[str]:
 
 
 def get_domain_hyperlinks(
-    local_domain: str, url: str, http_url_pattern: str = r"^http[s]*://.+"
+    local_domain: str, url: str, http_url_pattern: str = r"^http[s]{0,1}://.+$"
 ) -> list[str]:
     """Get valid hyperlinks with the same local domain."""
     clean_links = []
@@ -61,15 +62,23 @@ def get_domain_hyperlinks(
         if url_pattern_matched and urlparse(link).netloc != local_domain:
             logging.info("skip %s due to unmatched local domain", link)
             continue
-        if not url_pattern_matched and link.startswith("#") or link.startswith("mailto:"):
+        if (
+            not url_pattern_matched
+            and link.startswith("#")
+            or link.startswith("mailto:")
+        ):
             logging.info("skip %s due to invalid hyperlink", link)
             continue
 
         # Format.
-        clean_link = link
+        clean_link = link.split("#")[0]
         clean_link = clean_link if not link.startswith("/") else clean_link[1:]
         clean_link = clean_link if not clean_link.endswith("/") else clean_link[:-1]
-        clean_link = clean_link if url_pattern_matched else f"https://{local_domain}/{clean_link}"
+        clean_link = (
+            clean_link
+            if url_pattern_matched
+            else f"https://{local_domain}/{clean_link}"
+        )
 
         # Append.
         clean_links.append(clean_link)
@@ -85,11 +94,13 @@ def save_html_as_txt(out_dir: str, url: str) -> None:
         soup = BeautifulSoup(requests.get(url).text, "html.parser")
         text = soup.get_text()
         if "You need to enable JavaScript to run this app." in text:
-            logging.warning("Unable to parse page %s due to JavaScript being required", url)
+            logging.warning(
+                "Unable to parse page %s due to JavaScript being required", url
+            )
         f.write(text)
 
 
-def crawl(url: str, max_depth: int) -> None:
+def crawl(url: str, max_depth: int, must_include: Optional[set[str]]) -> None:
     """Crawl web-pages that doesn't exceed the max_depth."""
     local_domain = urlparse(url).netloc
 
@@ -107,16 +118,18 @@ def crawl(url: str, max_depth: int) -> None:
             next_depth = depth + 1
             if link in seen or next_depth > max_depth:
                 continue
+            if must_include and any(w not in link for w in must_include):
+                continue
             queue.append((link, next_depth))
             seen.add(link)
 
 
-def main() -> None:
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--url", type=str, required=True)
     parser.add_argument("--max-depth", type=int, default=3)
+    parser.add_argument("--must-include", type=str, default="")
     args = parser.parse_args()
-    crawl(args.url, args.max_depth)
 
-
-main()
+    must_include = args.must_include and set(args.must_include.split(",")) or None
+    crawl(args.url, args.max_depth, must_include)
