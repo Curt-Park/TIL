@@ -8,16 +8,16 @@ import argparse
 import logging
 import os
 import re
+import sys
 import urllib.request
 from collections import deque
 from html.parser import HTMLParser
-from typing import Optional
 from urllib.parse import urlparse
 
 import requests
 from bs4 import BeautifulSoup
 
-logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 class HyperlinkParser(HTMLParser):
@@ -42,7 +42,7 @@ def get_hyperlinks(url: str) -> list[str]:
                 return []
             html = response.read().decode("utf-8")
     except Exception as e:
-        logging.warn(e)
+        logger.warn(e)
         return []
 
     parser = HyperlinkParser()
@@ -51,34 +51,24 @@ def get_hyperlinks(url: str) -> list[str]:
     return list(set(parser.hyperlinks))
 
 
-def get_domain_hyperlinks(
-    local_domain: str, url: str, http_url_pattern: str = r"^http[s]{0,1}://.+$"
-) -> list[str]:
+def get_domain_hyperlinks(local_domain: str, url: str, http_url_pattern: str = r"^http[s]{0,1}://.+$") -> list[str]:
     """Get valid hyperlinks with the same local domain."""
     clean_links = []
     for link in get_hyperlinks(url):
         # Skip.
         url_pattern_matched = re.search(http_url_pattern, link) is not None
         if url_pattern_matched and urlparse(link).netloc != local_domain:
-            logging.info("skip %s due to unmatched local domain", link)
+            logger.info("skip %s due to unmatched local domain", link)
             continue
-        if (
-            not url_pattern_matched
-            and link.startswith("#")
-            or link.startswith("mailto:")
-        ):
-            logging.info("skip %s due to invalid hyperlink", link)
+        if not url_pattern_matched and link.startswith("#") or link.startswith("mailto:"):
+            logger.info("skip %s due to invalid hyperlink", link)
             continue
 
         # Format.
         clean_link = link.split("#")[0]
         clean_link = clean_link if not link.startswith("/") else clean_link[1:]
         clean_link = clean_link if not clean_link.endswith("/") else clean_link[:-1]
-        clean_link = (
-            clean_link
-            if url_pattern_matched
-            else f"https://{local_domain}/{clean_link}"
-        )
+        clean_link = clean_link if url_pattern_matched else f"https://{local_domain}/{clean_link}"
 
         # Append.
         clean_links.append(clean_link)
@@ -94,24 +84,25 @@ def save_html_as_txt(out_dir: str, url: str) -> None:
         soup = BeautifulSoup(requests.get(url).text, "html.parser")
         text = soup.get_text()
         if "You need to enable JavaScript to run this app." in text:
-            logging.warning(
-                "Unable to parse page %s due to JavaScript being required", url
-            )
+            logger.warning("Unable to parse page %s due to JavaScript being required", url)
         f.write(text)
 
 
-def crawl(url: str, max_depth: int, must_include: Optional[set[str]]) -> None:
+def crawl(url: str, max_depth: int = -1, must_include_raw: str = "", out_dir: str = "parsed") -> None:
     """Crawl web-pages that doesn't exceed the max_depth."""
+    max_depth = [max_depth, sys.maxsize][max_depth < 0]
+    must_include = set(must_include_raw.split(","))
+
     local_domain = urlparse(url).netloc
 
-    out_dir = os.path.join("parsed", local_domain)
+    out_dir = os.path.join(out_dir, local_domain)
     os.makedirs(out_dir, exist_ok=True)
 
     queue = deque([(url, 0)])
     seen = set([url])
     while queue:
         url, depth = queue.pop()
-        logging.info("process %s", url)
+        logger.info("process %s", url)
         save_html_as_txt(out_dir, url)
 
         for link in get_domain_hyperlinks(local_domain, url):
@@ -127,9 +118,8 @@ def crawl(url: str, max_depth: int, must_include: Optional[set[str]]) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--url", type=str, required=True)
-    parser.add_argument("--max-depth", type=int, default=3)
+    parser.add_argument("--max-depth", type=int, default=-1)
     parser.add_argument("--must-include", type=str, default="")
     args = parser.parse_args()
 
-    must_include = args.must_include and set(args.must_include.split(",")) or None
-    crawl(args.url, args.max_depth, must_include)
+    crawl(args.url, args.max_depth, args.must_include)
