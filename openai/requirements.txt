@@ -1,6 +1,0 @@
-openai == 1.35.9
-beautifulsoup4 == 4.12.3
-requests == 2.32.3
-pandas == 2.2.2
-tiktoken == 0.7.0
-scipy == 1.14.0
