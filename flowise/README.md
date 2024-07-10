@@ -5,7 +5,7 @@
 
 ## Setup
 ```bash
-docker run --name flowise -d -p 3000:3000 flowiseai/flowise:latest
+docker compose up -d
 ```
 
 open http://localhost:3000/
