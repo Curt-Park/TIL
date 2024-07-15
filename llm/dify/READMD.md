@@ -33,3 +33,6 @@ Open http://localhost/
 ```bash
 docker compose down
 ```
+
+## References
+- https://docs.dify.ai/
