@@ -1,6 +1,17 @@
 version: "3"
 
 services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: flowise
+      POSTGRES_PASSWORD: flowise
+      POSTGRES_DB: flowise
+    ports:
+      - "5432:5432"
+    volumes:
+      - ~/.postgres/flowise:/var/lib/postgresql/data
+
   flowise:
     image: flowiseai/flowise
     restart: always
@@ -9,6 +20,8 @@ services:
       - "3000:3000"
     volumes:
       - ~/.flowise:/root/.flowise
+    depends_on:
+      - postgres
 
   chromadb:
     image: chromadb/chroma:0.5.3
@@ -28,3 +41,17 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+
+  vector-admin:
+    image: mintplexlabs/vectoradmin
+    env_file: ".vector-admin.env"
+    ports:
+      - "3001:3001"
+      - "3355:3355"
+      - "8288:8288"
+    volumes:
+      - ".vector-admin.env:/app/backend/.env"
+      - "~/.vector-admin/backend/storage:/app/backend/storage"
+      - "~/.vector-admin/document-processor/hotdir/:/app/document-processor/hotdir"
+    depends_on:
+      - postgres
