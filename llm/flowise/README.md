@@ -8,7 +8,9 @@
 docker compose up -d
 ```
 
-open http://localhost:3000/
+open
+- http://localhost:3000/ for Flowise
+- http://localhost:3001/ for Vector-Admin
 
 ## Examples
 
