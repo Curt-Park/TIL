@@ -12,6 +12,9 @@ open
 - http://localhost:3000/ for Flowise
 - http://localhost:3001/ for Vector-Admin
 
+<img width="1493" src="https://github.com/user-attachments/assets/1d55c55b-d883-47c0-919f-cae2140e88b6">
+<img width="1467" src="https://github.com/user-attachments/assets/54f3b5d4-9258-47e0-9fc2-012187066fd2">
+
 ## Examples
 
 ### Calculator
