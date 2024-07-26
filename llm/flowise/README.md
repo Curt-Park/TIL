@@ -26,6 +26,7 @@ open
 <img width="1474" src="https://github.com/Curt-Park/TIL/assets/14961526/f071c7e6-e3c6-4d3a-843f-6f92e51e8900">
 
 ### Website Q&A
+실행전 Upsert 필요
 [Website Q&A Chatflow.json](https://github.com/user-attachments/files/16385519/Website.Q.A.Chatflow.json)
 <img width="1500" src="https://github.com/Curt-Park/TIL/assets/14961526/2d0b345f-57fd-481c-bcde-214fabd7f32d">
 
@@ -35,7 +36,8 @@ open
 Document Store
 https://github.com/Droogans/unmaintainable-code
 <img width="1209" alt="스크린샷 2024-07-26 오전 10 35 03" src="https://github.com/user-attachments/assets/c816d8da-9d71-43c6-bbfb-a64aea3a9145">
-Flow
+Flow:
+실행전 Upsert 필요
 <img width="1485" src="https://github.com/Curt-Park/TIL/assets/14961526/7e775e40-3984-420d-b072-ed6e9459be91">
 Example
 <img width="1495" src="https://github.com/Curt-Park/TIL/assets/14961526/9aa8cefc-ee0b-46bf-b209-49ab0bf367ed">
