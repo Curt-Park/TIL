@@ -41,3 +41,12 @@ Flow:
 <img width="1485" src="https://github.com/Curt-Park/TIL/assets/14961526/7e775e40-3984-420d-b072-ed6e9459be91">
 Example
 <img width="1495" src="https://github.com/Curt-Park/TIL/assets/14961526/9aa8cefc-ee0b-46bf-b209-49ab0bf367ed">
+
+## WebBrowser Chatflow
+[WebBrowser Chatflow.json](https://github.com/user-attachments/files/16405911/WebBrowser.Chatflow.json)
+
+## API Call Chatflow
+[API Call Chatflow.json](https://github.com/user-attachments/files/16405909/API.Call.Chatflow.json)
+
+## Portfolio Management Agents
+[Portfolio Management Agents.json](https://github.com/user-attachments/files/16405910/Portfolio.Management.Agents.json)
