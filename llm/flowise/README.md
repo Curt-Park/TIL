@@ -50,3 +50,7 @@ Example
 
 ## Portfolio Management Agents
 [Portfolio Management Agents.json](https://github.com/user-attachments/files/16405910/Portfolio.Management.Agents.json)
+
+## Persona Chatbot
+[PersonaChatbot Chatflow.json](https://github.com/user-attachments/files/16420617/PersonaChatbot.Chatflow.json)
+<img width="1501" src="https://github.com/user-attachments/assets/df3c74fd-1619-4c94-8f6b-02e8dad3f589">
