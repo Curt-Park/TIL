@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  llama:
+  ollama:
     # required:
     #   curl http://localhost:11434/api/pull -d '{ "name": "llama3.1" }'
     image: ollama/ollama:0.3.5
