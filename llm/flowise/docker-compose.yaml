@@ -1,6 +1,26 @@
 version: "3"
 
 services:
+  llama:
+    # required:
+    #   curl http://localhost:11434/api/pull -d '{ "name": "llama3.1" }'
+    image: ollama/ollama:0.3.5
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ~/.ollama:/root/.ollama
+    environment:
+      - OLLAMA_KEEP_ALIVE=24h
+      - OLLAMA_HOST=0.0.0.0
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
   postgres:
     image: postgres:16
     environment:
@@ -13,7 +33,7 @@ services:
       - ~/.postgres/flowise:/var/lib/postgresql/data
 
   flowise:
-    image: flowiseai/flowise
+    image: flowiseai/flowise:2.0.1
     restart: always
     env_file: ".flowise.env"
     ports:
