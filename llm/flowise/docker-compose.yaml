@@ -33,7 +33,7 @@ services:
       - ~/.postgres/flowise:/var/lib/postgresql/data
 
   flowise:
-    image: flowiseai/flowise:2.0.1
+    image: flowiseai/flowise:2.0.4
     restart: always
     env_file: ".flowise.env"
     ports:
