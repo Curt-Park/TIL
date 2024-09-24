@@ -1,0 +1,757 @@
+{
+  "name": "HuggingFace Papers Summary to Slack",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "788633f0-cd63-412f-b9ad-5705a83045ee",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        300,
+        540
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Scrape Huggingface Daily Papers",
+        "height": 455.5018038643703,
+        "width": 1239.4717611346307
+      },
+      "id": "a28587b6-df8d-4761-8a9b-868162eae4fb",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        460,
+        460
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Summarize them with GPT",
+        "height": 606.7924528301882,
+        "width": 465.3908355795153
+      },
+      "id": "c52da69d-bb43-4ec8-ad53-214f4edecfbf",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1720,
+        460
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "7a539ca7-72ad-4d7d-a76c-89219c88805d",
+      "name": "Default Data Loader",
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "position": [
+        1920,
+        720
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "f445834c-8ab9-4978-9615-76c93d46f29d",
+      "name": "Recursive Character Text Splitter",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "position": [
+        1920,
+        880
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {}
+      },
+      "id": "4c185dae-7511-4567-8723-85d57ac922c5",
+      "name": "OpenAI Chat Model1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        1820,
+        720
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "openAiApi": {
+          "id": "unPHW41eId4wNLt5",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "dataPropertyName": "=data",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "titles",
+              "cssSelector": "a.line-clamp-3.cursor-pointer.text-balance",
+              "returnArray": true
+            },
+            {
+              "key": "links",
+              "cssSelector": "a.line-clamp-3.cursor-pointer.text-balance",
+              "returnValue": "attribute",
+              "attribute": "href",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {
+          "trimValues": false
+        }
+      },
+      "id": "565cb910-386a-4713-b7bb-4e3faf3d249a",
+      "name": "Extract paper names",
+      "type": "n8n-nodes-base.html",
+      "position": [
+        720,
+        540
+      ],
+      "typeVersion": 1,
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "url": "=https://huggingface.co/papers",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "date",
+              "value": "={{ DateTime.now().year }}-{{ String(DateTime.now().month).padStart(2, '0') }}-{{ DateTime.now().day - 1 }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e2b90bf6-9d0d-41d8-8d69-49648a58d58a",
+      "name": "Fetch paper list (yesterday)",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        520,
+        540
+      ],
+      "typeVersion": 4.1,
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "titles",
+        "options": {}
+      },
+      "id": "28846a8d-b8a1-4210-b753-b41994900f71",
+      "name": "Get Titles",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        960,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "abstract",
+              "cssSelector": "p",
+              "skipSelectors": ".title",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {
+          "cleanUpText": true
+        }
+      },
+      "id": "4bc7ece0-3a81-4768-aa9d-53d75ef48489",
+      "name": "Get Abstract and more",
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        1300,
+        780
+      ],
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "abstract[0]",
+        "options": {}
+      },
+      "id": "378ad40e-dabf-4791-bd08-41d65811b092",
+      "name": "Split Out Abstract",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1460,
+        780
+      ]
+    },
+    {
+      "parameters": {
+        "operationMode": "documentLoader",
+        "options": {
+          "summarizationMethodAndPrompts": {
+            "values": {
+              "combineMapPrompt": "Write a concise summary in Korean of the following:\n\n\n\"{text}\"\n\n\nCONCISE SUMMARY:",
+              "prompt": "Write a concise summary in Korean of the following:\n\n\n\"{text}\"\n\n\nCONCISE SUMMARY:"
+            }
+          }
+        }
+      },
+      "id": "85621d59-2f5d-472c-8120-84bae9770ab1",
+      "name": "Summarization Chain",
+      "type": "@n8n/n8n-nodes-langchain.chainSummarization",
+      "position": [
+        1800,
+        540
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C06CQ9C3N94",
+          "mode": "id"
+        },
+        "text": "=<{{ $json.links }}|{{ $json.titles }}>\n> {{ $json[\"response.text\"] }}",
+        "otherOptions": {
+          "includeLinkToWorkflow": false,
+          "thread_ts": {
+            "replyValues": {
+              "thread_ts": "={{ $json.message_timestamp }}"
+            }
+          }
+        }
+      },
+      "id": "607e01fa-2671-4a3b-b8ee-e0d3654f2d6f",
+      "name": "Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        2700,
+        700
+      ],
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "eB3ulMWmZh7tR6W5",
+          "name": "Slack SNOW Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "response.text",
+        "options": {}
+      },
+      "id": "a1021ad0-8de3-4385-baf0-a9d732f290e4",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2220,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.links }}",
+        "options": {}
+      },
+      "id": "9aafb015-3054-493d-a3fa-af955dee8957",
+      "name": "Fetch paper details",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        1120,
+        780
+      ],
+      "typeVersion": 4.1
+    },
+    {
+      "parameters": {
+        "content": "## Merge the results",
+        "height": 604.0342056783348,
+        "width": 345.36404880502846
+      },
+      "id": "b094341e-46bd-43cb-beb6-d4a561c868db",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2200,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Publish",
+        "height": 605.1093490334874,
+        "width": 358.26576906686853
+      },
+      "id": "3dd62f91-f95a-46e8-9176-9a184c7b73df",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2560,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C06CQ9C3N94",
+          "mode": "id"
+        },
+        "text": "=<https://huggingface.co/papers?date={{ DateTime.now().year }}-{{ String(DateTime.now().month).padStart(2, '0') }}-{{ DateTime.now().day - 1 }}|HuggingFace Daily Papers on {{ DateTime.now().year }}-{{ String(DateTime.now().month).padStart(2, '0') }}-{{ DateTime.now().day - 1 }}>",
+        "otherOptions": {
+          "includeLinkToWorkflow": true
+        }
+      },
+      "id": "a777916d-00c6-487a-b6ca-bff1fc9a55de",
+      "name": "Open a Thread",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        720,
+        940
+      ],
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "eB3ulMWmZh7tR6W5",
+          "name": "Slack SNOW Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "message_timestamp",
+        "options": {}
+      },
+      "id": "68a0a10c-60b2-4e67-aefc-de0f22b04046",
+      "name": "Get TimeStamp",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1460,
+        940
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "73676f23-e989-45c4-bc51-f38cc892821d",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        2380,
+        520
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "content": "## Create a thread",
+        "height": 143.87678542165133,
+        "width": 1239.6393038576136
+      },
+      "id": "034289aa-5a3b-4b86-aa0e-2e9f47dda82c",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        460,
+        920
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "id": "94f811a9-da0d-450e-94c7-28395c75188e",
+      "name": "Merge2",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        2380,
+        900
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 10 * * 1-5"
+            }
+          ]
+        }
+      },
+      "id": "71db060b-1d96-44d2-ae91-00309e551e48",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        300,
+        720
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2e1edc5c-6915-4443-88cd-ffbb24377560",
+              "name": "links",
+              "value": "={{ \"https://huggingface.co\".concat($json.links) }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ac9c2524-63f7-48c0-a0dc-c07cf687c63a",
+      "name": "Full URL",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1120,
+        620
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "links",
+        "options": {}
+      },
+      "id": "a32271d9-564c-40db-a7fa-6da5003291d0",
+      "name": "Get URL",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        960,
+        620
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "fd9373b4-2ea0-4c85-8b3c-16188d52bac4",
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        2380,
+        700
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Summarization Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Summarization Chain",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Fetch paper list (yesterday)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Open a Thread",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract paper names": {
+      "main": [
+        [
+          {
+            "node": "Get Titles",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch paper list (yesterday)": {
+      "main": [
+        [
+          {
+            "node": "Extract paper names",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Abstract and more": {
+      "main": [
+        [
+          {
+            "node": "Split Out Abstract",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out Abstract": {
+      "main": [
+        [
+          {
+            "node": "Summarization Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarization Chain": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Titles": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Fetch paper details": {
+      "main": [
+        [
+          {
+            "node": "Get Abstract and more",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Open a Thread": {
+      "main": [
+        [
+          {
+            "node": "Get TimeStamp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get TimeStamp": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge2": {
+      "main": [
+        [
+          {
+            "node": "Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Fetch paper list (yesterday)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Open a Thread",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Full URL": {
+      "main": [
+        [
+          {
+            "node": "Fetch paper details",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Get URL": {
+      "main": [
+        [
+          {
+            "node": "Full URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3d8db248-c79e-4db3-910c-c1e7440d1631",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "50b2810ee77b8d7d38c0ead02407629fd7b35cf107cced5585240e3ac45fe0a1"
+  },
+  "id": "nyLNq46hqTv7RXWR",
+  "tags": [
+    {
+      "createdAt": "2024-09-21T07:42:43.013Z",
+      "updatedAt": "2024-09-21T07:42:43.013Z",
+      "id": "3k9cmuuZjy2Ie9Jp",
+      "name": "ai"
+    },
+    {
+      "createdAt": "2024-09-21T07:42:43.018Z",
+      "updatedAt": "2024-09-21T07:42:43.018Z",
+      "id": "Wz6G62P7gQ2Zuz2j",
+      "name": "papers"
+    },
+    {
+      "createdAt": "2024-09-23T09:48:11.373Z",
+      "updatedAt": "2024-09-23T09:48:11.373Z",
+      "id": "kLlfhU4FZsNZdPx6",
+      "name": "huggingface"
+    },
+    {
+      "createdAt": "2024-09-21T07:42:43.026Z",
+      "updatedAt": "2024-09-21T07:42:43.026Z",
+      "id": "xbw0MxRFVi6zvnOv",
+      "name": "slack"
+    }
+  ]
+}

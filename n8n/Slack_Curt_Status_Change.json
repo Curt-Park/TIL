@@ -1,0 +1,711 @@
+{
+  "name": "Slack Curt Status Change",
+  "nodes": [
+    {
+      "parameters": {
+        "fieldToSplitOut": "body.user_id, body.user_name, body.command, body.text, body.channel_id",
+        "options": {}
+      },
+      "id": "beb0f2af-3366-491a-b737-1ff5848826b0",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "select": "user",
+        "user": {
+          "__rl": true,
+          "value": "={{ $json['body.user_id'] }}",
+          "mode": "id"
+        },
+        "text": "={{ $json['body.text'] }} is invalid option!",
+        "otherOptions": {}
+      },
+      "id": "c86c5e81-e2cd-4458-b9ae-95e56e68d5d4",
+      "name": "Invalid Option",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        1920,
+        1560
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "NqwWB9a6p0EO1gKx",
+          "name": "Slack SNOW n8n-bot OAUTH TOKEN"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "420ef82a-207e-4b92-a2b0-9a3a92842b76",
+              "name": "emoji",
+              "value": ":house_with_garden:",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "87e0bc5f-4615-49df-b963-c737000fa129",
+      "name": "재택근무",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1920,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "420ef82a-207e-4b92-a2b0-9a3a92842b76",
+              "name": "emoji",
+              "value": ":rice:",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "d7c3ed27-4a11-4116-b789-8b3d285b73d6",
+      "name": "식사",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "420ef82a-207e-4b92-a2b0-9a3a92842b76",
+              "name": "emoji",
+              "value": ":car:",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "4d5e3aeb-a89f-4332-a09f-aa0bb26e0e98",
+      "name": "이동",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1920,
+        1240
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "420ef82a-207e-4b92-a2b0-9a3a92842b76",
+              "name": "emoji",
+              "value": ":퇴근입니다:",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "e02b418e-f1fa-42ab-ac71-350417d7e6cb",
+      "name": "퇴근",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1920,
+        1400
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $json['body.channel_id'] }}",
+          "mode": "id"
+        },
+        "text": "={{ $json['body.text'] }}합니다!",
+        "otherOptions": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "id": "6a6e492c-e1c7-4927-a81d-a4930fecaca8",
+      "name": "Message in Channel",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        2220,
+        600
+      ],
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "eB3ulMWmZh7tR6W5",
+          "name": "Slack SNOW Curt's Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "420ef82a-207e-4b92-a2b0-9a3a92842b76",
+              "name": "emoji",
+              "value": ":bed:",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "30cbf022-5934-45f0-adf6-913c1c2acd3a",
+      "name": "휴게",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1920,
+        920
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "420ef82a-207e-4b92-a2b0-9a3a92842b76",
+              "name": "emoji",
+              "value": ":spiral_calendar_pad:",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "8ba00e15-f0cf-419d-a139-f5489e4710fe",
+      "name": "회의",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1920,
+        760
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "420ef82a-207e-4b92-a2b0-9a3a92842b76",
+              "name": "emoji",
+              "value": ":office:",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "15382095-2bce-40e6-8529-d2e8a8500857",
+      "name": "사무실근무",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1920,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json['body.text'] }}",
+                    "rightValue": "사무실근무",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "e21b6276-4e78-42d7-9f37-ceb1fdf4ce60",
+                    "leftValue": "={{ $json['body.text'] }}",
+                    "rightValue": "재택근무",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "3cdfa003-082a-422e-b1ac-72f4d4f759a2",
+                    "leftValue": "={{ $json['body.text'] }}",
+                    "rightValue": "회의",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "4ee81f50-b58d-4127-980c-558d0cb0bfd3",
+                    "leftValue": "={{ $json['body.text'] }}",
+                    "rightValue": "휴게",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b7ad6d54-8323-49ba-abe7-0ff8edb66a26",
+                    "leftValue": "={{ $json['body.text'] }}",
+                    "rightValue": "식사",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "cb87216c-e3ce-4242-b699-854c86a17d54",
+                    "leftValue": "={{ $json['body.text'] }}",
+                    "rightValue": "이동",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "34bbc794-89c9-44f7-b611-f1c826eeee84",
+                    "leftValue": "={{ $json['body.text'] }}",
+                    "rightValue": "퇴근",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "48d77a46-b023-4756-b4f7-9474317893b7",
+                    "leftValue": "={{ $json['body.text'] }}",
+                    "rightValue": "^(?!사무실근무$|재택근무$|회의$|휴게$|식사$|이동$|퇴근$).+$",
+                    "operator": {
+                      "type": "string",
+                      "operation": "regex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1ea9c817-0f22-41c5-af80-1d7d03718b49",
+      "name": "Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1720,
+        680
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "user",
+        "operation": "updateProfile",
+        "options": {
+          "status": {
+            "set_status": [
+              {
+                "status_emoji": "={{ $json.emoji }}",
+                "status_text": "={{ $json['body.text'] }}"
+              }
+            ]
+          },
+          "user": "={{ $json['body.user_id'] }}"
+        }
+      },
+      "id": "5092c526-5e65-4b16-b7e8-54c0e0532117",
+      "name": "Update User's Status",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        2220,
+        780
+      ],
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "eB3ulMWmZh7tR6W5",
+          "name": "Slack SNOW Curt's Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "93d76b91-6e03-428b-b703-d50f70e019fa",
+        "options": {
+          "noResponseBody": true
+        }
+      },
+      "id": "a1f97198-18e7-4d5b-bba1-4dfad97e24b0",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        1360,
+        700
+      ],
+      "webhookId": "93d76b91-6e03-428b-b703-d50f70e019fa"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "재택근무": {
+      "main": [
+        [
+          {
+            "node": "Message in Channel",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update User's Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "식사": {
+      "main": [
+        [
+          {
+            "node": "Message in Channel",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update User's Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "이동": {
+      "main": [
+        [
+          {
+            "node": "Message in Channel",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update User's Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "퇴근": {
+      "main": [
+        [
+          {
+            "node": "Message in Channel",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update User's Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "휴게": {
+      "main": [
+        [
+          {
+            "node": "Message in Channel",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update User's Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "회의": {
+      "main": [
+        [
+          {
+            "node": "Message in Channel",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update User's Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "사무실근무": {
+      "main": [
+        [
+          {
+            "node": "Message in Channel",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update User's Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "사무실근무",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "재택근무",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "회의",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "휴게",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "식사",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "이동",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "퇴근",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Invalid Option",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c4df33af-20a8-418c-ad83-2f9cce5eba74",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "50b2810ee77b8d7d38c0ead02407629fd7b35cf107cced5585240e3ac45fe0a1"
+  },
+  "id": "G72FCPEkkyHPdu9x",
+  "tags": [
+    {
+      "createdAt": "2024-09-21T07:42:43.013Z",
+      "updatedAt": "2024-09-21T07:42:43.013Z",
+      "id": "3k9cmuuZjy2Ie9Jp",
+      "name": "ai"
+    },
+    {
+      "createdAt": "2024-09-21T07:42:43.026Z",
+      "updatedAt": "2024-09-21T07:42:43.026Z",
+      "id": "xbw0MxRFVi6zvnOv",
+      "name": "slack"
+    }
+  ]
+}

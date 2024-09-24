@@ -1,0 +1,442 @@
+{
+  "name": "Reddit Top Posts to Slack",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "e1022e72-467d-4de8-a00a-ecaf4a85c7f5",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        320,
+        720
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"subreddit\": [\n    \"MachineLearning\",\n    \"StableDiffusion\",\n    \"comfyui\"\n  ]\n}\n",
+        "options": {}
+      },
+      "id": "675bea2a-8bde-430b-88be-0e60d5c5c2de",
+      "name": "Subreddits",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        520,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "subreddit": "={{ $json.subreddit }}",
+        "limit": 20,
+        "filters": {
+          "category": "top"
+        }
+      },
+      "id": "d89a1edc-c47a-4dae-a2e2-1436a6ba4a9b",
+      "name": "Reddit",
+      "type": "n8n-nodes-base.reddit",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        660
+      ],
+      "executeOnce": true,
+      "credentials": {
+        "redditOAuth2Api": {
+          "id": "WJ0HE902tVkHgTwq",
+          "name": "Reddit account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "subreddit",
+        "options": {}
+      },
+      "id": "5f75d71c-cb3c-455e-a216-5adf6aa3fe6a",
+      "name": "Get Subreddits",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        720,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "subreddit, title, ups, url",
+        "options": {}
+      },
+      "id": "6daf962c-f504-44b8-8a03-431ea0b59dbe",
+      "name": "Get Fields",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1260,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "5db7b013-a31f-4f4f-b7a0-a9f4f8f0e02b",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        900,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Subreddit Input",
+        "height": 233,
+        "width": 253
+      },
+      "id": "53eacb56-e658-4b47-b141-86e098a3ed93",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        440,
+        601
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C06CQ9C3N94",
+          "mode": "id"
+        },
+        "text": "=Reddit {{ $json.subreddit }} Weekly Top Posts",
+        "otherOptions": {}
+      },
+      "id": "f891b175-2f2f-457c-a645-111272712da3",
+      "name": "Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        1100,
+        480
+      ],
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "eB3ulMWmZh7tR6W5",
+          "name": "Slack SNOW Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "message_timestamp",
+        "options": {}
+      },
+      "id": "58afd75d-72d8-4234-8484-b8b55e707ec2",
+      "name": "Get Message ID",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1260,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "id": "d1fa05f8-d1a2-4dd7-b09c-42d3fe9ca8cb",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1420,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C06CQ9C3N94",
+          "mode": "id"
+        },
+        "text": "=<{{ $json.url }}|{{ $json.title }}> (Upvotes: {{ $json.ups }})",
+        "otherOptions": {
+          "includeLinkToWorkflow": false,
+          "thread_ts": {
+            "replyValues": {
+              "thread_ts": "={{ $json.message_timestamp }}"
+            }
+          }
+        }
+      },
+      "id": "32205aaf-162d-4f52-8894-14e2d32bbc3d",
+      "name": "Reply",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        1740,
+        660
+      ],
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "eB3ulMWmZh7tR6W5",
+          "name": "Slack SNOW Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "30 09 * * 1-5"
+            }
+          ]
+        }
+      },
+      "id": "5e68c2c4-fd7f-4958-9f8d-4b5db2b9d682",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        320,
+        580
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "de3a13f9-dfc2-4248-9b8c-b21af8e14ac1",
+              "name": "title",
+              "value": "={{ $json.title.trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "184a62de-b565-4dd8-85da-0286c848e0cb",
+              "name": "subreddit",
+              "value": "={{ $json.subreddit }}",
+              "type": "string"
+            },
+            {
+              "id": "2d4baf1b-642b-4e14-a58c-1fabe44101c7",
+              "name": "ups",
+              "value": "={{ $json.ups }}",
+              "type": "number"
+            },
+            {
+              "id": "f5d7934b-6f9d-4662-82b8-43d6548dce5f",
+              "name": "url",
+              "value": "={{ $json.url }}",
+              "type": "string"
+            },
+            {
+              "id": "5696e936-0853-45cf-9a9c-ab246787ea76",
+              "name": "message_timestamp",
+              "value": "={{ $json.message_timestamp }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "34f530cd-e6ad-46d1-a487-52bc604f90dd",
+      "name": "Trim Strings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1580,
+        660
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Subreddits",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Subreddits": {
+      "main": [
+        [
+          {
+            "node": "Get Subreddits",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reddit": {
+      "main": [
+        [
+          {
+            "node": "Get Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Subreddits": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Reddit",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Fields": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Slack": {
+      "main": [
+        [
+          {
+            "node": "Get Message ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Message ID": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Trim Strings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Subreddits",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trim Strings": {
+      "main": [
+        [
+          {
+            "node": "Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reply": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "67842284-66d6-4a67-8cd9-bd3a1460d401",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "50b2810ee77b8d7d38c0ead02407629fd7b35cf107cced5585240e3ac45fe0a1"
+  },
+  "id": "5Cp7ZXtcxi6qrign",
+  "tags": [
+    {
+      "createdAt": "2024-09-21T07:42:43.013Z",
+      "updatedAt": "2024-09-21T07:42:43.013Z",
+      "id": "3k9cmuuZjy2Ie9Jp",
+      "name": "ai"
+    },
+    {
+      "createdAt": "2024-09-23T05:16:25.014Z",
+      "updatedAt": "2024-09-23T05:16:25.014Z",
+      "id": "VDCtdXgmFCRXwlOh",
+      "name": "reddit"
+    },
+    {
+      "createdAt": "2024-09-21T07:42:43.026Z",
+      "updatedAt": "2024-09-21T07:42:43.026Z",
+      "id": "xbw0MxRFVi6zvnOv",
+      "name": "slack"
+    }
+  ]
+}
