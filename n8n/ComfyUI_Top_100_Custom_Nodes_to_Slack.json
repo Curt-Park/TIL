@@ -1,0 +1,494 @@
+{
+  "name": "ComfyUI Top 100 Custom Nodes to Slack",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "bb86fd62-dcaf-4f23-b174-e68ad5d0feed",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        300,
+        540
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C06NB20P2E4",
+          "mode": "id"
+        },
+        "text": "=⭐<{{ $json.url }}|{{ $json.title }}> by {{ $json.author }} (stars: {{ $json.stars }})\n설명:\n>{{ $json.description }}",
+        "otherOptions": {
+          "includeLinkToWorkflow": false,
+          "thread_ts": {
+            "replyValues": {
+              "thread_ts": "={{ $json.message_timestamp }}"
+            }
+          },
+          "unfurl_links": false
+        }
+      },
+      "id": "b7e083e1-d310-468e-9ea1-91ec40b587d0",
+      "name": "Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        1780,
+        640
+      ],
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "eB3ulMWmZh7tR6W5",
+          "name": "Slack SNOW Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C06NB20P2E4",
+          "mode": "id"
+        },
+        "text": "=Top 100 ComfyUI Custom Nodes! (ordered by GitHub Stars)",
+        "otherOptions": {
+          "includeLinkToWorkflow": true
+        }
+      },
+      "id": "ea154616-930f-4394-abc9-7bb7a4e63207",
+      "name": "Open a Thread",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        720,
+        800
+      ],
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "eB3ulMWmZh7tR6W5",
+          "name": "Slack SNOW Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "message_timestamp",
+        "options": {}
+      },
+      "id": "a4de4068-9cdb-4b10-8a6b-5ee090866941",
+      "name": "Get TimeStamp",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        940,
+        800
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "id": "b8b8801b-b00d-48af-98a7-b972e68e1c6e",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        300,
+        720
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "dataPropertyName": "=data",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "url",
+              "cssSelector": "a[href*=\"/comfy-node/\"]",
+              "returnValue": "attribute",
+              "attribute": "href",
+              "returnArray": true
+            },
+            {
+              "key": "info",
+              "cssSelector": "a[href*=\"/comfy-node/\"]",
+              "returnValue": "html",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {
+          "trimValues": false,
+          "cleanUpText": false
+        }
+      },
+      "id": "2f5a0ad0-1451-4e5e-8a80-d339243c9677",
+      "name": "Extract workflow info",
+      "type": "n8n-nodes-base.html",
+      "position": [
+        720,
+        540
+      ],
+      "typeVersion": 1,
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "url": "=https://www.comfydeploy.com/comfy-node",
+        "options": {}
+      },
+      "id": "79898647-d6fa-4bf6-b5f4-d0bb3c110e20",
+      "name": "Fetch custom node list",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        540,
+        540
+      ],
+      "typeVersion": 4.1,
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "url",
+        "options": {}
+      },
+      "id": "1bca0d9a-3e2e-4059-87cf-54a071ceda6b",
+      "name": "URL",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        940,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "info",
+        "options": {}
+      },
+      "id": "14d2f93c-2c84-4cc9-be56-d2996668a4a0",
+      "name": "Node Info",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        940,
+        620
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4f077613-2bff-4dd7-937a-08b3036c8f4b",
+              "name": "url",
+              "value": "={{ \"https://www.comfydeploy.com\".concat($json.url) }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "eb7ad93c-6e73-4ad7-9b1c-e53e1f1b9ceb",
+      "name": "Full URL",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1100,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1c7626ec-1d6d-4f1b-a762-41f2d1950b8b",
+              "name": "title",
+              "value": "={{ $json.info.match('title=\\\"([^\"]+)\\\"')[1] }}",
+              "type": "string"
+            },
+            {
+              "id": "3da70911-ecb8-4890-a717-2a36d82166dc",
+              "name": "author",
+              "value": "={{ $json.info.match('<p class=\"text-sm text-muted-foreground\">([^<]+)</p>')[1] }}",
+              "type": "string"
+            },
+            {
+              "id": "490e0059-d704-428c-ab7a-c6a7ddccad96",
+              "name": "stars",
+              "value": "={{ $json.info.match('<!-- -->([0-9]+)</span>')[1] }}",
+              "type": "string"
+            },
+            {
+              "id": "b5ffde0c-3387-4d70-aaa9-c81a79d6e941",
+              "name": "description",
+              "value": "={{ $json.info.match('<p class=\"text-sm mt-2 line-clamp-3\">([^<]+)</p>')[1] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5d48365a-3577-4bb4-b58c-c1fe66ada318",
+      "name": "Parse Node Info",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1100,
+        620
+      ]
+    },
+    {
+      "parameters": {
+        "maxItems": 100
+      },
+      "id": "2269367d-3a11-4433-bc15-bb8a2b11b72a",
+      "name": "Limit 100",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        1420,
+        620
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "id": "ee9f9604-c299-44a3-aa50-964c6bb1dffb",
+      "name": "Add TimeStamp",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1600,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "59b8fa8e-da6c-41be-8410-6699ea517676",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1260,
+        620
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Fetch custom node list",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Open a Thread",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Open a Thread": {
+      "main": [
+        [
+          {
+            "node": "Get TimeStamp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Fetch custom node list",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Open a Thread",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract workflow info": {
+      "main": [
+        [
+          {
+            "node": "URL",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Node Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch custom node list": {
+      "main": [
+        [
+          {
+            "node": "Extract workflow info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Node Info": {
+      "main": [
+        [
+          {
+            "node": "Parse Node Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "URL": {
+      "main": [
+        [
+          {
+            "node": "Full URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Full URL": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Node Info": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Get TimeStamp": {
+      "main": [
+        [
+          {
+            "node": "Add TimeStamp",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Limit 100": {
+      "main": [
+        [
+          {
+            "node": "Add TimeStamp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add TimeStamp": {
+      "main": [
+        [
+          {
+            "node": "Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Limit 100",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9dcb6812-a4f7-4497-96cb-b1947cfc4dcf",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "50b2810ee77b8d7d38c0ead02407629fd7b35cf107cced5585240e3ac45fe0a1"
+  },
+  "id": "kmyHg4ex2FzJjiPH",
+  "tags": [
+    {
+      "createdAt": "2024-09-21T07:42:43.013Z",
+      "updatedAt": "2024-09-21T07:42:43.013Z",
+      "id": "3k9cmuuZjy2Ie9Jp",
+      "name": "ai"
+    },
+    {
+      "createdAt": "2024-09-21T07:42:43.026Z",
+      "updatedAt": "2024-09-21T07:42:43.026Z",
+      "id": "xbw0MxRFVi6zvnOv",
+      "name": "slack"
+    },
+    {
+      "createdAt": "2024-09-23T05:16:11.600Z",
+      "updatedAt": "2024-09-23T05:16:11.600Z",
+      "id": "yS3dcdxKm6enEGcB",
+      "name": "comfyui"
+    }
+  ]
+}
