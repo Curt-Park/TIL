@@ -1,0 +1,370 @@
+{
+  "name": "Huggingface Flux AI Image Generator",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "### Run flux model\nIn `Call huggingface inference api` You can change `black-forest-labs/FLUX.1-schnell` in URL parameter to other models:\n- `black-forest-labs/FLUX.1-dev`\n- `Shakker-Labs/FLUX.1-dev-LoRA-AntiBlur`\n- `XLabs-AI/flux-RealismLora`\n- `ByteDance/Hyper-SD`\n\n[See more models on huggingface.co](https://huggingface.co/models?pipeline_tag=text-to-image&sort=trending)\n",
+        "height": 226.2264013670822,
+        "width": 419.0156901664085,
+        "color": 7
+      },
+      "id": "f4aa76f8-d35f-4332-aa39-0c34582618eb",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -260,
+        960
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-dev",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "inputs",
+              "value": "=Depict {{ $json['body.text'] }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "id": "ad10a84f-851a-40f8-b10e-18356c4eeed6",
+      "name": "Call hugginface inference api",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        100,
+        740
+      ],
+      "notesInFlow": true,
+      "typeVersion": 4.2,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "ZGmRC9grk3zRuhc4",
+          "name": "Huggingface Access Token"
+        }
+      },
+      "onError": "continueErrorOutput",
+      "notes": " "
+    },
+    {
+      "parameters": {
+        "content": "### Watch Set Up Video 👇\n[![Flux Generator](https://uploads.n8n.io/devrel/fluxgenerator.png#full-width)](https://youtu.be/Rv_1jt5WvtY)\n\n",
+        "height": 337.24177957113216,
+        "width": 506.8102696237577,
+        "color": 7
+      },
+      "id": "e740dd3c-e23e-485b-bb4c-bb0515897a08",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -880,
+        600
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# flux image generator\nBuilt by [@maxtkacz](https://x.com/maxtkacz) as part of the [30 Day AI Sprint](https://30dayaisprint.notion.site/)\nCheck out the project's [Notion page](https://30dayaisprint.notion.site/Flux-image-generator-bc94a8d2de8447c6ab70aacf2c4179f2) for more details",
+        "height": 134.27496896630808,
+        "width": 506.8102696237577,
+        "color": 7
+      },
+      "id": "71d01821-3e0d-4c08-8571-58a158817e2c",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -880,
+        440
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "body.channel_id, body.text, headers['x-slack-request-timestamp']",
+        "options": {}
+      },
+      "id": "a88faccc-f3b5-42c3-bc3e-bd578d0b8341",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $json['body.channel_id'] }}",
+          "mode": "id"
+        },
+        "text": "=FAILED due to `{{ $json['error.status'] }}: {{ $json['error.code'] }}`\n>{{ $json['error.message'] }}",
+        "otherOptions": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "id": "05add367-37d9-4453-b9b5-fb06d92acb47",
+      "name": "Error Message",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        660,
+        900
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "NqwWB9a6p0EO1gKx",
+          "name": "Slack SNOW n8n-bot OAUTH TOKEN"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "['body.channel_id'], ['body.text'], error.code, error.status, error.message",
+        "options": {}
+      },
+      "id": "1effc46a-2089-414e-b571-c213bdeec030",
+      "name": "Split Out2",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        320,
+        900
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "options": {
+          "channelId": "={{ $json['body.channel_id'] }}",
+          "fileName": "={{ $json['headers[\\'x-slack-request-timestamp\\']'] }}.jpeg"
+        }
+      },
+      "id": "d28e2d3b-f655-44bb-a588-2a39de881964",
+      "name": "Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        660,
+        680
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "NqwWB9a6p0EO1gKx",
+          "name": "Slack SNOW n8n-bot OAUTH TOKEN"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "ea79c4a9-8cb6-4be7-b46e-769dbfeb8030",
+      "name": "Failed",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        480,
+        900
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "90179774-5d60-45ab-9379-2888d18420d7",
+        "options": {
+          "noResponseBody": true
+        }
+      },
+      "id": "5ada2973-2437-486b-b6d8-6a2d0a8cffd1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -280,
+        660
+      ],
+      "webhookId": "90179774-5d60-45ab-9379-2888d18420d7"
+    },
+    {
+      "parameters": {
+        "jsCode": "let results = [];\n\nfor (item of items) {\n    for (key of Object.keys(item.binary)) {\n        results.push({\n            json: {\n                fileName: item.binary[key].fileName\n            },\n            binary: {\n                data: item.binary[key],\n            }\n        });\n    }\n}\n\nreturn results;"
+      },
+      "id": "45bb5f4f-771c-420c-b922-8c893cce835b",
+      "name": "Extract Binary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        320,
+        680
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {
+          "includeUnpaired": true
+        }
+      },
+      "id": "bb0f21b8-e849-488a-8c76-90e7ea7ffeaf",
+      "name": "Success",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        480,
+        680
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Call hugginface inference api",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Failed",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call hugginface inference api": {
+      "main": [
+        [
+          {
+            "node": "Extract Binary",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Split Out2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out2": {
+      "main": [
+        [
+          {
+            "node": "Failed",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Failed": {
+      "main": [
+        [
+          {
+            "node": "Error Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Binary": {
+      "main": [
+        [
+          {
+            "node": "Success",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Success": {
+      "main": [
+        [
+          {
+            "node": "Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d614ce48-eb2e-4d3e-9568-327e157d56a3",
+  "meta": {
+    "templateId": "2417",
+    "templateCredsSetupCompleted": true,
+    "instanceId": "50b2810ee77b8d7d38c0ead02407629fd7b35cf107cced5585240e3ac45fe0a1"
+  },
+  "id": "6CytK24DkHjGrdLA",
+  "tags": [
+    {
+      "createdAt": "2024-09-23T09:48:11.373Z",
+      "updatedAt": "2024-09-23T09:48:11.373Z",
+      "id": "kLlfhU4FZsNZdPx6",
+      "name": "huggingface"
+    },
+    {
+      "name": "txt2img",
+      "id": "Q47tsNjuy79lauyD",
+      "createdAt": "2024-09-25T02:11:36.202Z",
+      "updatedAt": "2024-09-25T02:11:36.202Z"
+    },
+    {
+      "name": "flux",
+      "id": "gZeiPypq0PTHgD4U",
+      "createdAt": "2024-09-25T02:11:38.294Z",
+      "updatedAt": "2024-09-25T02:11:38.294Z"
+    }
+  ]
+}
