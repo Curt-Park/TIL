@@ -25,4 +25,7 @@ velero backup create nginx-backup --include-namespaces nginx-example
 
 # simulate a disaster. all created things are gone.
 kubectl delete namespaces nginx-example
+
+# restore your lost resources
+velero restore create --from-backup nginx-backup
 ```
