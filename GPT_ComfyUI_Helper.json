@@ -1,0 +1,1056 @@
+{
+  "name": "GPT ComfyUI Helper",
+  "nodes": [
+    {
+      "parameters": {
+        "fieldToSplitOut": "body.channel_id, body.text, body.user_name",
+        "options": {}
+      },
+      "id": "3d3273b5-6c21-4a2e-baf7-507a290c147d",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        820,
+        1240
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a740b3c3-2ece-4d28-97d2-3773e159c1fd",
+              "name": "channel_id",
+              "value": "={{ $json['body.channel_id'] }}",
+              "type": "string"
+            },
+            {
+              "id": "983e8686-2e47-4bae-aaa9-a1fe90c975d3",
+              "name": "text",
+              "value": "={{ $json['body.text'] }}",
+              "type": "string"
+            },
+            {
+              "id": "e0230e33-4937-4996-b79f-0bfbcf41afe2",
+              "name": "user_name",
+              "value": "={{ $json['body.user_name'] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bccf3d84-844e-4030-a382-3b3435b21413",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        980,
+        1240
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $json.channel_id }}",
+          "mode": "id"
+        },
+        "text": "=\"{{ $json.text }}\" *asked by {{ $json.user_name }}*",
+        "otherOptions": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "id": "89341ce3-4f8d-4f90-bcdb-078d1139053c",
+      "name": "Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        1140,
+        1460
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "NqwWB9a6p0EO1gKx",
+          "name": "Slack SNOW n8n-bot OAUTH TOKEN"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "message_timestamp",
+        "options": {}
+      },
+      "id": "43c7a8f3-ca20-498d-a6cf-c21f10d34246",
+      "name": "Split Out1",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1300,
+        1460
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "id": "6f0fa3ed-af48-461e-88a3-ebc38705b906",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1480,
+        1240
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $json.channel_id }}",
+          "mode": "id"
+        },
+        "text": "={{ $json.response.text }}",
+        "otherOptions": {
+          "includeLinkToWorkflow": false,
+          "thread_ts": {
+            "replyValues": {
+              "thread_ts": "={{ $json.message_timestamp }}"
+            }
+          }
+        }
+      },
+      "id": "c7dfefe6-8186-4179-ac27-7fb74094514d",
+      "name": "Reply",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        2200,
+        1260
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "NqwWB9a6p0EO1gKx",
+          "name": "Slack SNOW n8n-bot OAUTH TOKEN"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://www.comfydeploy.com/comfy-node",
+        "options": {}
+      },
+      "id": "0ffa9618-2cdf-453e-8b0a-81536ddb29c0",
+      "name": "Fetch custom node list",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        840,
+        100
+      ],
+      "typeVersion": 4.1,
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "url",
+        "options": {}
+      },
+      "id": "e45af371-c15a-4c4e-8896-30f4e8958913",
+      "name": "URL",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        20
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "info",
+        "options": {}
+      },
+      "id": "cb118e4f-7676-4912-89c0-d2a725eded2f",
+      "name": "Node Info",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4f077613-2bff-4dd7-937a-08b3036c8f4b",
+              "name": "url",
+              "value": "={{ \"https://www.comfydeploy.com\".concat($json.url) }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "37d0f6b7-f36b-4845-93cc-b33192128651",
+      "name": "Full URL",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1400,
+        20
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1c7626ec-1d6d-4f1b-a762-41f2d1950b8b",
+              "name": "title",
+              "value": "={{ $json.info.match('title=\\\"([^\"]+)\\\"')[1] }}",
+              "type": "string"
+            },
+            {
+              "id": "3da70911-ecb8-4890-a717-2a36d82166dc",
+              "name": "author",
+              "value": "={{ $json.info.match('<p class=\"text-sm text-muted-foreground\">([^<]+)</p>')[1] }}",
+              "type": "string"
+            },
+            {
+              "id": "b5ffde0c-3387-4d70-aaa9-c81a79d6e941",
+              "name": "description",
+              "value": "={{ $json.info.match('<p class=\"text-sm mt-2 line-clamp-3\">([^<]+)</p>')[1] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d2269023-21a5-44b7-b384-caf8cb48daac",
+      "name": "Parse Node Info",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1400,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "create",
+        "projectId": "p4l6ab2n9ezvidr",
+        "table": "m6z97l2pnysdafx",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "=title",
+              "fieldValue": "={{ $json.title }}"
+            },
+            {
+              "fieldName": "author",
+              "fieldValue": "={{ $json.author }}"
+            },
+            {
+              "fieldName": "=stars",
+              "fieldValue": "={{ $json.stars }}"
+            },
+            {
+              "fieldName": "description",
+              "fieldValue": "={{ $json.description }}"
+            },
+            {
+              "fieldName": "url",
+              "fieldValue": "={{ $json.url }}"
+            }
+          ]
+        }
+      },
+      "id": "19064da8-a2a9-4661-9286-4e73c7629158",
+      "name": "Create Rows",
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        2520,
+        180
+      ],
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CdAgYZE9UhJrdXfW",
+          "name": "NocoDB Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Update Custom Nodes Info\n\nIt checks the custom node information exists in the database (NOCODB).\nIf not exists it is inserted in the database and the vector store.",
+        "height": 1239.571850633528,
+        "width": 2145.280382698309
+      },
+      "id": "2e5a076f-5708-4417-bdd8-2127641277ad",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        560,
+        -280
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Q&A",
+        "height": 1122.9562906974973,
+        "width": 2148.1586825982854
+      },
+      "id": "8e48fef5-2e4f-442e-a3bd-d3bb990c3b36",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        560,
+        980
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "dataPropertyName": "=data",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "url",
+              "cssSelector": "a[href*=\"/comfy-node/\"]",
+              "returnValue": "attribute",
+              "attribute": "href",
+              "returnArray": true
+            },
+            {
+              "key": "info",
+              "cssSelector": "a[href*=\"/comfy-node/\"]",
+              "returnValue": "html",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {
+          "trimValues": false,
+          "cleanUpText": false
+        }
+      },
+      "id": "ea634d5d-f7c4-4fd7-a640-a9ef92cce5f3",
+      "name": "Extract workflow info",
+      "type": "n8n-nodes-base.html",
+      "position": [
+        1040,
+        100
+      ],
+      "typeVersion": 1,
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "19ee760f-4ce6-4f2e-b790-6d55c7b21524",
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1600,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "a16a852c-646c-4605-8b55-a8a37af5b128",
+      "name": "Merge2",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1960,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a09d9089-d598-43ff-a92a-bd3a09e1dfec",
+              "leftValue": "={{ $json.count }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "dc57134b-7765-463c-a5f7-adac2e7a57f5",
+      "name": "If Not Exists",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2120,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=http://nocodb:8080/api/v2/tables/m6z97l2pnysdafx/records/count",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "nocoDbApiToken",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "where",
+              "value": "=(title,eq,{{ $json.title }})"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "73adb3df-ce0e-4ac4-87e2-6b3c8b4bb50c",
+      "name": "Check Existence",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1780,
+        20
+      ],
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CdAgYZE9UhJrdXfW",
+          "name": "NocoDB Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "url, title, author, description",
+        "options": {}
+      },
+      "id": "372b8d69-3063-4a52-b0c8-17e5d0a02734",
+      "name": "Split Out2",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2340,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "962b059a-93a7-4964-a85d-950d3763ac80",
+      "name": "Embeddings OpenAI1",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1,
+      "position": [
+        2060,
+        680
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "unPHW41eId4wNLt5",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "d33473dc-e3b2-4965-9626-40fa43302ae8",
+      "name": "Default Data Loader",
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1,
+      "position": [
+        2140,
+        680
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "9bb4705d-cf18-45df-a543-7a6a35880f06",
+      "name": "Recursive Character Text Splitter",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        2140,
+        820
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a47b7bc3-367f-40f8-8fbb-3ce0db0ef724",
+              "name": "data",
+              "value": "=## Custom Node Name\n{{ $json.title }}\n## Author\n{{ $json.author }}\n## Description\n{{ $json.description }}\n## URL\n{{ $json.url }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "3842e6aa-e006-4257-b4fe-1e3010f141ff",
+      "name": "Prepare Embedding Document",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1860,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "comfyui-custom-nodes",
+          "mode": "list",
+          "cachedResultName": "comfyui-custom-nodes"
+        },
+        "options": {}
+      },
+      "id": "861ec394-b96e-4a9f-9a22-ec17ed724b82",
+      "name": "Qdrant Vector Store",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1,
+      "position": [
+        2040,
+        520
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "QpSj8kvb7dl3kgFF",
+          "name": "QdrantApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks"
+            }
+          ]
+        }
+      },
+      "id": "69d03516-f104-422a-9543-b319498c74ba",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        620,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.text }}",
+        "options": {
+          "systemPromptTemplate": "Use the following pieces of context to answer the users question. \nIf you don't know the answer, just say that you don't know, don't try to make up an answer.\n----------------\n{context}"
+        }
+      },
+      "id": "eaa4b0e9-1c2b-4390-9cb9-6d819a295208",
+      "name": "Question and Answer Chain",
+      "type": "@n8n/n8n-nodes-langchain.chainRetrievalQa",
+      "typeVersion": 1.3,
+      "position": [
+        1640,
+        1460
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {}
+      },
+      "id": "de93fc44-001c-4bbf-917f-21b77221d0f9",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        1640,
+        1680
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "unPHW41eId4wNLt5",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "c7408b87-b8c9-43f6-ba71-fd170e55f6e6",
+      "name": "Vector Store Retriever",
+      "type": "@n8n/n8n-nodes-langchain.retrieverVectorStore",
+      "typeVersion": 1,
+      "position": [
+        1780,
+        1680
+      ]
+    },
+    {
+      "parameters": {
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "comfyui-custom-nodes",
+          "mode": "list",
+          "cachedResultName": "comfyui-custom-nodes"
+        },
+        "options": {}
+      },
+      "id": "8d071d39-6ec1-4f0f-ba15-fd6a1dfa55f5",
+      "name": "Qdrant Vector Store1",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1,
+      "position": [
+        1780,
+        1800
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "QpSj8kvb7dl3kgFF",
+          "name": "QdrantApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "fb95cc09-fc59-4a56-aad7-a4720ca5e980",
+      "name": "Embeddings OpenAI",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1,
+      "position": [
+        1780,
+        1940
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "unPHW41eId4wNLt5",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "id": "7956c499-ca7e-4ba6-9fea-fc2e109f451a",
+      "name": "Merge3",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        2020,
+        1260
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "9613cb7c-67d7-43b9-9fbf-274a5a3bac3e",
+        "options": {
+          "noResponseBody": true
+        }
+      },
+      "id": "cb8a08a4-4e95-4d3d-8f19-d62b9ffa7648",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        660,
+        1240
+      ],
+      "webhookId": "9613cb7c-67d7-43b9-9fbf-274a5a3bac3e"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Slack",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Question and Answer Chain",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch custom node list": {
+      "main": [
+        [
+          {
+            "node": "Extract workflow info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "URL": {
+      "main": [
+        [
+          {
+            "node": "Full URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Node Info": {
+      "main": [
+        [
+          {
+            "node": "Parse Node Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Full URL": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Node Info": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Extract workflow info": {
+      "main": [
+        [
+          {
+            "node": "Node Info",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Check Existence",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge2": {
+      "main": [
+        [
+          {
+            "node": "If Not Exists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Existence": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Not Exists": {
+      "main": [
+        [
+          {
+            "node": "Split Out2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out2": {
+      "main": [
+        [
+          {
+            "node": "Create Rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Rows": {
+      "main": [
+        [
+          {
+            "node": "Prepare Embedding Document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Embedding Document": {
+      "main": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Fetch custom node list",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Question and Answer Chain": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Question and Answer Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vector Store Retriever": {
+      "ai_retriever": [
+        [
+          {
+            "node": "Question and Answer Chain",
+            "type": "ai_retriever",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qdrant Vector Store1": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Vector Store Retriever",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge3": {
+      "main": [
+        [
+          {
+            "node": "Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "43c2ba02-f623-47f8-9e81-8300dd4eb53d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "50b2810ee77b8d7d38c0ead02407629fd7b35cf107cced5585240e3ac45fe0a1"
+  },
+  "id": "PLrkcy4qDFywvjTI",
+  "tags": []
+}
