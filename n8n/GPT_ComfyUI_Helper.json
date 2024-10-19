@@ -12,7 +12,7 @@
       "typeVersion": 1,
       "position": [
         820,
-        1240
+        1460
       ]
     },
     {
@@ -47,7 +47,7 @@
       "typeVersion": 3.4,
       "position": [
         980,
-        1240
+        1460
       ]
     },
     {
@@ -104,41 +104,8 @@
       "typeVersion": 3,
       "position": [
         1480,
-        1240
+        1460
       ]
-    },
-    {
-      "parameters": {
-        "select": "channel",
-        "channelId": {
-          "__rl": true,
-          "value": "={{ $json.channel_id }}",
-          "mode": "id"
-        },
-        "text": "={{ $json.response.text }}",
-        "otherOptions": {
-          "includeLinkToWorkflow": false,
-          "thread_ts": {
-            "replyValues": {
-              "thread_ts": "={{ $json.message_timestamp }}"
-            }
-          }
-        }
-      },
-      "id": "c7dfefe6-8186-4179-ac27-7fb74094514d",
-      "name": "Reply",
-      "type": "n8n-nodes-base.slack",
-      "typeVersion": 2.2,
-      "position": [
-        2200,
-        1260
-      ],
-      "credentials": {
-        "slackApi": {
-          "id": "NqwWB9a6p0EO1gKx",
-          "name": "Slack SNOW n8n-bot OAUTH TOKEN"
-        }
-      }
     },
     {
       "parameters": {
@@ -290,8 +257,8 @@
     {
       "parameters": {
         "content": "## Update Custom Nodes Info\n\nIt checks the custom node information exists in the database (NOCODB).\nIf not exists it is inserted in the database and the vector store.",
-        "height": 1239.571850633528,
-        "width": 2145.280382698309
+        "height": 145.74026350868147,
+        "width": 562.1030855439259
       },
       "id": "2e5a076f-5708-4417-bdd8-2127641277ad",
       "name": "Sticky Note",
@@ -305,8 +272,8 @@
     {
       "parameters": {
         "content": "## Q&A",
-        "height": 1122.9562906974973,
-        "width": 2148.1586825982854
+        "height": 163.55282214108462,
+        "width": 538.2574995109144
       },
       "id": "8e48fef5-2e4f-442e-a3bd-d3bb990c3b36",
       "name": "Sticky Note1",
@@ -314,7 +281,7 @@
       "typeVersion": 1,
       "position": [
         560,
-        980
+        1140
       ]
     },
     {
@@ -531,32 +498,6 @@
     },
     {
       "parameters": {
-        "mode": "insert",
-        "qdrantCollection": {
-          "__rl": true,
-          "value": "comfyui-custom-nodes",
-          "mode": "list",
-          "cachedResultName": "comfyui-custom-nodes"
-        },
-        "options": {}
-      },
-      "id": "861ec394-b96e-4a9f-9a22-ec17ed724b82",
-      "name": "Qdrant Vector Store",
-      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
-      "typeVersion": 1,
-      "position": [
-        2040,
-        520
-      ],
-      "credentials": {
-        "qdrantApi": {
-          "id": "QpSj8kvb7dl3kgFF",
-          "name": "QdrantApi account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "rule": {
           "interval": [
             {
@@ -587,8 +528,8 @@
       "type": "@n8n/n8n-nodes-langchain.chainRetrievalQa",
       "typeVersion": 1.3,
       "position": [
-        1640,
-        1460
+        2020,
+        1300
       ]
     },
     {
@@ -601,8 +542,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1,
       "position": [
-        1640,
-        1680
+        2020,
+        1420
       ],
       "credentials": {
         "openAiApi": {
@@ -612,14 +553,16 @@
       }
     },
     {
-      "parameters": {},
+      "parameters": {
+        "topK": 5
+      },
       "id": "c7408b87-b8c9-43f6-ba71-fd170e55f6e6",
       "name": "Vector Store Retriever",
       "type": "@n8n/n8n-nodes-langchain.retrieverVectorStore",
       "typeVersion": 1,
       "position": [
-        1780,
-        1680
+        2160,
+        1420
       ]
     },
     {
@@ -637,8 +580,8 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
       "typeVersion": 1,
       "position": [
-        1780,
-        1800
+        2160,
+        1520
       ],
       "credentials": {
         "qdrantApi": {
@@ -656,8 +599,8 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1,
       "position": [
-        1780,
-        1940
+        2160,
+        1620
       ],
       "credentials": {
         "openAiApi": {
@@ -677,9 +620,29 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        2020,
-        1260
+        2360,
+        1280
       ]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {}
+      },
+      "id": "77f6f565-2b1c-43da-b7a8-a707b7ea1d41",
+      "name": "OpenAI Chat Model1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        1620,
+        1580
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "unPHW41eId4wNLt5",
+          "name": "OpenAi account"
+        }
+      }
     },
     {
       "parameters": {
@@ -695,9 +658,576 @@
       "typeVersion": 2,
       "position": [
         660,
-        1240
+        1460
       ],
       "webhookId": "9613cb7c-67d7-43b9-9fbf-274a5a3bac3e"
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.text }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "custom nodes",
+              "description": "question about comfyui custom nodes"
+            },
+            {
+              "category": "implementation",
+              "description": "question about comfyui implementation"
+            }
+          ]
+        },
+        "options": {
+          "fallback": "other"
+        }
+      },
+      "id": "123ae9c4-a2a5-48e2-973c-79c2ac432eaf",
+      "name": "Text Classifier",
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1,
+      "position": [
+        1620,
+        1460
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $json.channel_id }}",
+          "mode": "id"
+        },
+        "text": "={{ $json.response.text }}",
+        "otherOptions": {
+          "includeLinkToWorkflow": false,
+          "thread_ts": {
+            "replyValues": {
+              "thread_ts": "={{ $json.message_timestamp }}"
+            }
+          }
+        }
+      },
+      "id": "c7dfefe6-8186-4179-ac27-7fb74094514d",
+      "name": "Reply: Custom Nodes",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        2520,
+        1280
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "NqwWB9a6p0EO1gKx",
+          "name": "Slack SNOW n8n-bot OAUTH TOKEN"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $json.channel_id }}",
+          "mode": "id"
+        },
+        "text": "={{ $json.response.text }}",
+        "otherOptions": {
+          "includeLinkToWorkflow": false,
+          "thread_ts": {
+            "replyValues": {
+              "thread_ts": "={{ $json.message_timestamp }}"
+            }
+          }
+        }
+      },
+      "id": "4d7a4145-2ad0-448b-8930-5f185c0b1979",
+      "name": "Reply: Implementations",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        2520,
+        1820
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "NqwWB9a6p0EO1gKx",
+          "name": "Slack SNOW n8n-bot OAUTH TOKEN"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "get",
+        "owner": {
+          "__rl": true,
+          "value": "comfyanonymous",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "ComfyUI",
+          "mode": "list",
+          "cachedResultName": "ComfyUI",
+          "cachedResultUrl": "https://github.com/comfyanonymous/ComfyUI"
+        },
+        "filePath": "={{ $json.path }}",
+        "additionalParameters": {
+          "reference": ""
+        }
+      },
+      "id": "10d69c32-3bdc-4254-bf1c-c97ae5849f93",
+      "name": "GitHub",
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1,
+      "position": [
+        3640,
+        180
+      ],
+      "credentials": {
+        "githubApi": {
+          "id": "oC0NTqqOXHFkCBa9",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://api.github.com/repos/comfyanonymous/ComfyUI/git/trees/master?recursive=1",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "options": {}
+      },
+      "id": "4c8b6605-780b-4476-9466-35ea17bdbeb8",
+      "name": "Get File List",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2880,
+        180
+      ],
+      "credentials": {
+        "githubApi": {
+          "id": "oC0NTqqOXHFkCBa9",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "tree",
+        "options": {}
+      },
+      "id": "29df403e-936b-405d-b532-b817524b6c5b",
+      "name": "File List",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        3060,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "24740f23-5048-408b-94cc-aaacbed924b0",
+              "leftValue": "={{ $json.type }}",
+              "rightValue": "blob",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "490129aa-1506-4bc4-94ee-932940a1e18d",
+      "name": "If File",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3220,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a47b7bc3-367f-40f8-8fbb-3ce0db0ef724",
+              "name": "data",
+              "value": "=## File Path\n{{ $json.path }}\n## Type\n{{ $json.type }}\n## Code\n{{ $json.code }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "19df6d20-55ae-4055-a2ff-5b52844677c0",
+      "name": "Prepare Embedding Document: Code",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        4280,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {}
+      },
+      "id": "49cac73e-2644-429a-8d8b-d2e63a8157d4",
+      "name": "Extract from File",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        3800,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "path, mode, type, sha, size, url",
+        "options": {}
+      },
+      "id": "385b68b0-0e5e-4dd4-86c0-b4e9f01aae0b",
+      "name": "Split Out4",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        3800,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "0d97deb5-d51f-4973-abf7-16c42c5887f9",
+      "name": "Embeddings OpenAI2",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1,
+      "position": [
+        4480,
+        320
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "unPHW41eId4wNLt5",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "f5d4b2ac-a091-4cdf-94e8-fc596c2e2b5c",
+      "name": "Default Data Loader1",
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1,
+      "position": [
+        4560,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Update ComfyUI Implementation\n1. GitHub API로 ComfyUI 레포의 모든 파일 목록 조회\n2. 파일 중 확장자가 .py, .md인 파일 정보 취득\n3. .py의 경우 클래스, 함수, 스크립트 단위로 분리 (Code)\n4. File Path 정보와 File 내용 정보를 임베딩",
+        "height": 164.0574648830847,
+        "width": 561.2138239784348
+      },
+      "id": "628a25a7-7f33-4bab-a62c-7b905ffecd79",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2860,
+        -300
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "comfyui-custom-nodes",
+          "mode": "list",
+          "cachedResultName": "comfyui-custom-nodes"
+        },
+        "options": {}
+      },
+      "id": "861ec394-b96e-4a9f-9a22-ec17ed724b82",
+      "name": "Qdrant Vector Store: Custom Nodes",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1,
+      "position": [
+        2040,
+        520
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "QpSj8kvb7dl3kgFF",
+          "name": "QdrantApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "qdrantCollection": {
+          "__rl": true,
+          "mode": "id",
+          "value": "comfyui-code"
+        },
+        "options": {}
+      },
+      "id": "fe48ef8a-a311-4521-9fe8-e0575c1a0ef7",
+      "name": "Qdrant Vector Store",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1,
+      "position": [
+        4480,
+        180
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "QpSj8kvb7dl3kgFF",
+          "name": "QdrantApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.text }}",
+        "options": {
+          "systemPromptTemplate": "Use the following pieces of context to answer the users question. \nIf you don't know the answer, just say that you don't know, don't try to make up an answer.\n----------------\n{context}"
+        }
+      },
+      "id": "22d48b38-4999-4dd6-ae14-56bb394c4d65",
+      "name": "Question and Answer Chain1",
+      "type": "@n8n/n8n-nodes-langchain.chainRetrievalQa",
+      "typeVersion": 1.3,
+      "position": [
+        2020,
+        1840
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {}
+      },
+      "id": "82bbe634-92b9-4cdd-b5a4-79b8825bff20",
+      "name": "OpenAI Chat Model2",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        2020,
+        1960
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "unPHW41eId4wNLt5",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "topK": 5
+      },
+      "id": "d756bbd6-1341-4c25-af6b-374e435346d7",
+      "name": "Vector Store Retriever1",
+      "type": "@n8n/n8n-nodes-langchain.retrieverVectorStore",
+      "typeVersion": 1,
+      "position": [
+        2160,
+        1960
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "ffcc5f87-3bfa-459e-82d8-d859d203391f",
+      "name": "Embeddings OpenAI3",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1,
+      "position": [
+        2160,
+        2160
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "unPHW41eId4wNLt5",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "id": "3bf9fd45-1169-455d-857f-17b7f0d39290",
+      "name": "Merge4",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        2360,
+        1820
+      ]
+    },
+    {
+      "parameters": {
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "comfyui-code",
+          "mode": "list",
+          "cachedResultName": "comfyui-code"
+        },
+        "options": {}
+      },
+      "id": "4de2ffba-9f2d-428c-b5e8-b3230fa01930",
+      "name": "Qdrant Vector Store2",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1,
+      "position": [
+        2160,
+        2060
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "QpSj8kvb7dl3kgFF",
+          "name": "QdrantApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "24740f23-5048-408b-94cc-aaacbed924b0",
+              "leftValue": "={{ $json.path }}",
+              "rightValue": ".py",
+              "operator": {
+                "type": "string",
+                "operation": "endsWith"
+              }
+            },
+            {
+              "id": "2283b43d-e762-470e-937e-88502e4b9ab0",
+              "leftValue": "={{ $json.path }}",
+              "rightValue": ".md",
+              "operator": {
+                "type": "string",
+                "operation": "endsWith"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "id": "3a2821bd-9be5-4f50-bce9-a602fff4a441",
+      "name": "If Required File",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3420,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "abd4e121-94c3-45ce-bd34-3810b199354a",
+      "name": "Merge5",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        3960,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "import ast\n\n\ndef extract_code_segments(path: str, code: str) -> list[dict[str, str]]:\n    \"\"\"Python 코드를 파싱해 함수, 클래스, 스크립트 블록을 추출합니다.\"\"\"\n    if not path.endswith(\".py\"):\n        return [{\"path\": path, \"type\": \"non-python\", \"code\": code}]\n\n    tree = ast.parse(code)  # AST로 코드 파싱\n    results = []\n    script_code = []  # 함수/클래스 외부의 스크립트 코드 저장\n\n    # 코드 블록 추출 (함수, 클래스, 스크립트 구분)\n    for node in tree.body:\n        if isinstance(node, ast.FunctionDef):  # 함수\n            results.append({\n                \"path\": path,\n                \"type\": \"function\",\n                \"code\": ast.get_source_segment(code, node),\n            })\n        elif isinstance(node, ast.ClassDef):  # 클래스\n            results.append({\n                \"path\": path,\n                \"type\": \"class\",\n                \"code\": ast.get_source_segment(code, node),\n            })\n        else:  # 스크립트 블록\n            script_code.append(ast.get_source_segment(code, node))\n\n    # 스크립트 블록이 있는 경우 결과에 추가\n    if script_code:\n        results.append({\n            \"path\": path,\n            \"type\": \"script\",\n            \"code\": \"\\n\".join(script_code),\n        })\n\n    return results\n\n\noutput: list[dict[str, str]] = []\nfor item in _input.all():\n    output += extract_code_segments(item.json.path, item.json.data)\n\nreturn output"
+      },
+      "id": "b0d36c63-a7e2-4e63-b8d0-a843e4c41b08",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4120,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "method": "DELETE",
+        "url": "=http://qdrant:6333/collections/comfyui-code",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "qdrantApi",
+        "options": {}
+      },
+      "id": "58253a73-98aa-4cbf-8eac-bf8b416fa5c7",
+      "name": "Remove a Collection",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2880,
+        -60
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "QpSj8kvb7dl3kgFF",
+          "name": "QdrantApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chunkSize": 8000,
+        "chunkOverlap": 100,
+        "options": {}
+      },
+      "id": "bb652633-ef15-4a5d-888c-043d7025a92c",
+      "name": "Recursive Character Text Splitter1",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        4560,
+        460
+      ],
+      "notes": "text embedding ada 002's maximum input tokens = 8191"
     }
   ],
   "pinData": {},
@@ -755,12 +1285,7 @@
       "main": [
         [
           {
-            "node": "Question and Answer Chain",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Merge3",
+            "node": "Text Classifier",
             "type": "main",
             "index": 0
           }
@@ -902,7 +1427,7 @@
       "ai_embedding": [
         [
           {
-            "node": "Qdrant Vector Store",
+            "node": "Qdrant Vector Store: Custom Nodes",
             "type": "ai_embedding",
             "index": 0
           }
@@ -913,7 +1438,7 @@
       "ai_document": [
         [
           {
-            "node": "Qdrant Vector Store",
+            "node": "Qdrant Vector Store: Custom Nodes",
             "type": "ai_document",
             "index": 0
           }
@@ -946,7 +1471,7 @@
       "main": [
         [
           {
-            "node": "Qdrant Vector Store",
+            "node": "Qdrant Vector Store: Custom Nodes",
             "type": "main",
             "index": 0
           }
@@ -1023,8 +1548,19 @@
       "main": [
         [
           {
-            "node": "Reply",
+            "node": "Reply: Custom Nodes",
             "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
             "index": 0
           }
         ]
@@ -1040,13 +1576,267 @@
           }
         ]
       ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "Question and Answer Chain",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge4",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Question and Answer Chain1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Question and Answer Chain",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get File List": {
+      "main": [
+        [
+          {
+            "node": "File List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "File List": {
+      "main": [
+        [
+          {
+            "node": "If File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If File": {
+      "main": [
+        [
+          {
+            "node": "If Required File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Split Out4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Embedding Document: Code": {
+      "main": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Merge5",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Split Out4": {
+      "main": [
+        [
+          {
+            "node": "Merge5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI2": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader1": {
+      "ai_document": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Question and Answer Chain1": {
+      "main": [
+        [
+          {
+            "node": "Merge4",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Question and Answer Chain1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vector Store Retriever1": {
+      "ai_retriever": [
+        [
+          {
+            "node": "Question and Answer Chain1",
+            "type": "ai_retriever",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI3": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Vector Store2",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge4": {
+      "main": [
+        [
+          {
+            "node": "Reply: Implementations",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qdrant Vector Store2": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Vector Store Retriever1",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Required File": {
+      "main": [
+        [
+          {
+            "node": "GitHub",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge5": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Prepare Embedding Document: Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter1": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader1",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "43c2ba02-f623-47f8-9e81-8300dd4eb53d",
+  "versionId": "96127c5f-4159-4a9b-86e8-e4dfc7d7dbaa",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "50b2810ee77b8d7d38c0ead02407629fd7b35cf107cced5585240e3ac45fe0a1"
