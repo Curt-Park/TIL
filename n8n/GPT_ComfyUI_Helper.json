@@ -109,8 +109,28 @@
     },
     {
       "parameters": {
+<<<<<<< Updated upstream
         "url": "=https://www.comfydeploy.com/comfy-node",
         "options": {}
+=======
+        "url": "=http://monolithic:9888/webpage",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "url",
+              "value": "https://ltdrdata.github.io/"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+>>>>>>> Stashed changes
       },
       "id": "0ffa9618-2cdf-453e-8b0a-81536ddb29c0",
       "name": "Fetch custom node list",
@@ -124,96 +144,10 @@
     },
     {
       "parameters": {
-        "fieldToSplitOut": "url",
-        "options": {}
-      },
-      "id": "e45af371-c15a-4c4e-8896-30f4e8958913",
-      "name": "URL",
-      "type": "n8n-nodes-base.splitOut",
-      "typeVersion": 1,
-      "position": [
-        1240,
-        20
-      ]
-    },
-    {
-      "parameters": {
-        "fieldToSplitOut": "info",
-        "options": {}
-      },
-      "id": "cb118e4f-7676-4912-89c0-d2a725eded2f",
-      "name": "Node Info",
-      "type": "n8n-nodes-base.splitOut",
-      "typeVersion": 1,
-      "position": [
-        1240,
-        180
-      ]
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "4f077613-2bff-4dd7-937a-08b3036c8f4b",
-              "name": "url",
-              "value": "={{ \"https://www.comfydeploy.com\".concat($json.url) }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "37d0f6b7-f36b-4845-93cc-b33192128651",
-      "name": "Full URL",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        1400,
-        20
-      ]
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "1c7626ec-1d6d-4f1b-a762-41f2d1950b8b",
-              "name": "title",
-              "value": "={{ $json.info.match('title=\\\"([^\"]+)\\\"')[1] }}",
-              "type": "string"
-            },
-            {
-              "id": "3da70911-ecb8-4890-a717-2a36d82166dc",
-              "name": "author",
-              "value": "={{ $json.info.match('<p class=\"text-sm text-muted-foreground\">([^<]+)</p>')[1] }}",
-              "type": "string"
-            },
-            {
-              "id": "b5ffde0c-3387-4d70-aaa9-c81a79d6e941",
-              "name": "description",
-              "value": "={{ $json.info.match('<p class=\"text-sm mt-2 line-clamp-3\">([^<]+)</p>')[1] }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "d2269023-21a5-44b7-b384-caf8cb48daac",
-      "name": "Parse Node Info",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        1400,
-        200
-      ]
-    },
-    {
-      "parameters": {
         "authentication": "nocoDbApiToken",
         "operation": "create",
         "projectId": "p4l6ab2n9ezvidr",
-        "table": "m6z97l2pnysdafx",
+        "table": "ml1q64w47tbmwxl",
         "fieldsUi": {
           "fieldValues": [
             {
@@ -225,16 +159,16 @@
               "fieldValue": "={{ $json.author }}"
             },
             {
-              "fieldName": "=stars",
-              "fieldValue": "={{ $json.stars }}"
-            },
-            {
               "fieldName": "description",
               "fieldValue": "={{ $json.description }}"
             },
             {
               "fieldName": "url",
               "fieldValue": "={{ $json.url }}"
+            },
+            {
+              "fieldName": "nodes",
+              "fieldValue": "={{ $json.nodes }}"
             }
           ]
         }
@@ -244,8 +178,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        2520,
-        180
+        2100,
+        100
       ],
       "credentials": {
         "nocoDbApiToken": {
@@ -291,23 +225,35 @@
         "extractionValues": {
           "values": [
             {
-              "key": "url",
-              "cssSelector": "a[href*=\"/comfy-node/\"]",
-              "returnValue": "attribute",
-              "attribute": "href",
+              "key": "author",
+              "cssSelector": "tr:has(td:contains(\"INFO\")) td:nth-of-type(3)",
               "returnArray": true
             },
             {
-              "key": "info",
-              "cssSelector": "a[href*=\"/comfy-node/\"]",
-              "returnValue": "html",
+              "key": "title",
+              "cssSelector": "tr:has(td:contains(\"INFO\")) td:nth-of-type(4)",
+              "returnArray": true
+            },
+            {
+              "key": "url",
+              "cssSelector": "tr:has(td:contains(\"INFO\")) td:nth-of-type(5) a",
+              "returnArray": true
+            },
+            {
+              "key": "nodes",
+              "cssSelector": "tr:has(td b:contains(\"NODES\")) td[colspan=\"4\"]",
+              "returnArray": true
+            },
+            {
+              "key": "description",
+              "cssSelector": "tr:has(td b:contains(\"INFO\")) td:nth-of-type(6)",
               "returnArray": true
             }
           ]
         },
         "options": {
-          "trimValues": false,
-          "cleanUpText": false
+          "trimValues": true,
+          "cleanUpText": true
         }
       },
       "id": "ea634d5d-f7c4-4fd7-a640-a9ef92cce5f3",
@@ -319,36 +265,6 @@
       ],
       "typeVersion": 1,
       "alwaysOutputData": false
-    },
-    {
-      "parameters": {
-        "mode": "combine",
-        "combineBy": "combineByPosition",
-        "options": {}
-      },
-      "id": "19ee760f-4ce6-4f2e-b790-6d55c7b21524",
-      "name": "Merge1",
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3,
-      "position": [
-        1600,
-        180
-      ]
-    },
-    {
-      "parameters": {
-        "mode": "combine",
-        "combineBy": "combineByPosition",
-        "options": {}
-      },
-      "id": "a16a852c-646c-4605-8b55-a8a37af5b128",
-      "name": "Merge2",
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3,
-      "position": [
-        1960,
-        180
-      ]
     },
     {
       "parameters": {
@@ -379,13 +295,13 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2120,
-        180
+        1720,
+        100
       ]
     },
     {
       "parameters": {
-        "url": "=http://nocodb:8080/api/v2/tables/m6z97l2pnysdafx/records/count",
+        "url": "=http://nocodb:8080/api/v2/tables/ml1q64w47tbmwxl/records/count",
         "authentication": "predefinedCredentialType",
         "nodeCredentialType": "nocoDbApiToken",
         "sendQuery": true,
@@ -404,8 +320,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1780,
-        20
+        1380,
+        0
       ],
       "credentials": {
         "nocoDbApiToken": {
@@ -416,7 +332,7 @@
     },
     {
       "parameters": {
-        "fieldToSplitOut": "url, title, author, description",
+        "fieldToSplitOut": "url, title, author, description, nodes",
         "options": {}
       },
       "id": "372b8d69-3063-4a52-b0c8-17e5d0a02734",
@@ -424,8 +340,8 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        2340,
-        180
+        1920,
+        100
       ]
     },
     {
@@ -437,8 +353,8 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1,
       "position": [
-        2060,
-        680
+        2100,
+        460
       ],
       "credentials": {
         "openAiApi": {
@@ -456,12 +372,13 @@
       "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
       "typeVersion": 1,
       "position": [
-        2140,
-        680
+        2180,
+        460
       ]
     },
     {
       "parameters": {
+        "chunkSize": 8000,
         "options": {}
       },
       "id": "9bb4705d-cf18-45df-a543-7a6a35880f06",
@@ -469,8 +386,8 @@
       "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
       "typeVersion": 1,
       "position": [
-        2140,
-        820
+        2180,
+        600
       ]
     },
     {
@@ -480,7 +397,7 @@
             {
               "id": "a47b7bc3-367f-40f8-8fbb-3ce0db0ef724",
               "name": "data",
-              "value": "=## Custom Node Name\n{{ $json.title }}\n## Author\n{{ $json.author }}\n## Description\n{{ $json.description }}\n## URL\n{{ $json.url }}",
+              "value": "=## Custom Node Name\n{{ $json.title }}\n## Author\n{{ $json.author }}\n## Description\n{{ $json.description }}\n## URL\n{{ $json.url }}\n## Nodes\n{{ $json.nodes }}",
               "type": "string"
             }
           ]
@@ -492,8 +409,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1860,
-        520
+        2280,
+        100
       ]
     },
     {
@@ -964,6 +881,7 @@
         "mode": "insert",
         "qdrantCollection": {
           "__rl": true,
+<<<<<<< Updated upstream
           "value": "comfyui-custom-nodes",
           "mode": "list",
           "cachedResultName": "comfyui-custom-nodes"
@@ -990,6 +908,8 @@
         "mode": "insert",
         "qdrantCollection": {
           "__rl": true,
+=======
+>>>>>>> Stashed changes
           "mode": "id",
           "value": "comfyui-code"
         },
@@ -1228,6 +1148,64 @@
         460
       ],
       "notes": "text embedding ada 002's maximum input tokens = 8191"
+<<<<<<< Updated upstream
+=======
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "# Loop over input items and add a new field called 'myNewField' to the JSON of each one\noutput = []\nitem = _input.all()[0]\n\nauthor = item.json.author\ntitle = item.json.title\ndescription = item.json.description\nurl = item.json.url\nnodes = item.json.nodes\n\nfor a, t, d, u, n in zip(author, title, description, url, nodes):\n  output.append({\n    \"author\": a,\n    \"title\": t,\n    \"description\": d,\n    \"url\": u,\n    \"nodes\": n,\n  })\n\nreturn output"
+      },
+      "id": "19750e20-cc9e-48de-8891-7089a754f9d2",
+      "name": "Code1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1220,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "e5a81550-8334-4637-ae22-8371003d7c43",
+      "name": "Merge2",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1560,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "comfyui-custom-nodes",
+          "mode": "list",
+          "cachedResultName": "comfyui-custom-nodes"
+        },
+        "options": {}
+      },
+      "id": "861ec394-b96e-4a9f-9a22-ec17ed724b82",
+      "name": "Qdrant Vector Store: Custom Nodes",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1,
+      "position": [
+        2120,
+        320
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "QpSj8kvb7dl3kgFF",
+          "name": "QdrantApi account"
+        }
+      }
+>>>>>>> Stashed changes
     }
   ],
   "pinData": {},
@@ -1303,87 +1281,11 @@
         ]
       ]
     },
-    "URL": {
-      "main": [
-        [
-          {
-            "node": "Full URL",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Node Info": {
-      "main": [
-        [
-          {
-            "node": "Parse Node Info",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Full URL": {
-      "main": [
-        [
-          {
-            "node": "Merge1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Parse Node Info": {
-      "main": [
-        [
-          {
-            "node": "Merge1",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
     "Extract workflow info": {
       "main": [
         [
           {
-            "node": "Node Info",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "URL",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Merge1": {
-      "main": [
-        [
-          {
-            "node": "Check Existence",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Merge2",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
-    "Merge2": {
-      "main": [
-        [
-          {
-            "node": "If Not Exists",
+            "node": "Code1",
             "type": "main",
             "index": 0
           }
@@ -1830,13 +1732,47 @@
           }
         ]
       ]
+<<<<<<< Updated upstream
+=======
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Check Existence",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge2": {
+      "main": [
+        [
+          {
+            "node": "If Not Exists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+>>>>>>> Stashed changes
     }
   },
   "active": true,
   "settings": {
     "executionOrder": "v1"
   },
+<<<<<<< Updated upstream
   "versionId": "96127c5f-4159-4a9b-86e8-e4dfc7d7dbaa",
+=======
+  "versionId": "205bac50-6a1a-4428-b7c6-c85b057eec09",
+>>>>>>> Stashed changes
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "50b2810ee77b8d7d38c0ead02407629fd7b35cf107cced5585240e3ac45fe0a1"
