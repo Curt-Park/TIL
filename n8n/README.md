@@ -4,3 +4,4 @@
 <img width="2692" alt="HuggingFace Daily Papers" src="https://github.com/user-attachments/assets/e0dd83ad-5905-4170-bc29-2785b38a2f77">
 <img width="1318" alt="Huggingface_Flux_AI_Image_Generator" src="https://github.com/user-attachments/assets/9c73167a-15f2-4af1-90ac-15687c317eef">
 <img width="2312" alt="GPT ComfyUI Helper" src="https://github.com/user-attachments/assets/d94414d9-ee34-4747-bb1a-2ef217c0b979">
+<img width="2197" alt="OpenArt Trending Workflows" src="https://github.com/user-attachments/assets/c3ba4f3b-6fb0-4cab-9c54-a44ced77d009">
