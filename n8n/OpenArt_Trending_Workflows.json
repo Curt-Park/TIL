@@ -1,0 +1,467 @@
+{
+  "name": "OpenArt Trending Workflows",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "fa3ca70b-f9af-4c08-a457-14ecc0433edb",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        120,
+        460
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $json.channel }}",
+          "mode": "id"
+        },
+        "text": "=- Author: {{ $json.author }}\n- Title: <{{ $json.workflow }}|{{ $json.title }}>",
+        "otherOptions": {
+          "includeLinkToWorkflow": false,
+          "thread_ts": {
+            "replyValues": {
+              "thread_ts": "={{ $json.message_timestamp }}"
+            }
+          }
+        }
+      },
+      "id": "0f6d8d76-3683-4f53-8614-be26542ec91d",
+      "name": "Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        1600,
+        660
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "NqwWB9a6p0EO1gKx",
+          "name": "Slack SNOW n8n-bot OAUTH TOKEN"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C06CQ9C3N94",
+          "mode": "id"
+        },
+        "text": "=<https://openart.ai/workflows/all?sort=trending|OpenArt Trending Workflows> on {{ DateTime.now().year }}-{{ String(DateTime.now().month).padStart(2, '0') }}-{{ DateTime.now().day - 1 }}",
+        "otherOptions": {
+          "includeLinkToWorkflow": true
+        }
+      },
+      "id": "752912ed-d1ba-41ee-84c1-4a2bdb62238d",
+      "name": "Open a Thread",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        520,
+        860
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "NqwWB9a6p0EO1gKx",
+          "name": "Slack SNOW n8n-bot OAUTH TOKEN"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "10 10 * * 1-5"
+            }
+          ]
+        }
+      },
+      "id": "90a7175e-9a17-44e3-93ef-782a5a72018c",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        120,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "author, title, profile",
+        "options": {}
+      },
+      "id": "03c6cbc6-985f-46dd-8a6a-59bef0b0a8ba",
+      "name": "align",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        700,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "function toUrlFriendlyString(input) {\n    return input\n        .replace(/[^\\w\\s]/g, '') // 특수문자 제거 (한자 포함)\n        .replace(/\\s+/g, '-')    // 공백을 하이픈으로 변환\n        .toLowerCase()            // 소문자로 변환\n        .replace(/^-+|-+$/g, ''); // 앞뒤 하이픈 제거\n}\n\nfor (const item of $input.all()) {\n  const profile = item.json.profile\n  const match = profile.match(/@([^/]+)/);\n  item.json.userid = match ? match[1] : null;\n  item.json._title = toUrlFriendlyString(item.json.title) || \"-\";\n}\n\nreturn $input.all();"
+      },
+      "id": "9b0eaf77-0f25-4331-a962-ff2abd47920e",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=http://monolithic:9888/webpage",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "url",
+              "value": "=https://openart.ai/workflows/all?sort=trending"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "id": "0847c6c1-63da-4160-858e-74fb4166f50f",
+      "name": "OpenArt",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        340,
+        460
+      ],
+      "typeVersion": 4.1,
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "dataPropertyName": "=data",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "author",
+              "cssSelector": ".MuiStack-root.css-1xhj18k p.MuiTypography-body2",
+              "returnArray": true
+            },
+            {
+              "key": "title",
+              "cssSelector": "h6.MuiTypography-subtitle1",
+              "returnArray": true
+            },
+            {
+              "key": "profile",
+              "cssSelector": "a.MuiLink-root[href^=\"/workflows/\"][href*=\"/id/\"]",
+              "returnValue": "attribute",
+              "attribute": "href",
+              "returnArray": true
+            },
+            {
+              "key": "a.MuiLink-root[href^=\"/workflows/\"]",
+              "cssSelector": "a.MuiLink-root[href^=\"/workflows/\"]"
+            }
+          ]
+        },
+        "options": {
+          "trimValues": true,
+          "cleanUpText": true
+        }
+      },
+      "id": "201843bd-d5f5-499b-86f3-61afa5690aae",
+      "name": "Extract Otherwise",
+      "type": "n8n-nodes-base.html",
+      "position": [
+        520,
+        460
+      ],
+      "typeVersion": 1,
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "id": "47fc007f-ab60-4b07-9925-144ee71aa9b3",
+      "name": "Merge3",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1040,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "dataPropertyName": "=data",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "workflow_candidates",
+              "cssSelector": "a.MuiLink-root[href^=\"/workflows/\"]",
+              "returnValue": "attribute",
+              "attribute": "href",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {
+          "trimValues": true,
+          "cleanUpText": true
+        }
+      },
+      "id": "126349a9-4a05-4b56-8803-8f150fca8ae0",
+      "name": "Extract Workflow Candidates",
+      "type": "n8n-nodes-base.html",
+      "position": [
+        520,
+        660
+      ],
+      "typeVersion": 1,
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "output = []\n\n\nfor item in _input.all():\n  new_item = {}\n  author = item.json.author\n  title = item.json.title\n  profile = item.json.profile\n  userid = item.json.userid\n  _title = item.json._title\n\n  wc_prefix = f\"/workflows/{userid}/{_title}\"\n  for wc in item.json.workflow_candidates:\n    if wc.startswith(wc_prefix):\n      output.append(\n        {\n          \"author\": author,\n          \"title\": title,\n          \"profile\": f\"https://openart.ai{profile}\",\n          \"workflow\": f\"https://openart.ai{wc}\",\n        }\n      )\n      \nreturn output"
+      },
+      "id": "cce821b9-d6ad-4062-b2eb-87c123addbb5",
+      "name": "Search Workflow URL",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1200,
+        640
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "channel, message_timestamp",
+        "options": {}
+      },
+      "id": "583e1cb8-d8c4-4cd4-a1a0-0a66a7fe5204",
+      "name": "Split Out1",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        860
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "id": "37111abf-d67b-4d24-926e-9ee801c2b61d",
+      "name": "Merge4",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        1420,
+        660
+      ],
+      "typeVersion": 3
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "align": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenArt": {
+      "main": [
+        [
+          {
+            "node": "Extract Otherwise",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Extract Workflow Candidates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Otherwise": {
+      "main": [
+        [
+          {
+            "node": "align",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge3": {
+      "main": [
+        [
+          {
+            "node": "Search Workflow URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "OpenArt",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Open a Thread",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Workflow Candidates": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Search Workflow URL": {
+      "main": [
+        [
+          {
+            "node": "Merge4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Open a Thread": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "Merge4",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge4": {
+      "main": [
+        [
+          {
+            "node": "Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "OpenArt",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Open a Thread",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "004e8bef-696e-4d27-b2cb-f927fa478d23",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "50b2810ee77b8d7d38c0ead02407629fd7b35cf107cced5585240e3ac45fe0a1"
+  },
+  "id": "Z0Zg0SAWCshtlX0k",
+  "tags": [
+    {
+      "createdAt": "2024-09-21T07:42:43.013Z",
+      "updatedAt": "2024-09-21T07:42:43.013Z",
+      "id": "3k9cmuuZjy2Ie9Jp",
+      "name": "ai"
+    },
+    {
+      "createdAt": "2024-10-20T22:55:04.995Z",
+      "updatedAt": "2024-10-20T22:55:04.995Z",
+      "id": "NwSLQ2BRkh9AJPFr",
+      "name": "openart"
+    },
+    {
+      "createdAt": "2024-09-21T07:42:43.026Z",
+      "updatedAt": "2024-09-21T07:42:43.026Z",
+      "id": "xbw0MxRFVi6zvnOv",
+      "name": "slack"
+    }
+  ]
+}
