@@ -7,7 +7,8 @@ Longhorn is a lightweight, reliable and easy-to-use distributed block storage sy
 ## Setup
 ```bash
 # Create a cluster
-minikube start --nodes 3
+minikube start --nodes 3 --cni=calico --driver=docker
+
 # https://github.com/kubernetes/minikube/issues/2846
 minikube ssh -n minikube "sudo apt-get update;sudo apt-get install -y open-iscsi"
 minikube ssh -n minikube-m02 "sudo apt-get update;sudo apt-get install -y open-iscsi"
@@ -60,3 +61,25 @@ longhorn-ui-b97bd599c-xn2s9                         1/1     Running   0         
 
 You will see:
 <img width="1456" src="https://github.com/user-attachments/assets/8d1b231f-d9b1-47a8-ad33-2f177b5e76c9">
+
+## Test
+```bash
+kubectl apply -f volume-test.yaml
+```
+
+```bash
+│ longhorn-manager time="2024-10-28T01:09:54Z" level=error msg="Failed to sync Longhorn node" func=controller.handleReconcileErrorLogging file="utils.go:79" LonghornNode=longhorn-system/minikube-m02 controller=longhorn-node error="failed to sync node for longhorn-system/minikube-m02: replica.longhorn.io \"pvc-b559b9da-3ea7-4039-b6ba-57ce08e70908-r-4b018de2\" not found" node=minikube-m02
+│ longhorn-manager time="2024-10-28T01:09:54Z" level=error msg="datastore: failed to get updated object pvc-b559b9da-3ea7-4039-b6ba-57ce08e70908" func=datastore.verifyUpdate file="longhorn.go:3830" error="volume.longhorn.io \"pvc-b559b9da-3ea7-4039-b6ba-57ce08e70908\" not found"
+```
+
+Found the root cause:
+>Longhorn depends on iscsi
+>KIND and minikube are in container solution and are good for local development.
+>However, the problem is iscsi can't run successfully inside the KIND and minikube environment.
+
+- https://github.com/longhorn/longhorn/discussions/2702
+
+## References
+- https://longhorn.io/docs/1.7.2/deploy/install/install-with-helm/
+- https://longhorn.io/docs/1.7.2/deploy/accessing-the-ui/
+- https://longhorn.io/docs/1.7.2/references/examples/#pod-with-persistentvolumeclaim
