@@ -57,3 +57,6 @@ longhorn-ui-b97bd599c-xn2s9                         1/1     Running   0         
 - Change `svc/longhorn-frontend` ClusterIP into LoadBalancer
 - `minikube tunnel`
 - Open http://localhost/
+
+You will see:
+<img width="1456" src="https://github.com/user-attachments/assets/8d1b231f-d9b1-47a8-ad33-2f177b5e76c9">
