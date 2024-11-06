@@ -5,4 +5,4 @@
 <img width="1318" alt="Huggingface_Flux_AI_Image_Generator" src="https://github.com/user-attachments/assets/9c73167a-15f2-4af1-90ac-15687c317eef">
 <img width="2312" alt="GPT ComfyUI Helper" src="https://github.com/user-attachments/assets/d94414d9-ee34-4747-bb1a-2ef217c0b979">
 <img width="2197" alt="OpenArt Trending Workflows" src="https://github.com/user-attachments/assets/c3ba4f3b-6fb0-4cab-9c54-a44ced77d009">
-<img width="1725" alt="Midjourney Slack" src="https://github.com/user-attachments/assets/cc81c764-d991-498e-8ab3-a14646f4ba04">
+<img width="1292" alt="Midjourney Slack" src="https://github.com/user-attachments/assets/68b8dd61-a072-42e8-9ab1-5bc4c51b5d2a">

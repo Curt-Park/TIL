@@ -11,7 +11,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        660,
+        840,
         740
       ]
     },
@@ -29,7 +29,7 @@
             {}
           ]
         },
-        "jsonBody": "={\n  \"botType\": \"MID_JOURNEY\",\n  \"instanceId\": {{ $json.instanceId }},\n  \"base64Array\": [],\n  \"state\": \"midjourney-proxy-admin\",\n  \"prompt\": \"{{ $json['body.text'] }}\"\n}",
+        "jsonBody": "={\n  \"botType\": \"MID_JOURNEY\",\n  \"instanceId\": {{ $json.instanceId }},\n  \"base64Array\": [],\n  \"state\": \"midjourney-proxy-admin\",\n  \"prompt\": \"{{ $json['text'] }}\"\n}",
         "options": {}
       },
       "id": "21aced91-bd1b-4256-845e-bf230c98485f",
@@ -37,8 +37,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1040,
-        740
+        2120,
+        760
       ],
       "credentials": {
         "httpHeaderAuth": {
@@ -57,42 +57,9 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        660,
-        960
+        840,
+        900
       ]
-    },
-    {
-      "parameters": {
-        "mode": "combine",
-        "combineBy": "combineByPosition",
-        "options": {}
-      },
-      "id": "54914af6-16c9-4aa4-829d-adaa4a87fe26",
-      "name": "Merge1",
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3,
-      "position": [
-        860,
-        740
-      ]
-    },
-    {
-      "parameters": {
-        "httpMethod": "POST",
-        "path": "fa3d7ced-2a59-4b2f-855f-0062222eafb0",
-        "options": {
-          "noResponseBody": false
-        }
-      },
-      "id": "f48ebe47-b614-4bbe-a496-e3b0916bcbdf",
-      "name": "Imagine",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        460,
-        740
-      ],
-      "webhookId": "fa3d7ced-2a59-4b2f-855f-0062222eafb0"
     },
     {
       "parameters": {
@@ -104,8 +71,8 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        660,
-        1600
+        640,
+        1740
       ]
     },
     {
@@ -124,8 +91,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        860,
-        1400
+        840,
+        1540
       ],
       "credentials": {
         "httpHeaderAuth": {
@@ -153,23 +120,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1920,
-        1100
-      ]
-    },
-    {
-      "parameters": {
-        "mode": "combine",
-        "combineBy": "combineAll",
-        "options": {}
-      },
-      "id": "92dd5256-47da-4c86-b177-d65e0959e055",
-      "name": "Merge",
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3,
-      "position": [
-        1740,
-        740
+        3000,
+        1120
       ]
     },
     {
@@ -177,11 +129,11 @@
         "select": "channel",
         "channelId": {
           "__rl": true,
-          "value": "={{ $json['body.channel_id'] }}",
+          "value": "={{ $json['channel_id'] }}",
           "mode": "id"
         },
         "messageType": "block",
-        "blocksUi": "={\n\t\"blocks\": [\n\t\t{\n\t\t\t\"type\": \"section\",\n\t\t\t\"text\": {\n\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\"text\": \"*Midjourney Image Generation* by {{ $json['body.user_name'] }}\\n\\nPrompt: {{ $json['body.text'] }}\"\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"type\": \"divider\"\n\t\t},\n\t\t{\n\t\t\t\"type\": \"image\",\n\t\t\t\"image_url\": \"{{ $json.imageUrl }}\",\n\t\t\t\"alt_text\": \"alt text for image\"\n\t\t},\n\t\t{\n\t\t\t\"type\": \"actions\",\n\t\t\t\"elements\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"button\",\n\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"U1\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"value\": \"click_me_123\",\n\t\t\t\t\t\"url\": \"https://n8n.only-for-me.app/webhook/60d2a561-da82-4945-83dd-b0ce01d9f7b3?customId={{ $json.buttons[0].customId }}&taskId={{ $json.id }}&channelId={{ $json['body.channel_id'] }}&userName={{ $json['body.user_name'] }}\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"button\",\n\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"U2\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"value\": \"click_me_123\",\n\t\t\t\t\t\"url\": \"https://n8n.only-for-me.app/webhook/60d2a561-da82-4945-83dd-b0ce01d9f7b3?customId={{ $json.buttons[1].customId }}&taskId={{ $json.id }}&channelId={{ $json['body.channel_id'] }}&userName={{ $json['body.user_name'] }}\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"button\",\n\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"U3\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"value\": \"click_me_123\",\n\t\t\t\t\t\"url\": \"https://n8n.only-for-me.app/webhook/60d2a561-da82-4945-83dd-b0ce01d9f7b3?customId={{ $json.buttons[2].customId }}&taskId={{ $json.id }}&channelId={{ $json['body.channel_id'] }}&userName={{ $json['body.user_name'] }}\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"button\",\n\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"U4\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"value\": \"click_me_123\",\n\t\t\t\t\t\"url\": \"https://n8n.only-for-me.app/webhook/60d2a561-da82-4945-83dd-b0ce01d9f7b3?customId={{ $json.buttons[3].customId }}&taskId={{ $json.id }}&channelId={{ $json['body.channel_id'] }}&userName={{ $json['body.user_name'] }}\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"type\": \"divider\"\n\t\t}\n\t]\n}",
+        "blocksUi": "={\n\t\"blocks\": [\n\t\t{\n\t\t\t\"type\": \"section\",\n\t\t\t\"text\": {\n\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\"text\": \"*Midjourney Image Generation* by {{ $json['user_name'] }}\\n\\nPrompt: {{ $json['text'] }}\"\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"type\": \"divider\"\n\t\t},\n\t\t{\n\t\t\t\"type\": \"image\",\n\t\t\t\"image_url\": \"{{ $json.imageUrl }}\",\n\t\t\t\"alt_text\": \"alt text for image\"\n\t\t},\n\t\t{\n\t\t\t\"type\": \"actions\",\n\t\t\t\"elements\": [\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"button\",\n\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"U1\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"value\": \"click_me_123\",\n\t\t\t\t\t\"url\": \"https://n8n.only-for-me.app/webhook/60d2a561-da82-4945-83dd-b0ce01d9f7b3?customId={{ $json.buttons[0].customId }}&taskId={{ $json.id }}&channelId={{ $json['channel_id'] }}&userName={{ $json['user_name'] }}\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"button\",\n\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"U2\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"value\": \"click_me_123\",\n\t\t\t\t\t\"url\": \"https://n8n.only-for-me.app/webhook/60d2a561-da82-4945-83dd-b0ce01d9f7b3?customId={{ $json.buttons[1].customId }}&taskId={{ $json.id }}&channelId={{ $json['channel_id'] }}&userName={{ $json['user_name'] }}\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"button\",\n\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"U3\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"value\": \"click_me_123\",\n\t\t\t\t\t\"url\": \"https://n8n.only-for-me.app/webhook/60d2a561-da82-4945-83dd-b0ce01d9f7b3?customId={{ $json.buttons[2].customId }}&taskId={{ $json.id }}&channelId={{ $json['channel_id'] }}&userName={{ $json['user_name'] }}\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"type\": \"button\",\n\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"U4\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"value\": \"click_me_123\",\n\t\t\t\t\t\"url\": \"https://n8n.only-for-me.app/webhook/60d2a561-da82-4945-83dd-b0ce01d9f7b3?&customId={{ $json.buttons[3].customId }}&taskId={{ $json.id }}&channelId={{ $json['channel_id'] }}&userName={{ $json['user_name'] }}\"\n\t\t\t\t},\n            \t{\n\t\t\t\t\t\"type\": \"button\",\n\t\t\t\t\t\"text\": {\n\t\t\t\t\t\t\"type\": \"plain_text\",\n\t\t\t\t\t\t\"text\": \"Retry\",\n\t\t\t\t\t\t\"emoji\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"value\": \"click_me_123\",\n\t\t\t\t\t\"url\": \"https://n8n.only-for-me.app/webhook/fa3d7ced-2a59-4b2f-855f-0062222eafb0?taskId={{ $json.id }}&channelId={{ $json['channel_id'] }}&userName={{ $json['user_name'] }}\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"type\": \"divider\"\n\t\t}\n\t]\n}",
         "text": "=",
         "otherOptions": {
           "includeLinkToWorkflow": false
@@ -192,8 +144,8 @@
       "type": "n8n-nodes-base.slack",
       "typeVersion": 2.2,
       "position": [
-        1920,
-        740
+        3000,
+        760
       ],
       "credentials": {
         "slackApi": {
@@ -211,8 +163,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        1740,
-        1100
+        2820,
+        1120
       ],
       "webhookId": "b9e226c3-1818-4cc2-b7a5-0f4b98eb7a1c",
       "alwaysOutputData": true
@@ -239,8 +191,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1280,
-        740
+        2360,
+        760
       ],
       "alwaysOutputData": false,
       "credentials": {
@@ -252,28 +204,13 @@
     },
     {
       "parameters": {
-        "mode": "combine",
-        "combineBy": "combineAll",
-        "options": {}
-      },
-      "id": "719eb584-a9a7-4b80-8d70-5fef80b2579b",
-      "name": "Merge3",
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3,
-      "position": [
-        1740,
-        920
-      ]
-    },
-    {
-      "parameters": {
         "select": "channel",
         "channelId": {
           "__rl": true,
-          "value": "={{ $json['body.channel_id'] }}",
+          "value": "={{ $json['channel_id'] }}",
           "mode": "id"
         },
-        "text": "=*Midjourney Image Generation* by {{ $json['body.user_name'] }}\nPrompt: {{ $json['body.text'] }}\n*FAILED*: : {{ $json['description'] }}",
+        "text": "=*Midjourney Image Generation* by {{ $json['user_name'] }}\nPrompt: {{ $json['text'] }}\n*FAILED*: : {{ $json['description'] }}",
         "otherOptions": {
           "includeLinkToWorkflow": false
         }
@@ -283,8 +220,8 @@
       "type": "n8n-nodes-base.slack",
       "typeVersion": 2.2,
       "position": [
-        1920,
-        920
+        3000,
+        940
       ],
       "credentials": {
         "slackApi": {
@@ -312,8 +249,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1920,
-        1760
+        1900,
+        1900
       ]
     },
     {
@@ -325,7 +262,7 @@
           "mode": "id"
         },
         "messageType": "block",
-        "blocksUi": "={\n\t\"blocks\": [\n\t\t{\n\t\t\t\"type\": \"section\",\n\t\t\t\"text\": {\n\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\"text\": \"*Midjourney Image Upscale* by {{ $json['query.userName'] }}\"\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"type\": \"divider\"\n\t\t},\n\t\t{\n\t\t\t\"type\": \"image\",\n\t\t\t\"image_url\": \"{{ $json.imageUrl }}\",\n\t\t\t\"alt_text\": \"alt text for image\"\n\t\t}\n\t]\n}",
+        "blocksUi": "={\n\t\"blocks\": [\n\t\t{\n\t\t\t\"type\": \"section\",\n\t\t\t\"text\": {\n\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\"text\": \"*Midjourney Image Upscale*\"\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"type\": \"divider\"\n\t\t},\n\t\t{\n\t\t\t\"type\": \"image\",\n\t\t\t\"image_url\": \"{{ $json.imageUrl }}\",\n\t\t\t\"alt_text\": \"alt text for image\"\n\t\t}\n\t]\n}",
         "text": "=",
         "otherOptions": {
           "includeLinkToWorkflow": false
@@ -336,8 +273,8 @@
       "type": "n8n-nodes-base.slack",
       "typeVersion": 2.2,
       "position": [
-        1920,
-        1400
+        1900,
+        1540
       ],
       "credentials": {
         "slackApi": {
@@ -355,8 +292,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        1740,
-        1760
+        1720,
+        1900
       ],
       "webhookId": "b9e226c3-1818-4cc2-b7a5-0f4b98eb7a1c",
       "alwaysOutputData": true
@@ -383,8 +320,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1280,
-        1400
+        1260,
+        1540
       ],
       "alwaysOutputData": false,
       "credentials": {
@@ -405,8 +342,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        1740,
-        1580
+        1720,
+        1720
       ]
     },
     {
@@ -417,7 +354,7 @@
           "value": "={{ $json['query.channelId'] }}",
           "mode": "id"
         },
-        "text": "=*Midjourney Image Upscale* by {{ $json['query.userName'] }}\n*FAILED*: {{ $json['description'] }}",
+        "text": "=*Midjourney Image Upscale*\n*FAILED*: {{ $json['description'] }}",
         "otherOptions": {
           "includeLinkToWorkflow": false
         }
@@ -427,8 +364,8 @@
       "type": "n8n-nodes-base.slack",
       "typeVersion": 2.2,
       "position": [
-        1920,
-        1580
+        1900,
+        1720
       ],
       "credentials": {
         "slackApi": {
@@ -448,8 +385,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        1740,
-        1400
+        1720,
+        1540
       ]
     },
     {
@@ -515,8 +452,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        1520,
-        1400
+        1500,
+        1540
       ]
     },
     {
@@ -582,8 +519,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        1520,
-        740
+        2600,
+        760
       ]
     },
     {
@@ -596,10 +533,648 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        480,
-        1400
+        460,
+        1540
       ],
       "webhookId": "60d2a561-da82-4945-83dd-b0ce01d9f7b3"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "fa3d7ced-2a59-4b2f-855f-0062222eafb0",
+        "options": {
+          "noResponseBody": false
+        }
+      },
+      "id": "f48ebe47-b614-4bbe-a496-e3b0916bcbdf",
+      "name": "Imagine",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        460,
+        740
+      ],
+      "webhookId": "fa3d7ced-2a59-4b2f-855f-0062222eafb0"
+    },
+    {
+      "parameters": {
+        "path": "fa3d7ced-2a59-4b2f-855f-0062222eafb0",
+        "options": {
+          "noResponseBody": false
+        }
+      },
+      "id": "b6110fce-3f29-4d23-863b-95ae78a92059",
+      "name": "Retry",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        460,
+        1120
+      ],
+      "webhookId": "fa3d7ced-2a59-4b2f-855f-0062222eafb0"
+    },
+    {
+      "parameters": {
+        "url": "=http://midjourney-proxy:8080/mj/task/{{ $json.query.taskId }}/fetch",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "5ae675b0-bde1-4015-8426-cb1138ccc07c",
+      "name": "fetch",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        620,
+        1220
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "uIKMv55c0UBhi1ta",
+          "name": "MidjourneyProxy"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "query.channelId, query.userName, prompt",
+        "options": {}
+      },
+      "id": "78ee7187-8856-4f34-84f8-58ec504cf01a",
+      "name": "Split Out2",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        920,
+        1120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e9c39214-25da-417b-960a-0e5177b3289b",
+              "name": "=channel_id",
+              "value": "={{ $json['query.channelId'] }}",
+              "type": "string"
+            },
+            {
+              "id": "de8f594d-fa51-4c8f-bd2f-137a8e953b4e",
+              "name": "user_name",
+              "value": "={{ $json['query.userName'] }}",
+              "type": "string"
+            },
+            {
+              "id": "b051c41b-204a-42a8-ad61-69acc6c2f2ea",
+              "name": "text",
+              "value": "={{ $json.prompt }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fcb8ba47-21d4-4e8d-a322-07d8935a9c73",
+      "name": "Edit Fields2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1060,
+        1120
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "id": "93b80538-2b2c-4e2e-b8b1-3780bb2d47fe",
+      "name": "Merge5",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        780,
+        1120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e9c39214-25da-417b-960a-0e5177b3289b",
+              "name": "channel_id",
+              "value": "={{ $json[\"body.channel_id\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "de8f594d-fa51-4c8f-bd2f-137a8e953b4e",
+              "name": "user_name",
+              "value": "={{ $json[\"body.user_name\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "b051c41b-204a-42a8-ad61-69acc6c2f2ea",
+              "name": "text",
+              "value": "={{ $json[\"body.text\"] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "dad41511-bb43-499d-a7d0-86d65dff2892",
+      "name": "Edit Fields3",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1060,
+        900
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "id": "719eb584-a9a7-4b80-8d70-5fef80b2579b",
+      "name": "Merge3",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        2820,
+        940
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "54914af6-16c9-4aa4-829d-adaa4a87fe26",
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1940,
+        760
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $json['channel_id'] }}",
+          "mode": "id"
+        },
+        "text": "=*Midjourney Image Generation Retriggered*\nPrompt: {{ $json['text'] }}\n> Please wait for a while...",
+        "otherOptions": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "id": "eee4236d-3f16-4b64-bf31-ec1af8530330",
+      "name": "Send images2",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        1260,
+        1220
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "nhm4dOIogv1dGDEr",
+          "name": "n8n Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "id": "f9901720-c4bf-47a7-b59a-d372bc3b80cb",
+      "name": "Merge6",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1400,
+        1120
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "channel_id, user_name, text",
+        "options": {}
+      },
+      "id": "d75d0314-93db-4a17-9973-a0b386181bc5",
+      "name": "Split Out3",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        1120
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "id": "92dd5256-47da-4c86-b177-d65e0959e055",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        2820,
+        760
+      ]
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "# Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor item in _input.all():\n  item.json.text = item.json.text.replace(\"*\", \"\")\nreturn _input.all()"
+      },
+      "id": "ab59bdb5-b1bc-46fe-81c4-7c4334d5dcef",
+      "name": "Remove Bold",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1720,
+        900
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "7b150edf-9816-4a29-8e76-a5caab31764b",
+        "options": {}
+      },
+      "id": "be80c71e-d889-4914-adaf-fd9b7adbcc4a",
+      "name": "Describe",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        460,
+        2420
+      ],
+      "webhookId": "7b150edf-9816-4a29-8e76-a5caab31764b"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.body.text }}",
+        "options": {}
+      },
+      "id": "08554be2-78a2-4075-9f24-79b4b229101c",
+      "name": "HTTP Request1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        660,
+        2420
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "binaryToPropery",
+        "options": {}
+      },
+      "id": "3fbec0a3-3692-4a92-8c81-ed4e450c665f",
+      "name": "Extract from File",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        860,
+        2420
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "862c8422-c075-4f38-bb72-ed7fa21780b4",
+      "name": "Merge7",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1080,
+        2420
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://midjourney-proxy:8080/mj/submit/describe",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "=json",
+        "specifyBody": "json",
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "jsonBody": "={\n  \"botType\": \"MID_JOURNEY\",\n  \"instanceId\": \"{{ $json.instanceId }}\",\n  \"base64\": \"data:image/png;base64,{{ $json.data }}\",\n  \"state\": \"midjourney-proxy-admin\"\n}",
+        "options": {}
+      },
+      "id": "7379591a-bf2f-4f9e-8907-bbeda14fd128",
+      "name": "Describe2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1280,
+        2420
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "uIKMv55c0UBhi1ta",
+          "name": "MidjourneyProxy"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "04103b34-a5f8-4c20-ae7f-e34ad803fa5c",
+              "name": "result",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "71adb0ff-8030-435d-a7bd-6860cd0c6cb0",
+      "name": "Edit Fields4",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2220,
+        2780
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $json['channel_id'] }}",
+          "mode": "id"
+        },
+        "messageType": "block",
+        "blocksUi": "={\n\t\"blocks\": [\n\t\t{\n\t\t\t\"type\": \"section\",\n\t\t\t\"text\": {\n\t\t\t\t\"type\": \"mrkdwn\",\n\t\t\t\t\"text\": \"*Image Description Requested* by {{ $json['user_name'] }}\\n{{ $json.properties.finalPrompt.replaceAll('\\n', '\\\\n') }}\"\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\t\"type\": \"divider\"\n\t\t},\n\t\t{\n\t\t\t\"type\": \"image\",\n\t\t\t\"image_url\": \"{{ $json.imageUrl }}\",\n\t\t\t\"alt_text\": \"alt text for image\"\n\t\t},\n\t\t{\n\t\t\t\"type\": \"divider\"\n\t\t}\n\t]\n}",
+        "text": "=",
+        "otherOptions": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "id": "959b726f-3f4b-4ab8-9d0b-062f675ab165",
+      "name": "Send images3",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        2220,
+        2420
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "nhm4dOIogv1dGDEr",
+          "name": "n8n Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "id": "0e9d3a36-7c12-47e5-a773-889679d28cd6",
+      "name": "Wait2",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2040,
+        2780
+      ],
+      "webhookId": "b9e226c3-1818-4cc2-b7a5-0f4b98eb7a1c",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://midjourney-proxy:8080/mj/task/list-by-ids",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "=json",
+        "specifyBody": "json",
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "jsonBody": "={\n  \"ids\": [\n    \"{{ $json.result }}\"\n  ]\n}",
+        "options": {}
+      },
+      "id": "278b232d-1bb7-498a-b4c6-9729b6b034d8",
+      "name": "Status Check2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1580,
+        2420
+      ],
+      "alwaysOutputData": false,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "uIKMv55c0UBhi1ta",
+          "name": "MidjourneyProxy"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $json['channel_id'] }}",
+          "mode": "id"
+        },
+        "text": "=*Midjourney Image Generation* by {{ $json['user_name'] }}\nPrompt: {{ $json['text'] }}\n*FAILED*: : {{ $json['description'] }}",
+        "otherOptions": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "id": "ac991671-d961-400a-832f-8361c25ffc69",
+      "name": "Failure Message2",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        2220,
+        2600
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "nhm4dOIogv1dGDEr",
+          "name": "n8n Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "SUCCESS",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "SUCCESS"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "7dc671e3-26fa-4819-9b0b-c3900452d288",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "FAILURE",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "FAILURE"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "11d59b63-07b5-4f7a-b2f3-03526d4bb111",
+      "name": "Switch2",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1820,
+        2420
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "body.channel_id, body.user_name, body.text",
+        "options": {}
+      },
+      "id": "4236fe69-c40b-48a6-84a4-99e82351aee9",
+      "name": "Split Out4",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        660,
+        2640
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6899a3f8-80e1-4b3c-8e6b-1362991ef492",
+              "name": "channel_id",
+              "value": "={{ $json['body.channel_id'] }}",
+              "type": "string"
+            },
+            {
+              "id": "e25b406e-84c3-45a8-bd81-dd72f9639bf4",
+              "name": "user_name",
+              "value": "={{ $json['body.user_name'] }}",
+              "type": "string"
+            },
+            {
+              "id": "9d15295a-4f2f-4b4b-a7c2-31e8f972307f",
+              "name": "text",
+              "value": "={{ $json['body.text'] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bd43f482-eb79-45d2-8a92-f21b5a770558",
+      "name": "Edit Fields5",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        860,
+        2640
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "id": "642f5f8f-9afd-4f29-8d39-80bba6616094",
+      "name": "Merge8",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        2040,
+        2420
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "id": "db3b00dd-dd3f-4f59-9dbf-a42c03706c32",
+      "name": "Merge9",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        2040,
+        2600
+      ]
     }
   ],
   "pinData": {},
@@ -609,6 +1184,11 @@
         [
           {
             "node": "Merge1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge7",
             "type": "main",
             "index": 0
           }
@@ -630,44 +1210,7 @@
       "main": [
         [
           {
-            "node": "Merge1",
-            "type": "main",
-            "index": 1
-          },
-          {
-            "node": "Merge",
-            "type": "main",
-            "index": 1
-          },
-          {
-            "node": "Merge3",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
-    "Merge1": {
-      "main": [
-        [
-          {
-            "node": "imagine",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Imagine": {
-      "main": [
-        [
-          {
-            "node": "Choice Channel",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Split Out",
+            "node": "Edit Fields3",
             "type": "main",
             "index": 0
           }
@@ -691,17 +1234,6 @@
             "node": "Merge4",
             "type": "main",
             "index": 1
-          }
-        ]
-      ]
-    },
-    "Merge": {
-      "main": [
-        [
-          {
-            "node": "Send images",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -744,17 +1276,6 @@
         [
           {
             "node": "Status Check1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Merge3": {
-      "main": [
-        [
-          {
-            "node": "Failure Message",
             "type": "main",
             "index": 0
           }
@@ -876,13 +1397,369 @@
           }
         ]
       ]
+    },
+    "Imagine": {
+      "main": [
+        [
+          {
+            "node": "Choice Channel",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retry": {
+      "main": [
+        [
+          {
+            "node": "Choice Channel",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "fetch",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fetch": {
+      "main": [
+        [
+          {
+            "node": "Merge5",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Split Out2": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge5": {
+      "main": [
+        [
+          {
+            "node": "Split Out2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Remove Bold",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Send images2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge3": {
+      "main": [
+        [
+          {
+            "node": "Failure Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "imagine",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send images2": {
+      "main": [
+        [
+          {
+            "node": "Merge6",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge6": {
+      "main": [
+        [
+          {
+            "node": "Split Out3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Send images",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out3": {
+      "main": [
+        [
+          {
+            "node": "Remove Bold",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove Bold": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Describe": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Choice Channel",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Split Out4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Merge7",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge7": {
+      "main": [
+        [
+          {
+            "node": "Describe2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "Status Check2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Status Check2": {
+      "main": [
+        [
+          {
+            "node": "Switch2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch2": {
+      "main": [
+        [
+          {
+            "node": "Merge8",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge9",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Describe2": {
+      "main": [
+        [
+          {
+            "node": "Status Check2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out4": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields5": {
+      "main": [
+        [
+          {
+            "node": "Merge8",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Merge9",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge8": {
+      "main": [
+        [
+          {
+            "node": "Send images3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge9": {
+      "main": [
+        [
+          {
+            "node": "Failure Message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "ab4d2c31-7566-4a4d-a630-728c23048dca",
+  "versionId": "5e3d9f50-6708-4518-b871-01314bf6994f",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "89684fd541ddbfd04a752524135b6ba210c6af6eba3acf5431d1441bc8410e85"
