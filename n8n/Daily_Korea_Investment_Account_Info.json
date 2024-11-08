@@ -1,0 +1,701 @@
+{
+  "name": "Daily Korea Investment Account Info",
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "ph1vi6bjo7tcqjd",
+        "table": "mnqe1uzp470c2l8",
+        "options": {}
+      },
+      "id": "b4ce725f-021b-422f-a858-ca8ec3633848",
+      "name": "NocoDB",
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        800,
+        660
+      ],
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "kAAf3iULLxyZkxcK",
+          "name": "NocoDB Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "access_token, account, description, expiration_date, appkey, appsecret, division, is_irp, is_overseas",
+        "options": {}
+      },
+      "id": "56cecced-d62b-498a-ab8f-fad34420c427",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1380,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://openapi.koreainvestment.com:9443/oauth2/tokenP",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "grant_type",
+              "value": "client_credentials"
+            },
+            {
+              "name": "appkey",
+              "value": "={{ $json.appkey }}"
+            },
+            {
+              "name": "appsecret",
+              "value": "={{ $json.appsecret }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fce7d1a2-8dd8-48eb-b88e-6fe03dbf6e01",
+      "name": "Get AccessToken",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1000,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://openapi.koreainvestment.com:9443/uapi/domestic-stock/v1/trading/inquire-account-balance",
+        "sendQuery": true,
+        "specifyQuery": "json",
+        "jsonQuery": "={\n  \"CANO\": \"{{ $json.account }}\",\n  \"ACNT_PRDT_CD\": \"{{ $json.division }}\",\n  \"INQR_DVSN_1\": \"\",\n  \"BSPR_BF_DT_APLY_YN\": \"\"\n} ",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "={\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"authorization\": \"Bearer {{ $json.access_token }}\",\n  \"appKey\": \"{{ $json.appkey }}\",\n  \"appSecret\": \"{{ $json.appsecret }}\",\n  \"tr_id\": \"CTRP6548R\",\n  \"custtype\": \"P\"\n}",
+        "options": {}
+      },
+      "id": "1c95dad7-436d-4f5f-b78c-d2e59234d466",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1840,
+        760
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "70944ab4-a4e9-49cb-8b7d-2d20e3eaa4a1",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1200,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "036e0b58-55cb-47c8-b5fd-81b424c83bba",
+              "leftValue": "={{ $json.is_irp }}",
+              "rightValue": "false",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "f8c44b2a-9c70-4006-a2e3-d3d4f027d991",
+      "name": "If non-IRP",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1560,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "036e0b58-55cb-47c8-b5fd-81b424c83bba",
+              "leftValue": "={{ $json.is_irp }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "3b05b778-3829-4f24-900d-d3881ea715e1",
+      "name": "If IRP",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1560,
+        820
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://openapi.koreainvestment.com:9443/uapi/domestic-stock/v1/trading/pension/inquire-balance",
+        "sendQuery": true,
+        "specifyQuery": "json",
+        "jsonQuery": "={\n  \"CANO\": \"{{ $json.account }}\",\n  \"ACNT_PRDT_CD\": \"{{ $json.division }}\",\n  \"ACCA_DVSN_CD\": \"00\",\n  \"INQR_DVSN\": \"00\",\n  \"CTX_AREA_FK100\": \"\",\n  \"CTX_AREA_NK100\": \"\"\n} ",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "={\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"authorization\": \"Bearer {{ $json.access_token }}\",\n  \"appKey\": \"{{ $json.appkey }}\",\n  \"appSecret\": \"{{ $json.appsecret }}\",\n  \"tr_id\": \"TTTC2208R\",\n  \"custtype\": \"P\"\n}",
+        "options": {}
+      },
+      "id": "6ecb5dee-d01b-45c2-aab2-648daae45270",
+      "name": "HTTP Request1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1840,
+        960
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "de93ad4c-cebf-4c37-a418-c2174ceb6836",
+              "name": "매입금액합계금액",
+              "value": "={{ $json.output2.pchs_amt_smtl }}",
+              "type": "string"
+            },
+            {
+              "id": "11b90f7f-f34f-418f-a691-273201ebfed9",
+              "name": "총예수금액",
+              "value": "={{ $json.output2.tot_dncl_amt }}",
+              "type": "string"
+            },
+            {
+              "id": "527058cd-5d14-4318-b5e8-fb1a3a04a779",
+              "name": "평가금액",
+              "value": "={{ $json.output2.evlu_amt_smtl.toNumber() + $json.output2.tot_dncl_amt.toNumber() }}",
+              "type": "string"
+            },
+            {
+              "id": "c5b40978-6128-4f53-a11a-a52772db885d",
+              "name": "평가손익금액합계",
+              "value": "={{ $json.output2.evlu_pfls_amt_smtl }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a045b058-2e49-4437-ad17-43887bba4df6",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2060,
+        760
+      ]
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "# Loop over input items and add a new field called 'myNewField' to the JSON of each one\n\nfor item in _input.all():\n  item.json.pchs_amt = 0.\n  item.json.evlu_amt = 0.\n  item.json.evlu_pfls_amt_smtl = 0.\n  for asset in item.json.output1:\n    item.json.pchs_amt += float(asset.pchs_amt)\n    item.json.evlu_amt += float(asset.evlu_amt)\n    item.json.evlu_pfls_amt_smtl += float(asset.evlu_pfls_amt)\nreturn _input.all()"
+      },
+      "id": "89403aa5-8ad8-48cd-ad84-b4bc3e634b73",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2060,
+        960
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "de93ad4c-cebf-4c37-a418-c2174ceb6836",
+              "name": "매입금액합계금액",
+              "value": "={{ $json.pchs_amt }}",
+              "type": "string"
+            },
+            {
+              "id": "11b90f7f-f34f-418f-a691-273201ebfed9",
+              "name": "총예수금액",
+              "value": "={{ $json.output2.dnca_tot_amt }}",
+              "type": "string"
+            },
+            {
+              "id": "527058cd-5d14-4318-b5e8-fb1a3a04a779",
+              "name": "평가금액",
+              "value": "={{ $json.output2.tot_evlu_amt.toNumber() + $json.output2.dnca_tot_amt.toNumber() }}",
+              "type": "string"
+            },
+            {
+              "id": "c5b40978-6128-4f53-a11a-a52772db885d",
+              "name": "평가손익금액합계",
+              "value": "={{ $json.evlu_pfls_amt_smtl }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2311d362-df93-422a-b358-e10dfdc5dee5",
+      "name": "Edit Fields1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2260,
+        960
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "3464ce68-a56b-464f-b0d1-8865cb84500e",
+      "name": "Merge2",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        2460,
+        820
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "79a23ba6-e017-40ba-a61a-8ca6ddce45e0",
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        2460,
+        660
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "1256961b-41a1-49ca-8cc5-dc031cf968e8",
+      "name": "Merge3",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        2660,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "dews1112@gmail.com, www.jwpark.co.kr@gmail.com",
+        "subject": "한국투자증권 자산현황",
+        "message": "=<head>\n<style>\ntable {\n  font-family: arial, sans-serif;\n  border-collapse: collapse;\n  width: 100%;\n}\n\ntd, th {\n  border: 1px solid #dddddd;\n  text-align: left;\n  padding: 8px;\n}\n\ntr:nth-child(even) {\n  background-color: #dddddd;\n}\n</style>\n</head>\n<body>\n\n<h2>한국투자증권 자산현황</h2>\n\n{{ $json.table }}\n\n</body>",
+        "options": {}
+      },
+      "id": "15c16e4a-8a28-419b-bec8-39dc2cb6c071",
+      "name": "Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        3380,
+        660
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "U5UeSMTxGzpkdnTp",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "convertToHtmlTable",
+        "options": {}
+      },
+      "id": "8e09b76d-6fc2-44d5-a223-91992f181ef2",
+      "name": "HTML",
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        3200,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "description, account, ['매입금액합계금액'], ['총예수금액'], ['평가금액'], ['평가손익금액합계']",
+        "options": {}
+      },
+      "id": "458f458d-85de-4046-b633-ed33112e1b84",
+      "name": "Split Out1",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2840,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d0a3d7f1-20f2-4216-9905-eb6fc45acab8",
+              "name": "계좌명",
+              "value": "={{ $json.description }}",
+              "type": "string"
+            },
+            {
+              "id": "bad1d0d3-e1da-4847-9b38-7d9a443572be",
+              "name": "계좌번호",
+              "value": "={{ $json.account }}",
+              "type": "string"
+            },
+            {
+              "id": "524de751-04e8-433d-bc98-23253e51f4bf",
+              "name": "매입금액합계금액",
+              "value": "=₩ {{ $json['[\\'매입금액합계금액\\']'].replace(/\\B(?=(\\d{3})+(?!\\d))/g, \",\") }}",
+              "type": "string"
+            },
+            {
+              "id": "b20d9753-df56-45e1-b587-93efca392fba",
+              "name": "총예수금액",
+              "value": "=₩ {{ $json['[\\'총예수금액\\']'].replace(/\\B(?=(\\d{3})+(?!\\d))/g, \",\") }}",
+              "type": "string"
+            },
+            {
+              "id": "3ebd7b74-4bea-4c39-8c6a-8bb6f1959540",
+              "name": "평가금액",
+              "value": "=₩ {{ $json['[\\'평가금액\\']'].replace(/\\B(?=(\\d{3})+(?!\\d))/g, \",\") }}",
+              "type": "string"
+            },
+            {
+              "id": "558b3708-5ed8-488b-9e9d-63c43ddcaf27",
+              "name": "평가손익금액합계",
+              "value": "=₩ {{ $json['[\\'평가손익금액합계\\']'].replace(/\\B(?=(\\d{3})+(?!\\d))/g, \",\") }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7d4de617-a11c-4bf8-a19b-5b5d34353031",
+      "name": "Edit Fields2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        3020,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * 1-5"
+            }
+          ]
+        }
+      },
+      "id": "80027f6b-3f55-40d0-b44b-633d83376f39",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        620,
+        660
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "NocoDB": {
+      "main": [
+        [
+          {
+            "node": "Get AccessToken",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Get AccessToken": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "If non-IRP",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If IRP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If non-IRP": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If IRP": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge2": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge3": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail": {
+      "main": [
+        []
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "NocoDB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "fd8a5885-f6f2-478e-8ec6-f52d79d6dea7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "89684fd541ddbfd04a752524135b6ba210c6af6eba3acf5431d1441bc8410e85"
+  },
+  "id": "ZMML5VkHp4uMLaFR",
+  "tags": [
+    {
+      "createdAt": "2024-11-06T23:54:35.140Z",
+      "updatedAt": "2024-11-06T23:54:35.140Z",
+      "id": "SWYOcigt97bVC7la",
+      "name": "investment"
+    }
+  ]
+}
