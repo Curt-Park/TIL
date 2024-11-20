@@ -3,24 +3,15 @@
 #
 # [80] Remove Duplicates from Sorted Array II
 #
+# @lc code=start
+
 from collections import Counter
 
-# @lc code=start
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        cnt = []
-        for n in nums:
-            if not cnt or cnt[-1][0] != n:
-                cnt.append([n, 1])
-            else:
-                cnt[-1][1] += 1
-
-        l = 0
-        for n, c in cnt:
-            for i in range(min(c, 2)):
-                nums[l+i] = n
-            l += min(c, 2)
-
-        return l
+        ret = 0
+        for n, c in sorted(Counter(nums).items()):
+            nums[ret] = nums[ret + (c >= 2)] = n
+            ret += min(2, c)
+        return ret
 # @lc code=end
-
