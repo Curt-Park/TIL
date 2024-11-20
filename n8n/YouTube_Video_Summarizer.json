@@ -1,0 +1,645 @@
+{
+  "name": "YouTube Video Summarizer",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "=http://monolithic:9888/youtube-transcript",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "video_id",
+              "value": "={{ $json.video_id }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true,
+              "responseFormat": "text",
+              "outputPropertyName": "text"
+            }
+          }
+        }
+      },
+      "id": "b244a11e-8ed6-4807-b01b-34a9abfb0a17",
+      "name": "YouTube Transcript",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        1800,
+        660
+      ],
+      "typeVersion": 4.1,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $json.body.channel_id }}",
+          "mode": "id"
+        },
+        "text": "=YouTube Video Summary:  `{{ $json.body.text }}` requested by {{ $json.body.user_name }}",
+        "otherOptions": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "id": "a0451c66-b93e-4c8e-ae48-fe57cd94d053",
+      "name": "Open a Thread",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        860,
+        860
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "nhm4dOIogv1dGDEr",
+          "name": "n8n Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "channel, message_timestamp",
+        "options": {}
+      },
+      "id": "6e76aeab-0dd1-4b25-b294-610975bda45c",
+      "name": "Split Out1",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        860
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "body.text",
+        "options": {}
+      },
+      "id": "2e55f311-949e-438d-b3f3-c9e43498ff8c",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        860,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "58433ffb-2608-43ca-b4e3-f7d170e811f0",
+              "name": "url",
+              "value": "={{ $json['body.text'] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a71d0377-93f1-42d7-9568-9732dcea6db0",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1100,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "import re\n\nregex = r\"(?:v=|\\/|be\\/)([a-zA-Z0-9_-]{11})(?:[?&]|$)\"\nfor item in _input.all():\n  match = re.search(regex, item.json.url)\n  item.json.video_id = match.group(1) if match else \"\"\n  \nreturn _input.all()"
+      },
+      "id": "e0ba1c15-c3da-4b1b-931a-1d2112075015",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1340,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "bb145913-c4cc-4f68-982d-84a618cfb7f5",
+              "leftValue": "={{ $json.video_id }}",
+              "rightValue": "={{ \"\" }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "a8ab8356-be33-4f45-9e9f-46b73ba6057a",
+      "name": "If invalid",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1560,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "1b3b1e41-a317-4fe1-8039-9df0da689214",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1800,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $json.channel }}",
+          "mode": "id"
+        },
+        "text": "=The Video URL is invalid!",
+        "otherOptions": {
+          "includeLinkToWorkflow": false,
+          "thread_ts": {
+            "replyValues": {
+              "thread_ts": "={{ $json.message_timestamp }}"
+            }
+          }
+        }
+      },
+      "id": "95206c7d-cef8-447a-8feb-68ddcdd5570f",
+      "name": "Invalid URL",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        1980,
+        500
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "nhm4dOIogv1dGDEr",
+          "name": "n8n Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "maxTokens": -1
+        }
+      },
+      "id": "01242eef-ffbb-4cac-85c5-654694784b94",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        2220,
+        960
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "imgP2xJymmwkVFIA",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $json.channel }}",
+          "mode": "id"
+        },
+        "text": "=*Summary of <{{ $json.url }}|YouTube Video>:*\n{{ $json.response.text }}",
+        "otherOptions": {
+          "includeLinkToWorkflow": false,
+          "thread_ts": {
+            "replyValues": {
+              "thread_ts": "={{ $json.message_timestamp }}"
+            }
+          }
+        }
+      },
+      "id": "ce12f7f8-80aa-4abb-9c5c-b3826602ace1",
+      "name": "Return",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        2720,
+        820
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "nhm4dOIogv1dGDEr",
+          "name": "n8n Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "12f9331b-03f2-4e19-a63f-6d1fd4161864",
+      "name": "Merge2",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1340,
+        860
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "58a03005-f3df-47dd-b85c-9a0381177277",
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        2540,
+        1000
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2b7b34aa-9f8d-4128-963a-ca2201f443e6",
+              "leftValue": "={{ $json.text }}",
+              "rightValue": "\"detail\":",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "6c61065c-5c77-4759-b63b-731596733648",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1980,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "be9ca3f6-b67c-4e8f-93d1-4ffa1515034d",
+      "name": "Merge3",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        2200,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $json.channel }}",
+          "mode": "id"
+        },
+        "text": "=Could not retrieve a transcript for the video!",
+        "otherOptions": {
+          "includeLinkToWorkflow": false,
+          "thread_ts": {
+            "replyValues": {
+              "thread_ts": "={{ $json.message_timestamp }}"
+            }
+          }
+        }
+      },
+      "id": "ccc0414d-d10b-451c-ac1f-4f515f144cb7",
+      "name": "No Transcript",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        2360,
+        660
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "nhm4dOIogv1dGDEr",
+          "name": "n8n Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "03f50a52-15d9-43fd-9d18-c650688e3f72",
+        "options": {}
+      },
+      "id": "b31a6a43-7ecd-4ff9-883e-89e75f370c23",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        620,
+        660
+      ],
+      "webhookId": "03f50a52-15d9-43fd-9d18-c650688e3f72"
+    },
+    {
+      "parameters": {
+        "options": {
+          "summarizationMethodAndPrompts": {
+            "values": {
+              "summarizationMethod": "stuff",
+              "prompt": "=Write a concise (possibly long) summary in Korean of the following YouTube video script:\n\n\n\"{{ $json.text }}\"\n\n\nCONCISE SUMMARY:"
+            }
+          }
+        }
+      },
+      "id": "d7fae000-649a-4e73-96c2-05375eea0c09",
+      "name": "Summarization Chain",
+      "type": "@n8n/n8n-nodes-langchain.chainSummarization",
+      "typeVersion": 2,
+      "position": [
+        2200,
+        820
+      ],
+      "retryOnFail": true
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Open a Thread": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "If invalid",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If invalid": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "YouTube Transcript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Invalid URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Summarization Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "YouTube Transcript": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge2": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Return",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Summarization Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge3": {
+      "main": [
+        [
+          {
+            "node": "No Transcript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Open a Thread",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarization Chain": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0e8c9ed0-660e-4f29-b6b1-57b7d6e0901f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "89684fd541ddbfd04a752524135b6ba210c6af6eba3acf5431d1441bc8410e85"
+  },
+  "id": "7caAzczRVbTvN701",
+  "tags": [
+    {
+      "createdAt": "2024-11-20T15:30:21.527Z",
+      "updatedAt": "2024-11-20T15:30:21.527Z",
+      "id": "kcGRoCedbE2KYRIg",
+      "name": "youtube"
+    },
+    {
+      "createdAt": "2024-10-22T00:16:42.330Z",
+      "updatedAt": "2024-10-22T00:16:42.330Z",
+      "id": "yrxeRByeq6Eolzj4",
+      "name": "slack"
+    },
+    {
+      "createdAt": "2024-10-22T00:34:39.087Z",
+      "updatedAt": "2024-10-22T00:34:39.087Z",
+      "id": "zNNN3iE0GsgPGfOi",
+      "name": "gpt"
+    }
+  ]
+}
