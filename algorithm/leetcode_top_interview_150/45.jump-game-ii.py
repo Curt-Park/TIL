@@ -19,7 +19,8 @@ class Solution:
             n_jumps[i] = min(lookup) + 1
         return n_jumps[0]
 
-    def jump(self, nums: List[int]) -> int:
+    # O(N+E) / O(N)
+    def jump_1(self, nums: List[int]) -> int:
         q, visited = deque([(0, 0)]), set([0])
         while q:
             idx, depth = q.popleft()
@@ -31,6 +32,20 @@ class Solution:
                 visited.add(i)
                 q.append((i, depth + 1))
         return depth
+
+    # O(N) / O(1)
+    def jump(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n <= 1: return 0
+        steps, current_end, farthest = 0, 0, 0
+        for i in range(n - 1):  # 마지막 위치까지 처리하므로 n-1까지 순회
+            farthest = max(farthest, i + nums[i])  # 현재까지 도달할 수 있는 가장 먼 거리
+            if i == current_end:  # 현재 범위의 끝에 도달했을 때 점프
+                steps += 1
+                current_end = farthest
+                if current_end >= n - 1:  # 마지막 위치에 도달하면 종료
+                    break
+        return steps
 # @lc code=end
 
 # Test Case
