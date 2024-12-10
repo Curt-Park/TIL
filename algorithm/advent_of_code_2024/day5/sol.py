@@ -1,11 +1,12 @@
 import sys
+
 from collections import defaultdict
+from functools import lru_cache
 
 
 filename = sys.argv[1] if len(sys.argv) > 1 else "test.txt"
 
 g = defaultdict(set)
-v = set()
 pages = []
 
 with open(filename, "r") as f:
@@ -13,28 +14,11 @@ with open(filename, "r") as f:
     for x, y in [edge.split("|") for edge in edges.split()]:
         g[int(x)].add(int(y))
     for query in queries.split():
-        p = []
-        for n in query.split(","):
-            p.append(int(n))
-            v.add(int(n))
+        p = list(map(int, query.split(",")))
         pages.append(p)
 
 
-def get_reachable(graph, start) -> set[int]:
-    def dfs(node, visited):
-        if node in visited:
-            return
-        visited.add(node)
-        for neighbor in graph[node]:
-            dfs(neighbor, visited)
-
-    visited = set()
-    dfs(start, visited)
-    visited.remove(start)
-    return visited
-
-
-def validate(g, page) -> bool:
+def validate(page) -> bool:
     for i, x in enumerate(page):
         for j, y in enumerate(page):
             if i < j and x in g[y]:
@@ -42,43 +26,46 @@ def validate(g, page) -> bool:
     return True
 
 
-def print_queue_0(g, pages) -> int:
+def sort(page) -> list[int]:
+    s_nodes = set(page)
+    d_reachable = dict()
+    for n in page:
+        d_reachable[n] = g[n] & s_nodes
+
+    sorted_page = []
+    while d_reachable:
+        placed = 0
+        for n in d_reachable:
+            if len(d_reachable[n]) == 0:  # must be placed at the end!
+                sorted_page.append(n)
+                d_reachable.pop(n)
+                placed = n
+                break
+        for n in d_reachable:  # remove the node already placed
+            d_reachable[n].remove(placed)
+    return sorted_page[::-1]
+
+
+def print_queue_0(pages) -> int:
     s = 0
     for page in pages:
-        if validate(g, page):
+        if validate(page):
             mid = page[len(page) // 2]
             s += mid
     return s
 
 
-def print_queue_1(g, pages) -> int:
-    reachable = defaultdict(set)
-    for node in v:
-        reachable[node] = get_reachable(g, node)
-
+def print_queue_1(pages) -> int:
     s = 0
     for page in pages:
-        if validate(g, page):
+        if validate(page):
             continue
         # sort
-        sorted_page = []
-        for node in page:
-            sorted_page.append(node)
-            for i in range(len(sorted_page)-1, 0, -1):
-                if sorted_page[i] in reachable[sorted_page[i-1]]:
-                    break
-                sorted_page[i], sorted_page[i-1] = sorted_page[i-1], sorted_page[i]
-
-        # validate
-        for i, x in enumerate(sorted_page):
-            for j, y in enumerate(sorted_page):
-                if i < j and y not in reachable[x]:
-                    print(sorted_page)
-
+        sorted_page = sort(page)
         mid = sorted_page[len(sorted_page) // 2]
         s += mid
     return s
 
 
-print(print_queue_0(g, pages))
-print(print_queue_1(g, pages))
+print(print_queue_0(pages))
+print(print_queue_1(pages))
