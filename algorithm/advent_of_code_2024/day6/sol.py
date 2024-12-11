@@ -48,6 +48,29 @@ def part1() -> int:
 def part2() -> int:
     # place an obstruction on any position of poss.
     # check it makes a cycle!
-    pass
+    def visit() -> bool:
+        d_pos = {0: (-1, 0), 1: (0, 1), 2: (1, 0), 3: (0, -1)}
+        pos, poss, visited, direction = start, set(), set(), 0
+        while 0 <= pos[0] < h and 0 <= pos[1] < w:
+            next_pos = (pos[0] + d_pos[direction][0], pos[1] + d_pos[direction][1])
+            if next_pos in obstacles:  # Change the direction.
+                direction = (direction + 1) % 4
+                continue
+            poss.add(pos)
+            pos = next_pos  # Move.
+            if (pos, direction) in visited:
+                return False
+            visited.add((pos, direction))
+        return True
+
+    sol = 0
+    for r in range(h):
+        for c in range(w):
+            if (r, c) not in obstacles:
+                obstacles.add((r, c))
+                sol += not visit()
+                obstacles.remove((r, c))
+    return sol
 
 print(part1())
+print(part2())
