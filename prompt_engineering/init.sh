@@ -1,0 +1,1 @@
+conda activate chatgpt_prompt_engineering_for_developers
