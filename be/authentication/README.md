@@ -20,12 +20,34 @@
 |---|---|---|---|---|
 | [00](00-whoami/) | Whoami | HTTP 요청은 그 자체로는 그것이 누구의 요청인지 알 수 없다 | 클라이언트가 요청 헤더에 식별자를 실어 보낸다 | `X-User` 헤더로 받는 사용자별 카운터 |
 | [01](01-password/) | Password | 헤더에 아무 이름이나 적으면 그만이라 제시된 신원이 정당한지 확인할 수 없다 | 요청마다 비밀번호를 함께 받아 저장된 해시와 대조한다 | `Authorization: Basic`, 비밀번호 해시 저장, 상수 시간 비교와 응답 시간 노출, 401의 `WWW-Authenticate` |
-| [02](02-session/) | Session | 비밀번호가 요청마다 오간다. 거쳐 가는 지점마다 노출되는데, 한 번 노출되면 계정 또한 노출된다 | 서버가 생성한 무작위 ID로 비밀번호를 대신하고, 필요시 드랍한다 | `Authorization: Bearer`로의 전환, 로그아웃과 만료, in-memory 저장소의 한계 및 external 저장소 부담 |
-| [03](03-jwt/) | JWT | 서버가 발급한 모든 세션을 들고 있어야 한다. 요청마다 검증을 위해 데이터베이스를 조회해야 한다. | 서명으로 위조를 막아 서버가 아무것도 기억하지 않게 한다 | JWS 구조, payload는 암호화되지 않는다는 점, `alg: none`, 한번 발급된 토큰은 무를 수 없다는 한계와 refresh token을 이용한 완화대책 |
-| 04 | Cookie | JavaScript가 읽을 수 있는 곳에 증거를 두면 XSS 한 번에 통째로 털린다 | `HttpOnly` cookie로 옮겨 스크립트로부터 격리한다. 브라우저가 자동으로 붙여 주는 것은 덤이다 | `Set-Cookie` 구조, `Domain` / `Path` / `Expires` / `Max-Age`, `Secure`, localStorage와의 비교 |
-| 05 | CSRF | cookie가 자동으로 붙는 탓에 다른 사이트가 사용자 몰래 요청을 보낼 수 있다 | 요청의 출처를 확인한다 | `SameSite`, CSRF token 대조, XSS와의 위협 모델 비교 |
-| 06 | OAuth 2.0 / OIDC | 사용자의 비밀번호를 우리가 보관하고 직접 검증해야만 한다 | 검증을 외부 제공자에게 위임한다 | 인가와 인증의 구분, Authorization Code 흐름과 PKCE |
+| [02](02-session/) | Session | 비밀번호가 요청마다 오간다. 거쳐 가는 지점마다 노출되는데, 한 번 노출되면 계정 또한 노출된다 | 서버가 생성한 무작위 ID로 비밀번호를 대신하고, 만료시 드랍한다 | `Authorization: Bearer`로의 전환, 로그아웃과 만료, in-memory 저장소의 한계 및 external 저장소 부담 |
+| [03](03-jwt/) | JWT | 서버가 발급한 모든 세션을 들고 있어야 한다. 요청마다 검증을 위해 데이터베이스를 조회해야 한다. | 서명으로 위조를 막아 서버가 아무것도 기억하지 않게 한다 | JWS 구조, payload는 암호화되지 않는다는 점, 한번 발급된 토큰은 무를 수 없다는 한계와 refresh token을 이용한 완화대책 |
+| [04](04-oauth/) | OAuth 2.0 / OIDC | 사용자의 비밀번호를 우리가 보관하고 직접 검증해야만 한다 | 검증을 외부 제공자에게 위임하고 그 결과를 토큰으로 받는다 | 인가와 인증의 구분, Authorization Code 흐름과 PKCE |
+| [05](05-cookie/) | Cookie | 브라우저에 값을 저장할 방법이 없다. 증거를 JavaScript가 읽을 수 있는 곳에 두게 되고, `/callback`을 부른 쪽이 로그인을 시작한 브라우저인지도 확인하지 못한다 | 브라우저에 저장시켜 두고 자동으로 돌려받되, `HttpOnly`로 스크립트로부터 격리한다 | `Set-Cookie` 구조, `Domain` / `Path` / `Max-Age`, `HttpOnly`와 `Secure`, localStorage와의 비교, 자동 전송이 낳는 CSRF와 `SameSite` |
+
+## 정리
+
+**무엇을 증거로 받고 어떻게 확증하는가.** 01부터 04까지가 이 축을 따라간다.
+
+| 증거 | 확증하는 방법 | 얻는 것 | 치르는 것 |
+|---|---|---|---|
+| 비밀번호 | 저장된 해시와 대조한다 | 서버가 아무것도 기억하지 않아도 된다 | 요청마다 오가고, 무효화하면 사용자도 함께 잃는다 |
+| 세션 ID | 저장소에서 찾아본다 | 하나씩 골라 버릴 수 있고 비밀번호가 다시 오가지 않는다 | 발급한 전부를 어딘가에 들고 있어야 한다 |
+| 서명한 토큰 | 서명을 검증한다 | 아무것도 기억하지 않아도 되고 재시작과 증설에 영향받지 않는다 | 발급한 뒤에는 거둬들일 수 없다 |
+| 제공자가 서명한 `id_token` | 제공자의 서명을 검증한다 | 비밀번호를 아예 건네받지 않는다 | 제공자에 의존하고, 왕복 절차가 늘어난다 |
+
+**그 증거를 어디에 두고 어떻게 실어 보내는가.** 05가 이 축을 다룬다.
+증거의 종류가 무엇이든 같은 선택을 해야 한다.
+
+| 두는 곳 | 실어 보내는 주체 | XSS | CSRF |
+|---|---|---|---|
+| `localStorage`나 변수 | 페이지의 JavaScript | 끼어든 스크립트가 그대로 읽는다 | 자동으로 붙지 않으므로 겪지 않는다 |
+| `HttpOnly` cookie | 브라우저 | `document.cookie`에서 가려진다 | 자동으로 붙으므로 겪는다. `SameSite`로 막는다 |
+
+뒤에 오는 방식이 앞의 것보다 나은 것이 아니라, 무엇을 감당할지 고르는 일이다.
+비밀번호를 매 요청 보내도 괜찮은 관리용 엔드포인트라면 01에서 멈춰도 되고,
+세션 저장소를 감당할 수 있다면 03으로 갈 이유가 없다.
 
 ## 참고 자료
 
-1. P. C. van Oorschot, *Computer Security and the Internet: Tools and Jewels from Malware to Bitcoin*, 2nd ed., Springer, 2021 — 3장 도입부. [저자 공개본](https://people.scs.carleton.ca/~paulv/toolsjewels.html)
+1. P. C. van Oorschot, *Computer Security and the Internet: Tools and Jewels from Malware to Bitcoin*, 2nd ed., Springer, 2021, 3장 도입부. [저자 공개본](https://people.scs.carleton.ca/~paulv/toolsjewels.html)
