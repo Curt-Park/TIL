@@ -111,7 +111,7 @@ func whoami(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	s, ok := lookup(id)
+	s, ok := lookupActive(id)
 	if !ok {
 		unauthorized(w, `Bearer realm="whoami", error="invalid_token"`, "invalid session")
 		return
@@ -129,9 +129,10 @@ func bearer(r *http.Request) (string, bool) {
 	return strings.CutPrefix(r.Header.Get("Authorization"), "Bearer ")
 }
 
-// lookup returns the session behind an ID, dropping it if it has expired. An ID
-// the server does not remember is worth nothing, which is the whole point.
-func lookup(id string) (session, bool) {
+// lookupActive returns the session behind an ID, dropping it if it has expired.
+// Expiry is checked here rather than in each handler, so there is no path on
+// which an expired session still looks alive.
+func lookupActive(id string) (session, bool) {
 	mu.Lock()
 	defer mu.Unlock()
 
