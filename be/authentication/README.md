@@ -19,8 +19,8 @@
 | # | 챕터 | 문제 | 해결 | 다루는 내용 |
 |---|---|---|---|---|
 | [00](00-whoami/) | Whoami | HTTP 요청은 그 자체로는 그것이 누구의 요청인지 알 수 없다 | 클라이언트가 요청 헤더에 식별자를 실어 보낸다 | `X-User` 헤더로 받는 사용자별 카운터 |
-| [01](01-password/) | Password | 헤더에 아무 이름이나 적으면 그만이라 제시된 신원이 정당한지 확인할 수 없다 | 요청마다 비밀번호를 함께 받아 저장된 해시와 대조한다 | `Authorization: Basic`, 해시와 salt, bcrypt / argon2, 상수 시간 비교 |
-| 02 | Session | 비밀번호가 요청마다 오간다. 노출될 기회가 늘고 검증 비용도 매번 든다 | 추측할 수 없는 무작위 ID를 발급하고 서버가 기억한다 | `Authorization: Bearer`로의 전환, 저장소 설계(in-memory → Redis), 수명 관리, session fixation 방어 |
+| [01](01-password/) | Password | 헤더에 아무 이름이나 적으면 그만이라 제시된 신원이 정당한지 확인할 수 없다 | 요청마다 비밀번호를 함께 받아 저장된 해시와 대조한다 | `Authorization: Basic`, 비밀번호 해시 저장, 상수 시간 비교와 응답 시간 노출, 401의 `WWW-Authenticate` |
+| [02](02-session/) | Session | 비밀번호가 요청마다 오간다. 거쳐 가는 지점마다 노출되는데, 한 번 새면 계정 자체가 넘어간다 | 서버가 뽑아서 기억하는 무작위 ID로 비밀번호를 대신하고, 필요하면 그것을 잊어버린다 | `Authorization: Bearer`로의 전환, 로그아웃과 만료, session fixation 방어, in-memory 저장소의 한계 |
 | 03 | JWT | 서버가 모든 세션을 기억해야 한다. 조회 비용, 재시작 시 소실, 확장 시 공유 | 서명으로 위조를 막아 서버가 아무것도 기억하지 않게 한다 | JWS 구조, 알고리즘 선택, `alg: none`과 검증 누락, 취소가 불가능하다는 한계와 access / refresh token 분리 |
 | 04 | Cookie | JavaScript가 읽을 수 있는 곳에 증거를 두면 XSS 한 번에 통째로 털린다 | `HttpOnly` cookie로 옮겨 스크립트로부터 격리한다. 브라우저가 자동으로 붙여 주는 것은 덤이다 | `Set-Cookie` 구조, `Domain` / `Path` / `Expires` / `Max-Age`, `Secure`, localStorage와의 비교 |
 | 05 | CSRF | cookie가 자동으로 붙는 탓에 다른 사이트가 사용자 몰래 요청을 보낼 수 있다 | 요청의 출처를 확인한다 | `SameSite`, CSRF token 대조, XSS와의 위협 모델 비교 |
