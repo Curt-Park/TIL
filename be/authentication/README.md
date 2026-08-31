@@ -16,14 +16,17 @@
 
 ## 목차
 
+챕터 00은 아주 원시적인 신원 주장 방식에서 시작하고,
+챕터 01부터는 직전 챕터가 미해결로 남긴 문제의 해결 방안을 제시한다.
+
 | # | 챕터 | 문제 | 해결 | 다루는 내용 |
 |---|---|---|---|---|
 | [00](00-whoami/) | Whoami | HTTP 요청은 그 자체로는 그것이 누구의 요청인지 알 수 없다 | 클라이언트가 요청 헤더에 식별자를 실어 보낸다 | `X-User` 헤더로 받는 사용자별 카운터 |
-| [01](01-password/) | Password | 헤더에 아무 이름이나 적으면 그만이라 제시된 신원이 정당한지 확인할 수 없다 | 요청마다 비밀번호를 함께 받아 저장된 해시와 대조한다 | `Authorization: Basic`, 비밀번호 해시 저장, 상수 시간 비교와 응답 시간 노출, 401의 `WWW-Authenticate` |
-| [02](02-session/) | Session | 비밀번호가 요청마다 오간다. 거쳐 가는 지점마다 노출되는데, 한 번 노출되면 계정 또한 노출된다 | 서버가 생성한 무작위 ID로 비밀번호를 대신하고, 만료시 드랍한다 | `Authorization: Bearer`로의 전환, 로그아웃과 만료, in-memory 저장소의 한계 및 external 저장소 부담 |
-| [03](03-jwt/) | JWT | 서버가 발급한 모든 세션을 들고 있어야 한다. 요청마다 검증을 위해 데이터베이스를 조회해야 한다. | 서명으로 위조를 막아 서버가 아무것도 기억하지 않게 한다 | JWS 구조, payload는 암호화되지 않는다는 점, 한번 발급된 토큰은 무를 수 없다는 한계와 refresh token을 이용한 완화대책 |
-| [04](04-oauth/) | OAuth 2.0 / OIDC | 사용자의 비밀번호를 우리가 보관하고 직접 검증해야만 한다 | 검증을 외부 제공자에게 위임하고 그 결과를 토큰으로 받는다 | 인가와 인증의 구분, Authorization Code 흐름과 PKCE |
-| [05](05-cookie/) | Cookie | 브라우저에 값을 저장할 방법이 없다. 증거를 JavaScript가 읽을 수 있는 곳에 두게 되고, `/callback`을 부른 쪽이 로그인을 시작한 브라우저인지도 확인하지 못한다 | 브라우저에 저장시켜 두고 자동으로 돌려받되, `HttpOnly`로 스크립트로부터 격리한다 | `Set-Cookie` 구조, `Domain` / `Path` / `Max-Age`, `HttpOnly`와 `Secure`, localStorage와의 비교, 자동 전송이 낳는 CSRF와 `SameSite` |
+| [01](01-password/) | Password | 헤더에 아무 이름이나 적으면 그만이라 제시된 신원이 정당한지 확인할 수 없다 | 요청마다 비밀번호를 함께 받아 저장된 해시와 대조한다 | `Authorization: Basic` 헤더, 비밀번호 해시 저장, 상수 시간 비교와 응답 시간 노출, 401의 `WWW-Authenticate` (RFC 9110) |
+| [02](02-session/) | Session | 비밀번호가 각 요청마다 포함되므로 유출될 위험이 높다 (특히 TLS 구간을 벗어난 지점) | 서버가 생성한 무작위 ID로 비밀번호를 대신하고, 만료 시 버린다 | `Authorization: Bearer`로의 전환, 로그아웃과 만료, in-memory 저장소의 한계 및 external 저장소 사용의 부담 |
+| [03](03-jwt/) | JWT | 서버가 발급한 모든 세션을 들고 있어야 한다. 요청마다 검증을 위해 데이터베이스를 조회해야 한다. | 서명으로 위조를 막아, 데이터베이스를 조회하지 않고도 검증할 수 있게 한다 | JWS 구조, payload는 암호화되지 않는다는 점, 한번 발급된 토큰은 무를 수 없다는 한계와 refresh token을 이용한 완화대책 |
+| [04](04-oauth/) | OAuth 2.0 / OIDC | 사용자의 비밀번호를 우리가 보관하고 직접 검증해야만 한다 | 검증을 외부 제공자에게 위임하고 그 결과를 토큰으로 받는다 | 인가와 인증의 구분, Authorization Code 흐름과 PKCE (Proof Key for Code Exchange) |
+| [05](05-cookie/) | Cookie | 브라우저에 값을 저장할 방법이 없어, 민감정보가 JavaScript에 노출될 위험이 있으며 `/callback`을 부른 쪽이 로그인을 시작한 브라우저인지도 확인하지 못한다 | 브라우저에 증거를 저장시켜 두고 cookie를 통해 자동으로 돌려받되, `HttpOnly`로 스크립트로부터 격리한다 | `Set-Cookie` 구조, `Path`와 `Max-Age`, `HttpOnly`와 `Secure`, localStorage와의 비교, 자동 전송에서 비롯되는 CSRF(Cross-Site Request Forgery)와 이를 막는 `SameSite` |
 
 ## 정리
 
