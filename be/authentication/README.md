@@ -28,29 +28,6 @@
 | [04](04-oauth/) | OAuth 2.0 / OIDC | 사용자의 비밀번호를 우리가 보관하고 직접 검증해야만 한다 | 검증을 외부 제공자에게 위임하고 그 결과를 토큰으로 받는다 | 인가와 인증의 구분, Authorization Code 흐름과 PKCE (Proof Key for Code Exchange) |
 | [05](05-cookie/) | Cookie | 브라우저에 값을 저장할 방법이 없어, 민감정보가 JavaScript에 노출될 위험이 있으며 `/callback`을 부른 쪽이 로그인을 시작한 브라우저인지도 확인하지 못한다 | 브라우저에 증거를 저장시켜 두고 cookie를 통해 자동으로 돌려받되, `HttpOnly`로 스크립트로부터 격리한다 | `Set-Cookie` 구조, `Path`와 `Max-Age`, `HttpOnly`와 `Secure`, localStorage와의 비교, 자동 전송에서 비롯되는 CSRF(Cross-Site Request Forgery)와 이를 막는 `SameSite` |
 
-## 정리
-
-**무엇을 증거로 받고 어떻게 확증하는가.** 01부터 04까지가 이 축을 따라간다.
-
-| 증거 | 확증하는 방법 | 얻는 것 | 치르는 것 |
-|---|---|---|---|
-| 비밀번호 | 저장된 해시와 대조한다 | 서버가 아무것도 기억하지 않아도 된다 | 요청마다 오가고, 무효화하면 사용자도 함께 잃는다 |
-| 세션 ID | 저장소에서 찾아본다 | 하나씩 골라 버릴 수 있고 비밀번호가 다시 오가지 않는다 | 발급한 전부를 어딘가에 들고 있어야 한다 |
-| 서명한 토큰 | 서명을 검증한다 | 아무것도 기억하지 않아도 되고 재시작과 증설에 영향받지 않는다 | 발급한 뒤에는 거둬들일 수 없다 |
-| 제공자가 서명한 `id_token` | 제공자의 서명을 검증한다 | 비밀번호를 아예 건네받지 않는다 | 제공자에 의존하고, 왕복 절차가 늘어난다 |
-
-**그 증거를 어디에 두고 어떻게 실어 보내는가.** 05가 이 축을 다룬다.
-증거의 종류가 무엇이든 같은 선택을 해야 한다.
-
-| 두는 곳 | 실어 보내는 주체 | XSS | CSRF |
-|---|---|---|---|
-| `localStorage`나 변수 | 페이지의 JavaScript | 끼어든 스크립트가 그대로 읽는다 | 자동으로 붙지 않으므로 겪지 않는다 |
-| `HttpOnly` cookie | 브라우저 | `document.cookie`에서 가려진다 | 자동으로 붙으므로 겪는다. `SameSite`로 막는다 |
-
-뒤에 오는 방식이 앞의 것보다 나은 것이 아니라, 무엇을 감당할지 고르는 일이다.
-비밀번호를 매 요청 보내도 괜찮은 관리용 엔드포인트라면 01에서 멈춰도 되고,
-세션 저장소를 감당할 수 있다면 03으로 갈 이유가 없다.
-
 ## 참고 자료
 
 1. P. C. van Oorschot, *Computer Security and the Internet: Tools and Jewels from Malware to Bitcoin*, 2nd ed., Springer, 2021, 3장 도입부. [저자 공개본](https://people.scs.carleton.ca/~paulv/toolsjewels.html)
